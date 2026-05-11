@@ -5,6 +5,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/hooks/useAuth";
+import { ThemeProvider } from "@/hooks/useTheme";
 import { FloatingWidget } from "@/components/FloatingWidget";
 import DynamicPage from "./pages/DynamicPage.tsx";
 import DynamicPagesAdmin from "./pages/admin/DynamicPagesAdmin.tsx";
@@ -57,6 +58,7 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <HelmetProvider>
+    <ThemeProvider>
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
@@ -118,6 +120,7 @@ const App = () => (
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
+    </ThemeProvider>
   </HelmetProvider>
 );
 

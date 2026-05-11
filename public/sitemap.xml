@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://amenterprises.tech/</loc><priority>1.0</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://amenterprises.tech/about</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://amenterprises.tech/services</loc><priority>0.9</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://amenterprises.tech/portfolio</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://amenterprises.tech/case-studies</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://amenterprises.tech/testimonials</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://amenterprises.tech/blog</loc><priority>0.7</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://amenterprises.tech/pricing</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://amenterprises.tech/careers</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://amenterprises.tech/faq</loc><priority>0.5</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://amenterprises.tech/contact</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+</urlset>

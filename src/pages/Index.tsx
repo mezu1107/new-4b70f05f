@@ -10,6 +10,8 @@ import { Button } from "@/components/ui/button";
 import { Typewriter } from "@/components/Typewriter";
 import { ClientMarquee } from "@/components/ClientMarquee";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
+import { AIToolkit } from "@/components/AIToolkit";
+import { AppointmentWidget } from "@/components/AppointmentWidget";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
 import { useRealtimeTable } from "@/hooks/useRealtimeTable";
 

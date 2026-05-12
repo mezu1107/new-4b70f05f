@@ -307,8 +307,8 @@ const Index = () => {
             { icon: BarChart3, title: "No Tracking & Clarity", desc: "Without proper tracking, you don't know what's working or what's not." },
           ].map((p, i) => (
             <motion.div key={p.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="glass-card rounded-2xl p-7 card-hover-glow">
-              <div className="w-12 h-12 rounded-xl neon-icon flex items-center justify-center mb-5">
-                <p.icon className="w-5 h-5" />
+              <div className="w-12 h-12 rounded-xl icon-3d flex items-center justify-center mb-5">
+                <p.icon className="w-5 h-5 text-primary" />
               </div>
               <h3 className="text-lg font-bold mb-2">{p.title}</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">{p.desc}</p>

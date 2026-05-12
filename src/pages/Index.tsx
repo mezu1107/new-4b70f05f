@@ -3,10 +3,21 @@ import { motion } from "framer-motion";
 import {
   ArrowRight, Calendar, FileSearch, DollarSign, Target, BarChart3,
   Search, Globe, Sparkles, Bot, Brain, FileText, Workflow,
-  TrendingUp, TrendingDown, CheckCircle2, Users, Zap,
+  TrendingUp, TrendingDown, CheckCircle2, Users, Zap, Rocket, Trophy, Code,
 } from "lucide-react";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { Button } from "@/components/ui/button";
+import { Typewriter } from "@/components/Typewriter";
+import { ClientMarquee } from "@/components/ClientMarquee";
+import { AnimatedCounter } from "@/components/AnimatedCounter";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
+import { useRealtimeTable } from "@/hooks/useRealtimeTable";
+
+const ICONS: Record<string, any> = {
+  Search, Globe, Sparkles, Bot, Brain, FileText, Workflow, Rocket, Trophy, Code,
+  Target, BarChart3, DollarSign, Users, Zap, TrendingUp,
+};
+
 
 /* ---------- Hero dashboard mockup (theme-adaptive, inline SVG) ---------- */
 const HeroDashboard = () => (
@@ -180,7 +191,29 @@ const processSteps = [
   { n: "04", title: "Grow & Dominate", desc: "We help you dominate your market and beat competitors." },
 ];
 
-const Index = () => (
+const Index = () => {
+  const { data: settings } = useSiteSettings();
+  const lines: string[] = (settings?.hero_typewriter_lines as any) || [
+    "AI-Powered Lead Generation","Performance Marketing That Scales","Built for USA & Canada",
+  ];
+  const { data: dbServices } = useRealtimeTable<any>({ table: "services", filters: [{ column: "is_active", value: true }], orderBy: { column: "sort_order" }, limit: 6 });
+  const { data: dbProcess } = useRealtimeTable<any>({ table: "process_steps", filters: [{ column: "is_active", value: true }], orderBy: { column: "sort_order" } });
+  const { data: dbCases } = useRealtimeTable<any>({ table: "case_studies", filters: [{ column: "is_active", value: true }], orderBy: { column: "sort_order" }, limit: 4 });
+  const { data: dbStats } = useRealtimeTable<any>({ table: "stats_counters", filters: [{ column: "is_active", value: true }], orderBy: { column: "sort_order" } });
+
+  const svc = (dbServices && dbServices.length ? dbServices.map((s: any) => ({
+    icon: ICONS[s.icon] || Sparkles, title: s.title, desc: s.description, to: `/services/${s.slug}`,
+  })) : services);
+  const proc = (dbProcess && dbProcess.length ? dbProcess.map((s: any, i: number) => ({
+    n: String(i + 1).padStart(2, "0"), title: s.title, desc: s.description,
+  })) : processSteps);
+  const palette = ["hsl(142 76% 45%)","hsl(280 80% 65%)","hsl(217 91% 60%)","hsl(160 70% 50%)"];
+  const res = (dbCases && dbCases.length ? dbCases.map((c: any, i: number) => {
+    const m = Array.isArray(c.metrics) && (c.metrics as any[])[0];
+    return { metric: m?.value || "+100%", label: m?.label || "Growth", title: c.title, region: c.industry || "USA", desc: c.summary || "", color: palette[i % palette.length], down: String(m?.value || "").startsWith("-") };
+  }) : results);
+
+  return (
   <PageLayout
     title="AM Enterprises — AI-Powered Marketing Agency for USA & Canada"
     description="Performance marketing + AI automation systems that help businesses in USA & Canada generate leads, scale ads, and automate growth."
@@ -196,10 +229,14 @@ const Index = () => (
           <span className="pill-tag mb-6">
             <Sparkles className="w-3.5 h-3.5" /> AI-Powered Marketing Agency
           </span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.05] mb-6">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.05] mb-4">
             We Generate Leads.<br />
-            <span className="text-gradient">You Get More Clients.</span>
+            <span className="text-gradient text-3d">You Get More Clients.</span>
           </h1>
+          <div className="text-lg md:text-2xl font-bold mb-6 min-h-[2.25rem]">
+            <Typewriter words={lines} className="text-primary" />
+          </div>
+
           <p className="text-base md:text-lg text-muted-foreground mb-8 max-w-lg leading-relaxed">
             Performance marketing + AI automation systems that help businesses in <span className="text-primary font-semibold">USA &amp; Canada</span> scale consistently.
           </p>
@@ -228,6 +265,31 @@ const Index = () => (
       </div>
     </section>
 
+    {/* ============== CLIENT MARQUEE ============== */}
+    <ClientMarquee />
+
+    {/* ============== STATS ============== */}
+    {dbStats && dbStats.length > 0 && (
+      <section className="py-12 lg:py-16 border-y border-border bg-card/30">
+        <div className="container mx-auto grid grid-cols-2 md:grid-cols-4 gap-6">
+          {dbStats.map((s: any) => {
+            const Icon = ICONS[s.icon] || TrendingUp;
+            return (
+              <div key={s.id} className="text-center">
+                <div className="w-12 h-12 mx-auto mb-3 rounded-xl icon-3d flex items-center justify-center">
+                  <Icon className="w-5 h-5 text-primary" />
+                </div>
+                <div className="text-3xl md:text-4xl font-extrabold text-gradient">
+                  <AnimatedCounter value={Number(s.value)} suffix={s.suffix || ""} />
+                </div>
+                <div className="text-xs md:text-sm text-muted-foreground mt-1">{s.label}</div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+    )}
+
     {/* ============== PROBLEMS ============== */}
     <section className="py-20 lg:py-28">
       <div className="container mx-auto">
@@ -245,8 +307,8 @@ const Index = () => (
             { icon: BarChart3, title: "No Tracking & Clarity", desc: "Without proper tracking, you don't know what's working or what's not." },
           ].map((p, i) => (
             <motion.div key={p.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="glass-card rounded-2xl p-7 card-hover-glow">
-              <div className="w-12 h-12 rounded-xl neon-icon flex items-center justify-center mb-5">
-                <p.icon className="w-5 h-5" />
+              <div className="w-12 h-12 rounded-xl icon-3d flex items-center justify-center mb-5">
+                <p.icon className="w-5 h-5 text-primary" />
               </div>
               <h3 className="text-lg font-bold mb-2">{p.title}</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
@@ -264,11 +326,11 @@ const Index = () => (
           That Drive <span className="text-gradient">Real Growth</span>
         </SectionHeader>
         <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-5">
-          {services.map((s, i) => (
+          {svc.map((s, i) => (
             <motion.div key={s.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.06 }}>
               <Link to={s.to} className="block glass-card rounded-2xl p-6 h-full card-hover-glow group">
-                <div className="w-11 h-11 rounded-xl neon-icon flex items-center justify-center mb-4">
-                  <s.icon className="w-5 h-5" />
+                <div className="w-11 h-11 rounded-xl icon-3d flex items-center justify-center mb-4">
+                  <s.icon className="w-5 h-5 text-primary" />
                 </div>
                 <h3 className="text-base font-bold mb-2 leading-snug">{s.title}</h3>
                 <p className="text-xs text-muted-foreground mb-4 leading-relaxed">{s.desc}</p>
@@ -316,7 +378,7 @@ const Index = () => (
           <span className="text-gradient">Real Clients</span>
         </SectionHeader>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {results.map((r, i) => (
+          {res.map((r, i) => (
             <motion.div key={r.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="glass-card rounded-2xl p-6 card-hover-glow">
               <div className="text-3xl font-extrabold mb-1" style={{ color: r.color }}>{r.metric}</div>
               <div className="text-xs text-muted-foreground mb-3">{r.label}</div>
@@ -345,7 +407,7 @@ const Index = () => (
             Massive <span className="text-gradient">Results.</span>
           </h2>
           <div className="grid sm:grid-cols-2 gap-6">
-            {processSteps.map((s, i) => (
+            {proc.map((s, i) => (
               <motion.div key={s.n} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="relative">
                 <div className="text-2xl font-extrabold text-primary mb-2">{s.n}</div>
                 <h3 className="font-bold mb-2">{s.title}</h3>
@@ -388,6 +450,7 @@ const Index = () => (
       </div>
     </section>
   </PageLayout>
-);
+  );
+};
 
 export default Index;

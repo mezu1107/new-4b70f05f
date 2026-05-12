@@ -10,6 +10,8 @@ import { Button } from "@/components/ui/button";
 import { Typewriter } from "@/components/Typewriter";
 import { ClientMarquee } from "@/components/ClientMarquee";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
+import { AIToolkit } from "@/components/AIToolkit";
+import { AppointmentWidget } from "@/components/AppointmentWidget";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
 import { useRealtimeTable } from "@/hooks/useRealtimeTable";
 
@@ -397,7 +399,39 @@ const Index = () => {
       </div>
     </section>
 
-    {/* ============== PROCESS + BOOKING ============== */}
+    {/* ============== AI TOOLKIT (Phase 3) ============== */}
+    <AIToolkit />
+
+    {/* ============== APPOINTMENT BOOKING (Phase 4) ============== */}
+    <section className="py-20 lg:py-28">
+      <div className="container mx-auto grid lg:grid-cols-2 gap-10 items-start">
+        <div>
+          <span className="pill-tag mb-4"><Calendar className="w-3.5 h-3.5" /> Book a Free Strategy Call</span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight mb-5">
+            Pick a Time.<br />
+            Get Your <span className="text-gradient text-3d">Growth Plan.</span>
+          </h2>
+          <p className="text-muted-foreground mb-6">
+            30 minutes with a senior strategist. We'll audit your funnel, share quick wins, and lay out a path to scale.
+          </p>
+          <ul className="space-y-3">
+            {[
+              "Custom 90-day roadmap",
+              "Live ad account or website audit",
+              "AI automation recommendations",
+              "Zero pressure, no contract required",
+            ].map((b) => (
+              <li key={b} className="flex items-center gap-2 text-sm">
+                <CheckCircle2 className="w-4 h-4 text-primary shrink-0" /> {b}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <AppointmentWidget />
+      </div>
+    </section>
+
+
     <section className="py-20 lg:py-28">
       <div className="container mx-auto grid lg:grid-cols-5 gap-10 items-start">
         <div className="lg:col-span-3">

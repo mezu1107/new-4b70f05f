@@ -52,7 +52,7 @@ export const PixelInjector = () => {
     const id = data?.tiktok_pixel_id;
     if (!id || (window as any).ttq) return;
     /* eslint-disable */
-    !(function (w: any, d: any, t: any) {
+    (function (w: any, d: any, t: any) {
       w.TiktokAnalyticsObject = t; const ttq = (w[t] = w[t] || []);
       ttq.methods = ["page", "track", "identify", "instances", "debug", "on", "off", "once", "ready", "alias", "group", "enableCookie", "disableCookie"];
       ttq.setAndDefer = function (e: any, n: any) { e[n] = function () { e.push([n].concat(Array.prototype.slice.call(arguments, 0))) } };

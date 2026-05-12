@@ -3,10 +3,21 @@ import { motion } from "framer-motion";
 import {
   ArrowRight, Calendar, FileSearch, DollarSign, Target, BarChart3,
   Search, Globe, Sparkles, Bot, Brain, FileText, Workflow,
-  TrendingUp, TrendingDown, CheckCircle2, Users, Zap,
+  TrendingUp, TrendingDown, CheckCircle2, Users, Zap, Rocket, Trophy, Code,
 } from "lucide-react";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { Button } from "@/components/ui/button";
+import { Typewriter } from "@/components/Typewriter";
+import { ClientMarquee } from "@/components/ClientMarquee";
+import { AnimatedCounter } from "@/components/AnimatedCounter";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
+import { useRealtimeTable } from "@/hooks/useRealtimeTable";
+
+const ICONS: Record<string, any> = {
+  Search, Globe, Sparkles, Bot, Brain, FileText, Workflow, Rocket, Trophy, Code,
+  Target, BarChart3, DollarSign, Users, Zap, TrendingUp,
+};
+
 
 /* ---------- Hero dashboard mockup (theme-adaptive, inline SVG) ---------- */
 const HeroDashboard = () => (

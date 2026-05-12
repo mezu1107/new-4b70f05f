@@ -7,12 +7,16 @@ import fallbackLogo from "@/assets/logo.png";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
 
 const nav = [
-  { to: "/", label: "Home" },
+ { to: "/", label: "Home" },
+{ to: "/about", label: "About Us" },
   { to: "/services", label: "Services" },
+  { to: "/pricing", label: "Pricing" },
   { to: "/#ai-systems", label: "AI Systems" },
   { to: "/case-studies", label: "Case Studies" },
-  { to: "/pricing", label: "Pricing" },
-  { to: "/about", label: "About Us" },
+  { to: "/blog", label: "Blog" },
+   { to: "/portfolio", label: "Portfolio" },
+  { to: "/contact", label: "Contact" },
+  
 ];
 
 export const Header = () => {

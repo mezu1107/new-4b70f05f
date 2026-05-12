@@ -191,7 +191,29 @@ const processSteps = [
   { n: "04", title: "Grow & Dominate", desc: "We help you dominate your market and beat competitors." },
 ];
 
-const Index = () => (
+const Index = () => {
+  const { data: settings } = useSiteSettings();
+  const lines: string[] = (settings?.hero_typewriter_lines as any) || [
+    "AI-Powered Lead Generation","Performance Marketing That Scales","Built for USA & Canada",
+  ];
+  const { data: dbServices } = useRealtimeTable<any>({ table: "services", filters: [{ column: "is_active", value: true }], orderBy: { column: "sort_order" }, limit: 6 });
+  const { data: dbProcess } = useRealtimeTable<any>({ table: "process_steps", filters: [{ column: "is_active", value: true }], orderBy: { column: "sort_order" } });
+  const { data: dbCases } = useRealtimeTable<any>({ table: "case_studies", filters: [{ column: "is_active", value: true }], orderBy: { column: "sort_order" }, limit: 4 });
+  const { data: dbStats } = useRealtimeTable<any>({ table: "stats_counters", filters: [{ column: "is_active", value: true }], orderBy: { column: "sort_order" } });
+
+  const svc = (dbServices && dbServices.length ? dbServices.map((s: any) => ({
+    icon: ICONS[s.icon] || Sparkles, title: s.title, desc: s.description, to: `/services/${s.slug}`,
+  })) : services);
+  const proc = (dbProcess && dbProcess.length ? dbProcess.map((s: any, i: number) => ({
+    n: String(i + 1).padStart(2, "0"), title: s.title, desc: s.description,
+  })) : processSteps);
+  const palette = ["hsl(142 76% 45%)","hsl(280 80% 65%)","hsl(217 91% 60%)","hsl(160 70% 50%)"];
+  const res = (dbCases && dbCases.length ? dbCases.map((c: any, i: number) => {
+    const m = Array.isArray(c.metrics) && (c.metrics as any[])[0];
+    return { metric: m?.value || "+100%", label: m?.label || "Growth", title: c.title, region: c.industry || "USA", desc: c.summary || "", color: palette[i % palette.length], down: String(m?.value || "").startsWith("-") };
+  }) : results);
+
+  return (
   <PageLayout
     title="AM Enterprises — AI-Powered Marketing Agency for USA & Canada"
     description="Performance marketing + AI automation systems that help businesses in USA & Canada generate leads, scale ads, and automate growth."
@@ -207,10 +229,14 @@ const Index = () => (
           <span className="pill-tag mb-6">
             <Sparkles className="w-3.5 h-3.5" /> AI-Powered Marketing Agency
           </span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.05] mb-6">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.05] mb-4">
             We Generate Leads.<br />
-            <span className="text-gradient">You Get More Clients.</span>
+            <span className="text-gradient text-3d">You Get More Clients.</span>
           </h1>
+          <div className="text-lg md:text-2xl font-bold mb-6 min-h-[2.25rem]">
+            <Typewriter words={lines} className="text-primary" />
+          </div>
+
           <p className="text-base md:text-lg text-muted-foreground mb-8 max-w-lg leading-relaxed">
             Performance marketing + AI automation systems that help businesses in <span className="text-primary font-semibold">USA &amp; Canada</span> scale consistently.
           </p>

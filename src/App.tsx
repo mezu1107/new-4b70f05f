@@ -9,7 +9,8 @@ import { ThemeProvider } from "@/hooks/useTheme";
 import { FloatingWidget } from "@/components/FloatingWidget";
 import DynamicPage from "./pages/DynamicPage.tsx";
 import DynamicPagesAdmin from "./pages/admin/DynamicPagesAdmin.tsx";
-import { MetaPixel } from "@/components/MetaPixel";
+import { PixelInjector } from "@/components/PixelInjector";
+import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { PopupRenderer } from "@/components/PopupRenderer";
 import Index from "./pages/Index.tsx";
 import About from "./pages/About.tsx";
@@ -53,8 +54,14 @@ import PageSeoAdmin from "./pages/admin/PageSeoAdmin.tsx";
 import BannersAdmin from "./pages/admin/BannersAdmin.tsx";
 import Careers from "./pages/Careers.tsx";
 import Pricing from "./pages/Pricing.tsx";
+import PixelManagerAdmin from "./pages/admin/PixelManagerAdmin.tsx";
+import VisitorAnalyticsAdmin from "./pages/admin/VisitorAnalyticsAdmin.tsx";
+import ThemeColorsAdmin from "./pages/admin/ThemeColorsAdmin.tsx";
+import CrmFollowupsAdmin from "./pages/admin/CrmFollowupsAdmin.tsx";
 
 const queryClient = new QueryClient();
+
+const TrackingMount = () => { useVisitorTracking(); return null; };
 
 const App = () => (
   <HelmetProvider>
@@ -65,7 +72,8 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <AuthProvider>
-            <MetaPixel />
+            <PixelInjector />
+            <TrackingMount />
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/about" element={<About />} />
@@ -111,6 +119,10 @@ const App = () => (
                 <Route path="page-seo" element={<PageSeoAdmin />} />
                 <Route path="pages" element={<DynamicPagesAdmin />} />
                 <Route path="banners" element={<BannersAdmin />} />
+                <Route path="pixels" element={<PixelManagerAdmin />} />
+                <Route path="analytics" element={<VisitorAnalyticsAdmin />} />
+                <Route path="theme-colors" element={<ThemeColorsAdmin />} />
+                <Route path="crm" element={<CrmFollowupsAdmin />} />
               </Route>
               <Route path="*" element={<NotFound />} />
             </Routes>

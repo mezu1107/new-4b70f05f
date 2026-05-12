@@ -1,13 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Card } from "@/components/ui/card";
-import { Users, MessageSquare, Receipt, FileSignature, Mail, Briefcase } from "lucide-react";
+import { Users, MessageSquare, Receipt, FileSignature, Mail, Briefcase, Activity, Headphones, CalendarCheck } from "lucide-react";
+import { AIOptimizerWidget } from "@/components/admin/AIOptimizerWidget";
 
 const counters = [
+  { table: "visitor_sessions", label: "Visitors (all time)", icon: Activity },
+  { table: "contact_leads", label: "Leads", icon: MessageSquare },
+  { table: "appointments", label: "Bookings", icon: CalendarCheck },
+  { table: "crm_followups", label: "Follow-ups", icon: Headphones },
+  { table: "newsletter_subscribers", label: "Subscribers", icon: Mail },
   { table: "team_members", label: "Team", icon: Users },
   { table: "services", label: "Services", icon: Briefcase },
-  { table: "contact_leads", label: "Leads", icon: MessageSquare },
-  { table: "newsletter_subscribers", label: "Subscribers", icon: Mail },
   { table: "invoices", label: "Invoices", icon: Receipt },
   { table: "proposals", label: "Proposals", icon: FileSignature },
 ] as const;
@@ -27,7 +31,7 @@ const Dashboard = () => {
   return (
     <div>
       <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
         {counters.map((c) => (
           <Card key={c.table} className="p-6">
             <div className="flex items-center justify-between mb-3">
@@ -38,6 +42,7 @@ const Dashboard = () => {
           </Card>
         ))}
       </div>
+      <AIOptimizerWidget />
     </div>
   );
 };

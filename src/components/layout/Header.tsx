@@ -31,7 +31,7 @@ export const Header = () => {
   return (
     <header className={`sticky top-0 z-50 transition-smooth ${scrolled ? "bg-background/85 backdrop-blur-xl border-b border-border" : "bg-background/40 backdrop-blur-md"}`}>
       <div className="container mx-auto flex items-center justify-between py-4">
-        <Link to="/" className="flex items-center gap-2.5 shrink-0">
+        <Link to="/" className="flex items-center gap-2.5 shrink-0" data-header-text>
           <img src={logo} alt={`${siteName} logo`} className="w-9 h-9 rounded-lg object-cover" />
           <div className="leading-tight">
             <div className="font-extrabold text-base tracking-tight">

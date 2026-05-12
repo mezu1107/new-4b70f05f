@@ -326,11 +326,11 @@ const Index = () => {
           That Drive <span className="text-gradient">Real Growth</span>
         </SectionHeader>
         <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-5">
-          {services.map((s, i) => (
+          {svc.map((s, i) => (
             <motion.div key={s.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.06 }}>
               <Link to={s.to} className="block glass-card rounded-2xl p-6 h-full card-hover-glow group">
-                <div className="w-11 h-11 rounded-xl neon-icon flex items-center justify-center mb-4">
-                  <s.icon className="w-5 h-5" />
+                <div className="w-11 h-11 rounded-xl icon-3d flex items-center justify-center mb-4">
+                  <s.icon className="w-5 h-5 text-primary" />
                 </div>
                 <h3 className="text-base font-bold mb-2 leading-snug">{s.title}</h3>
                 <p className="text-xs text-muted-foreground mb-4 leading-relaxed">{s.desc}</p>
@@ -378,7 +378,7 @@ const Index = () => {
           <span className="text-gradient">Real Clients</span>
         </SectionHeader>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {results.map((r, i) => (
+          {res.map((r, i) => (
             <motion.div key={r.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="glass-card rounded-2xl p-6 card-hover-glow">
               <div className="text-3xl font-extrabold mb-1" style={{ color: r.color }}>{r.metric}</div>
               <div className="text-xs text-muted-foreground mb-3">{r.label}</div>
@@ -407,7 +407,7 @@ const Index = () => {
             Massive <span className="text-gradient">Results.</span>
           </h2>
           <div className="grid sm:grid-cols-2 gap-6">
-            {processSteps.map((s, i) => (
+            {proc.map((s, i) => (
               <motion.div key={s.n} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="relative">
                 <div className="text-2xl font-extrabold text-primary mb-2">{s.n}</div>
                 <h3 className="font-bold mb-2">{s.title}</h3>
@@ -450,6 +450,7 @@ const Index = () => {
       </div>
     </section>
   </PageLayout>
-);
+  );
+};
 
 export default Index;

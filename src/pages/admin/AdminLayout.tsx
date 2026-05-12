@@ -1,10 +1,14 @@
 import { NavLink, Outlet, Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
-import { LayoutDashboard, Users, Briefcase, Image, FileText, MessageSquare, Settings, Receipt, FileSignature, LogOut, Mail, HelpCircle, Tag, Package, Sparkles, Megaphone, BookOpen, BarChart3, ListChecks, UserPlus, CalendarCheck, Ticket, Library, Search, Bell } from "lucide-react";
+import { LayoutDashboard, Users, Briefcase, Image, FileText, MessageSquare, Settings, Receipt, FileSignature, LogOut, Mail, HelpCircle, Tag, Package, Sparkles, Megaphone, BookOpen, BarChart3, ListChecks, UserPlus, CalendarCheck, Ticket, Library, Search, Bell, Activity, Palette, Target, Headphones } from "lucide-react";
 
 const items = [
   { to: "/admin", icon: LayoutDashboard, label: "Dashboard", end: true },
+  { to: "/admin/analytics", icon: Activity, label: "Visitor Analytics" },
+  { to: "/admin/pixels", icon: Target, label: "Pixel Manager" },
+  { to: "/admin/theme-colors", icon: Palette, label: "Theme Colors" },
+  { to: "/admin/crm", icon: Headphones, label: "CRM Follow-ups" },
   { to: "/admin/team", icon: Users, label: "Team" },
   { to: "/admin/services", icon: Briefcase, label: "Services" },
   { to: "/admin/portfolio", icon: Image, label: "Portfolio" },

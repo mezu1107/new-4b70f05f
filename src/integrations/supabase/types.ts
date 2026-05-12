@@ -16,7 +16,13 @@ export type Database = {
     Tables: {
       appointments: {
         Row: {
+          address: string | null
+          admin_notes: string | null
+          budget: string | null
+          company: string | null
+          confirmed_at: string | null
           created_at: string
+          duration_minutes: number | null
           email: string
           id: string
           message: string | null
@@ -26,9 +32,16 @@ export type Database = {
           preferred_time: string | null
           service: string | null
           status: string
+          timezone: string | null
         }
         Insert: {
+          address?: string | null
+          admin_notes?: string | null
+          budget?: string | null
+          company?: string | null
+          confirmed_at?: string | null
           created_at?: string
+          duration_minutes?: number | null
           email: string
           id?: string
           message?: string | null
@@ -38,9 +51,16 @@ export type Database = {
           preferred_time?: string | null
           service?: string | null
           status?: string
+          timezone?: string | null
         }
         Update: {
+          address?: string | null
+          admin_notes?: string | null
+          budget?: string | null
+          company?: string | null
+          confirmed_at?: string | null
           created_at?: string
+          duration_minutes?: number | null
           email?: string
           id?: string
           message?: string | null
@@ -50,6 +70,7 @@ export type Database = {
           preferred_time?: string | null
           service?: string | null
           status?: string
+          timezone?: string | null
         }
         Relationships: []
       }
@@ -1132,15 +1153,25 @@ export type Database = {
           contact_email: string | null
           contact_phone: string | null
           facebook_url: string | null
+          footer_text_color: string | null
           google_analytics_id: string | null
+          google_maps_embed: string | null
+          google_tag_manager_id: string | null
+          header_text_color: string | null
+          hero_heading_color: string | null
           hero_typewriter_lines: Json | null
           id: string
           instagram_url: string | null
+          linkedin_insight_id: string | null
           linkedin_url: string | null
           logo_url: string | null
           meta_pixel_id: string | null
+          pixel_auto_verify: boolean
           site_name: string
           tagline: string | null
+          theme_accent_color: string | null
+          theme_primary_color: string | null
+          tiktok_pixel_id: string | null
           updated_at: string
           whatsapp_number: string | null
           youtube_url: string | null
@@ -1150,15 +1181,25 @@ export type Database = {
           contact_email?: string | null
           contact_phone?: string | null
           facebook_url?: string | null
+          footer_text_color?: string | null
           google_analytics_id?: string | null
+          google_maps_embed?: string | null
+          google_tag_manager_id?: string | null
+          header_text_color?: string | null
+          hero_heading_color?: string | null
           hero_typewriter_lines?: Json | null
           id?: string
           instagram_url?: string | null
+          linkedin_insight_id?: string | null
           linkedin_url?: string | null
           logo_url?: string | null
           meta_pixel_id?: string | null
+          pixel_auto_verify?: boolean
           site_name?: string
           tagline?: string | null
+          theme_accent_color?: string | null
+          theme_primary_color?: string | null
+          tiktok_pixel_id?: string | null
           updated_at?: string
           whatsapp_number?: string | null
           youtube_url?: string | null
@@ -1168,15 +1209,25 @@ export type Database = {
           contact_email?: string | null
           contact_phone?: string | null
           facebook_url?: string | null
+          footer_text_color?: string | null
           google_analytics_id?: string | null
+          google_maps_embed?: string | null
+          google_tag_manager_id?: string | null
+          header_text_color?: string | null
+          hero_heading_color?: string | null
           hero_typewriter_lines?: Json | null
           id?: string
           instagram_url?: string | null
+          linkedin_insight_id?: string | null
           linkedin_url?: string | null
           logo_url?: string | null
           meta_pixel_id?: string | null
+          pixel_auto_verify?: boolean
           site_name?: string
           tagline?: string | null
+          theme_accent_color?: string | null
+          theme_primary_color?: string | null
+          tiktok_pixel_id?: string | null
           updated_at?: string
           whatsapp_number?: string | null
           youtube_url?: string | null
@@ -1318,6 +1369,102 @@ export type Database = {
           id?: string
           role?: Database["public"]["Enums"]["app_role"]
           user_id?: string
+        }
+        Relationships: []
+      }
+      visitor_events: {
+        Row: {
+          created_at: string
+          element_id: string | null
+          element_label: string | null
+          event_type: string
+          id: string
+          meta: Json | null
+          path: string | null
+          session_key: string
+        }
+        Insert: {
+          created_at?: string
+          element_id?: string | null
+          element_label?: string | null
+          event_type: string
+          id?: string
+          meta?: Json | null
+          path?: string | null
+          session_key: string
+        }
+        Update: {
+          created_at?: string
+          element_id?: string | null
+          element_label?: string | null
+          event_type?: string
+          id?: string
+          meta?: Json | null
+          path?: string | null
+          session_key?: string
+        }
+        Relationships: []
+      }
+      visitor_sessions: {
+        Row: {
+          browser: string | null
+          city: string | null
+          clicks: number
+          country: string | null
+          device_type: string | null
+          duration_seconds: number
+          id: string
+          landing_path: string | null
+          last_seen_at: string
+          os: string | null
+          page_views: number
+          referrer: string | null
+          session_key: string
+          started_at: string
+          user_agent: string | null
+          utm_campaign: string | null
+          utm_medium: string | null
+          utm_source: string | null
+        }
+        Insert: {
+          browser?: string | null
+          city?: string | null
+          clicks?: number
+          country?: string | null
+          device_type?: string | null
+          duration_seconds?: number
+          id?: string
+          landing_path?: string | null
+          last_seen_at?: string
+          os?: string | null
+          page_views?: number
+          referrer?: string | null
+          session_key: string
+          started_at?: string
+          user_agent?: string | null
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+        }
+        Update: {
+          browser?: string | null
+          city?: string | null
+          clicks?: number
+          country?: string | null
+          device_type?: string | null
+          duration_seconds?: number
+          id?: string
+          landing_path?: string | null
+          last_seen_at?: string
+          os?: string | null
+          page_views?: number
+          referrer?: string | null
+          session_key?: string
+          started_at?: string
+          user_agent?: string | null
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
         }
         Relationships: []
       }

@@ -231,7 +231,7 @@ const Index = () => {
           <span className="pill-tag mb-6">
             <Sparkles className="w-3.5 h-3.5" /> AI-Powered Marketing Agency
           </span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.05] mb-4">
+          <h1 data-hero-heading className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.05] mb-4">
             We Generate Leads.<br />
             <span className="text-gradient text-3d">You Get More Clients.</span>
           </h1>

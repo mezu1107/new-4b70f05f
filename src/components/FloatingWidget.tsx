@@ -20,6 +20,27 @@ export const FloatingWidget = () => {
   const [pos, setPos] = useState<{ x: number; y: number } | null>(null);
   const [dragging, setDragging] = useState(false);
   const dragRef = useRef<{ ox: number; oy: number; sx: number; sy: number; moved: boolean } | null>(null);
+  const fabRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+
+  // Close on outside click / Escape
+  useEffect(() => {
+    if (!panel) return;
+    const onDown = (e: MouseEvent | TouchEvent) => {
+      const t = e.target as Node;
+      if (fabRef.current?.contains(t) || panelRef.current?.contains(t)) return;
+      setPanel(null);
+    };
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setPanel(null); };
+    document.addEventListener("mousedown", onDown);
+    document.addEventListener("touchstart", onDown);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDown);
+      document.removeEventListener("touchstart", onDown);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [panel]);
 
   // chat state
   const [input, setInput] = useState("");
@@ -95,6 +116,7 @@ export const FloatingWidget = () => {
     <>
       {/* The FAB */}
       <button
+        ref={fabRef}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
@@ -112,6 +134,7 @@ export const FloatingWidget = () => {
       {/* Menu (column) */}
       {panel === "menu" && (
         <div
+          ref={panelRef}
           style={{
             ...(pos
               ? { left: Math.max(8, pos.x - 220), top: Math.max(8, pos.y - 180) }
@@ -160,6 +183,7 @@ export const FloatingWidget = () => {
       {/* Chat panel */}
       {panel === "chat" && (
         <div
+          ref={panelRef}
           style={{
             ...(pos
               ? { left: Math.max(8, Math.min(window.innerWidth - 388, pos.x - 200)), top: Math.max(8, pos.y - 480) }

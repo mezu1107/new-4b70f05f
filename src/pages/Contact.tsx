@@ -60,8 +60,14 @@ const Contact = () => {
             </form>
           </Card>
         </div>
-        <div className="container mx-auto mt-12">
-          <iframe title="Office location" className="w-full h-80 rounded-xl shadow-card border-0" src="https://www.google.com/maps?q=Islamabad,Pakistan&output=embed" loading="lazy" />
+    <div className="container mx-auto mt-12">
+          <iframe
+            title="AM Enterprises Office"
+            className="w-full h-80 rounded-2xl shadow-xl border-0"
+            src="https://maps.google.com/maps?q=AM+Enterprises+Rawat+Technology+Park+Rawalpindi+Pakistan&t=&z=17&ie=UTF8&iwloc=&output=embed"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
         </div>
       </section>
     </PageLayout>

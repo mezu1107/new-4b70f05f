@@ -305,6 +305,54 @@ export type Database = {
         }
         Relationships: []
       }
+      crm_followups: {
+        Row: {
+          contact_email: string | null
+          contact_name: string | null
+          contact_phone: string | null
+          created_at: string
+          due_at: string
+          id: string
+          lead_id: string | null
+          lead_source: string
+          notes: string | null
+          priority: string
+          status: string
+          summary: string | null
+          updated_at: string
+        }
+        Insert: {
+          contact_email?: string | null
+          contact_name?: string | null
+          contact_phone?: string | null
+          created_at?: string
+          due_at?: string
+          id?: string
+          lead_id?: string | null
+          lead_source: string
+          notes?: string | null
+          priority?: string
+          status?: string
+          summary?: string | null
+          updated_at?: string
+        }
+        Update: {
+          contact_email?: string | null
+          contact_name?: string | null
+          contact_phone?: string | null
+          created_at?: string
+          due_at?: string
+          id?: string
+          lead_id?: string | null
+          lead_source?: string
+          notes?: string | null
+          priority?: string
+          status?: string
+          summary?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       dynamic_pages: {
         Row: {
           created_at: string

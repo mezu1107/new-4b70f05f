@@ -63,7 +63,7 @@ export const Footer = () => {
           <ul className="space-y-3 text-sm opacity-70 mb-5">
             <li><a href="mailto:info@amenterprises.tech <br>amenterprises1105@gmail.com" className="flex gap-2 hover:text-primary hover:opacity-100"><Mail className="w-4 h-4 mt-0.5 shrink-0" /> hello@amenterprises.tech</a></li>
             <li><a href="tel:+92 3173712950" className="flex gap-2 hover:text-primary hover:opacity-100"><Phone className="w-4 h-4 mt-0.5 shrink-0" /> +92 3173712950</a></li>
-            <li className="flex gap-2"><MapPin className="w-4 h-4 mt-0.5 shrink-0" /> USA &amp; Canada</li>
+            <li className="flex gap-2"><MapPin className="w-4 h-4 mt-0.5 shrink-0" /> USA & Canada | Pakistan (Islamabad, Rawalpindi)  </li>
           </ul>
           <Button asChild className="gradient-cta text-primary-foreground shadow-glow w-full">
             <Link to="/contact"><Calendar className="w-4 h-4 mr-2" /> Book Free Call</Link>

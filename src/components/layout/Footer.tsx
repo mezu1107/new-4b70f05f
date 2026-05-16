@@ -61,7 +61,7 @@ export const Footer = () => {
         <div>
           <h4 className="font-semibold mb-4 text-sm uppercase tracking-wider opacity-90">Contact Us</h4>
           <ul className="space-y-3 text-sm opacity-70 mb-5">
-            <li><a href="mailto:info@amenterprises.tech <br>amenterprises1105@gmail.com" className="flex gap-2 hover:text-primary hover:opacity-100"><Mail className="w-4 h-4 mt-0.5 shrink-0" /> hello@amenterprises.tech</a></li>
+            <li><a href="mailto:info@amenterprises.tech <br>amenterprises1105@gmail.com" className="flex gap-2 hover:text-primary hover:opacity-100"><Mail className="w-4 h-4 mt-0.5 shrink-0" /> info@amenterprises.tech</a></li>
             <li><a href="tel:+92 3173712950" className="flex gap-2 hover:text-primary hover:opacity-100"><Phone className="w-4 h-4 mt-0.5 shrink-0" /> +92 3173712950</a></li>
             <li className="flex gap-2"><MapPin className="w-4 h-4 mt-0.5 shrink-0" /> USA & Canada | Pakistan (Islamabad, Rawalpindi)  </li>
           </ul>

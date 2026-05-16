@@ -166,7 +166,11 @@ export const FinancialDocs = ({ table, title, numberPrefix, numberField, statuse
                       line_items: r.line_items || [], status: r.status,
                     }, {
                       name: settings?.site_name || "AM Enterprises",
+<<<<<<< HEAD
                       email: settings?.contact_email || "info@amenterprises.tech",
+=======
+                      email: settings?.contact_email || "info@amenterprises.pk",
+>>>>>>> 8dc4299f570dd025bbe0e3dd68ea0c88af18b8a6
                       phone: settings?.contact_phone || "0317-3712950",
                       address: settings?.address || "Islamabad, Pakistan",
                       logoUrl: settings?.logo_url || undefined,

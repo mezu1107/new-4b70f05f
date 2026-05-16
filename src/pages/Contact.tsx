@@ -41,7 +41,11 @@ const Contact = () => {
         <div className="container mx-auto grid lg:grid-cols-3 gap-8">
           <div className="space-y-4">
             <Card className="p-6"><Phone className="w-6 h-6 text-primary mb-3" /><h3 className="font-semibold mb-1">Call Us</h3><a href="tel:03173712950" className="text-muted-foreground">0317-3712950</a></Card>
+<<<<<<< HEAD
             <Card className="p-6"><Mail className="w-6 h-6 text-primary mb-3" /><h3 className="font-semibold mb-1">Email</h3><a href="mailto:info@amenterprises.tech" className="text-muted-foreground">info@amenterprises.tech</a></Card>
+=======
+            <Card className="p-6"><Mail className="w-6 h-6 text-primary mb-3" /><h3 className="font-semibold mb-1">Email</h3><a href="mailto:hello@amenterprises.pk" className="text-muted-foreground">hello@amenterprises.pk</a></Card>
+>>>>>>> 8dc4299f570dd025bbe0e3dd68ea0c88af18b8a6
             <Card className="p-6"><MapPin className="w-6 h-6 text-primary mb-3" /><h3 className="font-semibold mb-1">Offices</h3><p className="text-muted-foreground text-sm">Islamabad HQ<br />Rawat Technology Park, Pakistan</p></Card>
           </div>
           <Card className="p-8 lg:col-span-2">

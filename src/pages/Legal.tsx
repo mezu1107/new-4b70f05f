@@ -20,7 +20,11 @@ export const PrivacyPolicy = () => (
       <h2 className="text-foreground text-xl mt-6">How We Use It</h2>
       <p>To respond to enquiries, deliver services, improve our website, and send relevant updates (only if you opt in).</p>
       <h2 className="text-foreground text-xl mt-6">Your Rights</h2>
+<<<<<<< HEAD
       <p>You may request access, correction, or deletion of your data at any time by emailing info@amenterprises.tech.</p>
+=======
+      <p>You may request access, correction, or deletion of your data at any time by emailing hello@amenterprises.pk.</p>
+>>>>>>> 8dc4299f570dd025bbe0e3dd68ea0c88af18b8a6
     </div>
   } />
 );

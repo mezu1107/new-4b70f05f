@@ -542,6 +542,33 @@ const Index = () => {
         </div>
       </div>
     </section>
+
+    {/* ============== LATEST BLOG ============== */}
+    <section className="py-20 lg:py-28 bg-card/30 border-y border-border">
+      <div className="container mx-auto">
+        <SectionHeader tag="From The Blog">
+          Growth Insights & <span className="text-gradient">Playbooks</span>
+        </SectionHeader>
+        <BlogPreview />
+      </div>
+    </section>
+
+    {/* ============== FAQ ============== */}
+    <section className="py-20 lg:py-28">
+      <div className="container mx-auto max-w-3xl">
+        <SectionHeader tag="FAQ">
+          Common <span className="text-gradient">Questions</span>
+        </SectionHeader>
+        <FAQAccordion />
+      </div>
+    </section>
+
+    {/* ============== NEWSLETTER ============== */}
+    <section className="py-16">
+      <div className="container mx-auto max-w-4xl">
+        <NewsletterSignup />
+      </div>
+    </section>
   </PageLayout>
   );
 };

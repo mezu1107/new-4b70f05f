@@ -108,9 +108,10 @@ export const FloatingWidget = () => {
     } finally { setBusy(false); }
   };
 
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
   const fabStyle: React.CSSProperties = pos
     ? { left: pos.x, top: pos.y, right: "auto", bottom: "auto" }
-    : { right: 20, bottom: 20 };
+    : { right: 16, bottom: isMobile ? 80 : 20 };
 
   return (
     <>

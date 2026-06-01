@@ -58,6 +58,8 @@ import PixelManagerAdmin from "./pages/admin/PixelManagerAdmin.tsx";
 import VisitorAnalyticsAdmin from "./pages/admin/VisitorAnalyticsAdmin.tsx";
 import ThemeColorsAdmin from "./pages/admin/ThemeColorsAdmin.tsx";
 import CrmFollowupsAdmin from "./pages/admin/CrmFollowupsAdmin.tsx";
+import Team from "./pages/Team.tsx";
+import CompanyProfile from "./pages/CompanyProfile.tsx";
 
 const queryClient = new QueryClient();
 
@@ -77,6 +79,8 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/about" element={<About />} />
+              <Route path="/about/company-profile" element={<CompanyProfile />} />
+              <Route path="/team" element={<Team />} />
               <Route path="/services" element={<Services />} />
               <Route path="/services/:slug" element={<ServiceDetail />} />
               <Route path="/portfolio" element={<Portfolio />} />

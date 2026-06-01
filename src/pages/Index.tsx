@@ -12,6 +12,14 @@ import { ClientMarquee } from "@/components/ClientMarquee";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { AIToolkit } from "@/components/AIToolkit";
 import { AppointmentWidget } from "@/components/AppointmentWidget";
+import { ROICalculator } from "@/components/ROICalculator";
+import { CaseStudyHighlights } from "@/components/CaseStudyHighlights";
+import { BlogPreview } from "@/components/BlogPreview";
+import { FAQAccordion } from "@/components/FAQAccordion";
+import { NewsletterSignup } from "@/components/NewsletterSignup";
+import { PricingTiers } from "@/components/PricingTiers";
+import { TeamSection } from "@/components/TeamSection";
+import { FeatureGrid } from "@/components/FeatureGrid";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
 import { useRealtimeTable } from "@/hooks/useRealtimeTable";
 
@@ -399,11 +407,62 @@ const Index = () => {
       </div>
     </section>
 
-    {/* ============== AI TOOLKIT (Phase 3) ============== */}
+    {/* ============== BEFORE / AFTER & ROI ============== */}
+    <section className="py-20 lg:py-28 bg-card/30 border-y border-border">
+      <div className="container mx-auto grid lg:grid-cols-2 gap-10 items-start">
+        <div>
+          <span className="pill-tag mb-4">Before vs After</span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight mb-5">
+            See the <span className="text-gradient">Difference</span> AI Makes
+          </h2>
+          <p className="text-muted-foreground mb-6">Plug in your numbers and see how performance marketing + AI automation lifts your monthly revenue.</p>
+          <CaseStudyHighlights />
+        </div>
+        <ROICalculator />
+      </div>
+    </section>
+
+    {/* ============== WHY US / FEATURES ============== */}
+    <section className="py-20 lg:py-28">
+      <div className="container mx-auto">
+        <SectionHeader tag="Why Choose Us">
+          Built for <span className="text-gradient">Performance & Scale</span>
+        </SectionHeader>
+        <FeatureGrid />
+      </div>
+    </section>
+
+    {/* ============== AI TOOLKIT ============== */}
     <AIToolkit />
 
-    {/* ============== APPOINTMENT BOOKING (Phase 4) ============== */}
+    {/* ============== TEAM PREVIEW ============== */}
+    <section className="py-20 lg:py-28 bg-card/30 border-y border-border">
+      <div className="container mx-auto">
+        <SectionHeader tag="Our Team">
+          The Experts Behind<br /><span className="text-gradient">Your Growth</span>
+        </SectionHeader>
+        <TeamSection />
+        <div className="text-center mt-10">
+          <Button asChild variant="outline" size="lg"><Link to="/team">View Full Team <ArrowRight className="ml-2 w-4 h-4" /></Link></Button>
+        </div>
+      </div>
+    </section>
+
+    {/* ============== PRICING PREVIEW ============== */}
     <section className="py-20 lg:py-28">
+      <div className="container mx-auto">
+        <SectionHeader tag="Pricing">
+          Transparent Plans.<br /><span className="text-gradient">No Surprises.</span>
+        </SectionHeader>
+        <PricingTiers />
+        <div className="text-center mt-10">
+          <Button asChild variant="outline" size="lg"><Link to="/pricing">View Full Pricing <ArrowRight className="ml-2 w-4 h-4" /></Link></Button>
+        </div>
+      </div>
+    </section>
+
+    {/* ============== APPOINTMENT BOOKING ============== */}
+    <section className="py-20 lg:py-28 bg-card/30 border-y border-border">
       <div className="container mx-auto grid lg:grid-cols-2 gap-10 items-start">
         <div>
           <span className="pill-tag mb-4"><Calendar className="w-3.5 h-3.5" /> Book a Free Strategy Call</span>
@@ -481,6 +540,33 @@ const Index = () => {
             </div>
           </div>
         </div>
+      </div>
+    </section>
+
+    {/* ============== LATEST BLOG ============== */}
+    <section className="py-20 lg:py-28 bg-card/30 border-y border-border">
+      <div className="container mx-auto">
+        <SectionHeader tag="From The Blog">
+          Growth Insights & <span className="text-gradient">Playbooks</span>
+        </SectionHeader>
+        <BlogPreview />
+      </div>
+    </section>
+
+    {/* ============== FAQ ============== */}
+    <section className="py-20 lg:py-28">
+      <div className="container mx-auto max-w-3xl">
+        <SectionHeader tag="FAQ">
+          Common <span className="text-gradient">Questions</span>
+        </SectionHeader>
+        <FAQAccordion />
+      </div>
+    </section>
+
+    {/* ============== NEWSLETTER ============== */}
+    <section className="py-16">
+      <div className="container mx-auto max-w-4xl">
+        <NewsletterSignup />
       </div>
     </section>
   </PageLayout>

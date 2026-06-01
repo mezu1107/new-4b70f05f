@@ -4,11 +4,7 @@ import { Card } from "@/components/ui/card";
 const cards = [
   { icon: Phone, title: "Call Us", value: "0317-3712950", href: "tel:03173712950" },
   { icon: MessageCircle, title: "WhatsApp", value: "Chat instantly", href: "https://wa.me/923173712950" },
-<<<<<<< HEAD
-  { icon: Mail, title: "Email Us", value: "hello@amenterprises.tech", href: "mailto:info@amenterprises.tech" },
-=======
   { icon: Mail, title: "Email Us", value: "hello@amenterprises.tech", href: "mailto:hello@amenterprises.tech" },
->>>>>>> 8dc4299f570dd025bbe0e3dd68ea0c88af18b8a6
   { icon: MapPin, title: "Visit Us", value: "Islamabad, Pakistan", href: "/contact" },
 ];
 

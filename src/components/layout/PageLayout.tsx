@@ -35,7 +35,7 @@ export const PageLayout = ({ title, description, canonical, primaryKeyword, chil
       <ScrollProgress />
       <Header />
       <PageBanner position="top" />
-      <main className="flex-1 relative">{children}</main>
+      <main className="flex-1 relative pb-16 md:pb-0">{children}</main>
       <PageBanner position="bottom" />
       <Footer />
       <BackToTop />

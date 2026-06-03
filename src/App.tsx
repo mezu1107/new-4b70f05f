@@ -13,6 +13,8 @@ import { PixelInjector } from "@/components/PixelInjector";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { PopupRenderer } from "@/components/PopupRenderer";
 import { SmartBookingPopup } from "@/components/SmartBookingPopup";
+import { GeoRedirect } from "@/components/GeoRedirect";
+import GeoLanding from "./pages/GeoLanding.tsx";
 import Index from "./pages/Index.tsx";
 import About from "./pages/About.tsx";
 import Services from "./pages/Services.tsx";

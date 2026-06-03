@@ -44,11 +44,41 @@ Return clean Markdown:
 Keep each item ≤ 3 sentences. End with one quick-win to ship today.`;
 };
 
+const RATE_WINDOW_MS = 60_000;
+const RATE_MAX = 8;
+const hits = new Map<string, number[]>();
+const rateLimited = (ip: string) => {
+  const now = Date.now();
+  const arr = (hits.get(ip) ?? []).filter((t) => now - t < RATE_WINDOW_MS);
+  arr.push(now);
+  hits.set(ip, arr);
+  if (hits.size > 5000) hits.clear();
+  return arr.length > RATE_MAX;
+};
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
 
   try {
+    const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    if (rateLimited(ip)) {
+      return new Response(JSON.stringify({ error: "Too many requests" }), {
+        status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
     const body = (await req.json()) as Body;
+    // Cap free-text fields to mitigate abuse / oversized AI prompts
+    const cap = (s: string | undefined, n: number) => (typeof s === "string" ? s.slice(0, n) : s);
+    body.product = cap(body.product, 400);
+    body.audience = cap(body.audience, 400);
+    body.offer = cap(body.offer, 300);
+    body.platform = cap(body.platform, 30);
+    body.tone = cap(body.tone, 60);
+    body.campaign_summary = cap(body.campaign_summary, 1500);
+    body.metrics = cap(body.metrics, 800);
+    body.email = cap(body.email, 255);
+    body.name = cap(body.name, 100);
     if (!body?.tool) {
       return new Response(JSON.stringify({ error: "tool is required" }), {
         status: 400,

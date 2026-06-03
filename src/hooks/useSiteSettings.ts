@@ -5,8 +5,8 @@ export const useSiteSettings = () =>
   useQuery({
     queryKey: ["site_settings"],
     queryFn: async () => {
-      const { data, error } = await supabase.from("site_settings").select("*").limit(1).maybeSingle();
+      const { data, error } = await supabase.rpc("get_public_site_settings");
       if (error) throw error;
-      return data;
+      return Array.isArray(data) ? data[0] : data;
     },
   });

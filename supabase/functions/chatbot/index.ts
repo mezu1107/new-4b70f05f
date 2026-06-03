@@ -36,11 +36,63 @@ const tools = [{
   },
 }];
 
+// Naive in-memory per-IP rate limit (per warm instance). Best-effort defence against abuse.
+const RATE_WINDOW_MS = 60_000;
+const RATE_MAX = 15;
+const hits = new Map<string, number[]>();
+const rateLimited = (ip: string) => {
+  const now = Date.now();
+  const arr = (hits.get(ip) ?? []).filter((t) => now - t < RATE_WINDOW_MS);
+  arr.push(now);
+  hits.set(ip, arr);
+  if (hits.size > 5000) hits.clear();
+  return arr.length > RATE_MAX;
+};
+
+const SESSION_KEY_RE = /^[A-Za-z0-9_\-]{4,80}$/;
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
 
   try {
-    const { messages, leadId } = await req.json();
+    const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    if (rateLimited(ip)) {
+      return new Response(JSON.stringify({ error: "Too many requests" }), {
+        status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    const body = await req.json().catch(() => ({}));
+    const { messages, leadId, sessionKey } = body ?? {};
+
+    // Validate messages array (cap size, role, content length)
+    if (!Array.isArray(messages) || messages.length === 0 || messages.length > 30) {
+      return new Response(JSON.stringify({ error: "Invalid messages" }), {
+        status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+    const cleanMessages = messages.slice(-20).map((m: any) => ({
+      role: m?.role === "user" || m?.role === "assistant" ? m.role : "user",
+      content: typeof m?.content === "string" ? m.content.slice(0, 2000) : "",
+    })).filter((m: any) => m.content);
+
+    // Validate sessionKey when provided (required if updating an existing lead)
+    if (sessionKey != null && typeof sessionKey !== "string") {
+      return new Response(JSON.stringify({ error: "Invalid sessionKey" }), {
+        status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+    if (sessionKey && !SESSION_KEY_RE.test(sessionKey)) {
+      return new Response(JSON.stringify({ error: "Invalid sessionKey" }), {
+        status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+    if (leadId && !sessionKey) {
+      return new Response(JSON.stringify({ error: "sessionKey required to update lead" }), {
+        status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY missing");
 
@@ -49,7 +101,7 @@ Deno.serve(async (req) => {
       headers: { Authorization: `Bearer ${LOVABLE_API_KEY}`, "Content-Type": "application/json" },
       body: JSON.stringify({
         model: "google/gemini-2.5-flash",
-        messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
+        messages: [{ role: "system", content: SYSTEM_PROMPT }, ...cleanMessages],
         tools,
       }),
     });
@@ -71,17 +123,32 @@ Deno.serve(async (req) => {
     if (toolCall?.function?.name === "save_lead") {
       const args = JSON.parse(toolCall.function.arguments || "{}");
       const supabase = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
-      const payload = {
+      const payload: Record<string, unknown> = {
         name: args.name, email: args.email, phone: args.phone,
         business_type: args.business_type, service_interest: args.service_interest,
         budget: args.budget, timeline: args.timeline,
         qualified: !!args.qualified, qualification_score: args.score ?? 0,
-        conversation: messages, status: args.qualified ? "qualified" : "new",
+        conversation: cleanMessages, status: args.qualified ? "qualified" : "new",
       };
+
       if (leadId) {
+        // Verify caller owns this lead via session_key before mutating
+        const { data: existing, error: lookupErr } = await supabase
+          .from("chatbot_leads").select("id, session_key").eq("id", leadId).maybeSingle();
+        if (lookupErr || !existing) {
+          return new Response(JSON.stringify({ error: "Lead not found" }), {
+            status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" },
+          });
+        }
+        if (!existing.session_key || existing.session_key !== sessionKey) {
+          return new Response(JSON.stringify({ error: "Forbidden" }), {
+            status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" },
+          });
+        }
         await supabase.from("chatbot_leads").update(payload).eq("id", leadId);
       } else {
-        const { data: ins } = await supabase.from("chatbot_leads").insert(payload).select("id").single();
+        payload.session_key = sessionKey || crypto.randomUUID();
+        const { data: ins } = await supabase.from("chatbot_leads").insert(payload).select("id, session_key").single();
         savedId = ins?.id;
       }
       if (!assistantText) assistantText = `Thanks ${args.name || ""}! I've saved your details — our team will reach out within 24 hours. 🚀`;

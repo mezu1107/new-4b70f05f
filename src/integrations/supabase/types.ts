@@ -181,6 +181,7 @@ export type Database = {
           qualification_score: number | null
           qualified: boolean | null
           service_interest: string | null
+          session_key: string | null
           status: string
           timeline: string | null
         }
@@ -197,6 +198,7 @@ export type Database = {
           qualification_score?: number | null
           qualified?: boolean | null
           service_interest?: string | null
+          session_key?: string | null
           status?: string
           timeline?: string | null
         }
@@ -213,6 +215,7 @@ export type Database = {
           qualification_score?: number | null
           qualified?: boolean | null
           service_interest?: string | null
+          session_key?: string | null
           status?: string
           timeline?: string | null
         }
@@ -1473,6 +1476,39 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      bump_visitor_session: {
+        Args: { _duration_seconds?: number; _session_key: string }
+        Returns: undefined
+      }
+      get_public_site_settings: {
+        Args: never
+        Returns: {
+          address: string
+          contact_email: string
+          contact_phone: string
+          facebook_url: string
+          footer_text_color: string
+          google_analytics_id: string
+          google_maps_embed: string
+          google_tag_manager_id: string
+          header_text_color: string
+          hero_heading_color: string
+          hero_typewriter_lines: Json
+          id: string
+          instagram_url: string
+          linkedin_insight_id: string
+          linkedin_url: string
+          logo_url: string
+          meta_pixel_id: string
+          site_name: string
+          tagline: string
+          theme_accent_color: string
+          theme_primary_color: string
+          tiktok_pixel_id: string
+          whatsapp_number: string
+          youtube_url: string
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

@@ -12,6 +12,7 @@ import DynamicPagesAdmin from "./pages/admin/DynamicPagesAdmin.tsx";
 import { PixelInjector } from "@/components/PixelInjector";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { PopupRenderer } from "@/components/PopupRenderer";
+import { SmartBookingPopup } from "@/components/SmartBookingPopup";
 import Index from "./pages/Index.tsx";
 import About from "./pages/About.tsx";
 import Services from "./pages/Services.tsx";
@@ -132,6 +133,7 @@ const App = () => (
             </Routes>
             <FloatingWidget />
             <PopupRenderer />
+            <SmartBookingPopup />
           </AuthProvider>
         </BrowserRouter>
       </TooltipProvider>

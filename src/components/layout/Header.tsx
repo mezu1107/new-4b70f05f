@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Menu, X, Calendar, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { CountrySwitcher } from "@/components/CountrySwitcher";
 import fallbackLogo from "@/assets/logo.png";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
 import { useRealtimeTable } from "@/hooks/useRealtimeTable";

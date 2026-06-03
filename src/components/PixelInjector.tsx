@@ -6,6 +6,17 @@ import { useSiteSettings } from "@/hooks/useSiteSettings";
  * Replaces MetaPixel; injects Meta, GA4, GTM, TikTok, LinkedIn from admin settings.
  * Also writes CSS variables and overrides for header/footer/hero text colors.
  */
+// Strict allow-lists. Anything that doesn't match is dropped (prevents stored XSS via compromised admin).
+const RE_META = /^\d{6,20}$/;
+const RE_GA4 = /^G-[A-Z0-9]{6,20}$/;
+const RE_GTM = /^GTM-[A-Z0-9]{4,15}$/;
+const RE_TIKTOK = /^[A-Z0-9]{10,40}$/;
+const RE_LINKEDIN = /^\d{4,15}$/;
+const RE_COLOR = /^(#[0-9a-fA-F]{3,8}|rgb\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*\)|rgba\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*(0|1|0?\.\d+)\s*\)|hsl\(\s*\d{1,3}\s*,\s*\d{1,3}%\s*,\s*\d{1,3}%\s*\)|[a-zA-Z]{3,20})$/;
+
+const safe = (v: string | null | undefined, re: RegExp) =>
+  v && typeof v === "string" && re.test(v.trim()) ? v.trim() : null;
+
 export const PixelInjector = () => {
   const { data } = useSiteSettings();
 

@@ -9,6 +9,15 @@ import { Briefcase, MapPin } from "lucide-react";
 import { useRealtimeTable } from "@/hooks/useRealtimeTable";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { z } from "zod";
+
+const applicationSchema = z.object({
+  name: z.string().trim().min(1, "Name is required").max(100, "Name must be under 100 characters"),
+  email: z.string().trim().email("Invalid email").max(255),
+  phone: z.string().trim().max(30).optional().or(z.literal("")),
+  resume_url: z.string().trim().url("Resume must be a valid URL").max(500).optional().or(z.literal("")),
+  cover_letter: z.string().trim().max(3000, "Cover letter must be under 3000 characters").optional().or(z.literal("")),
+});
 
 const Careers = () => {
   const { data } = useRealtimeTable<any>({ table: "job_openings", filters: [{ column: "is_active", value: true }], orderBy: { column: "sort_order" } });
@@ -19,14 +28,25 @@ const Careers = () => {
   const apply = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
-    setBusy(true);
-    const { error } = await supabase.from("job_applications").insert({
-      job_id: selected?.id,
+    const parsed = applicationSchema.safeParse({
       name: String(fd.get("name") || ""),
       email: String(fd.get("email") || ""),
       phone: String(fd.get("phone") || ""),
-      cover_letter: String(fd.get("cover_letter") || ""),
       resume_url: String(fd.get("resume_url") || ""),
+      cover_letter: String(fd.get("cover_letter") || ""),
+    });
+    if (!parsed.success) {
+      toast.error(parsed.error.issues[0].message);
+      return;
+    }
+    setBusy(true);
+    const { error } = await supabase.from("job_applications").insert({
+      job_id: selected?.id,
+      name: parsed.data.name,
+      email: parsed.data.email,
+      phone: parsed.data.phone || null,
+      cover_letter: parsed.data.cover_letter || null,
+      resume_url: parsed.data.resume_url || null,
     });
     setBusy(false);
     if (error) return toast.error(error.message);
@@ -65,12 +85,12 @@ const Careers = () => {
               <h2 className="text-2xl mb-2">Apply for {selected.title}</h2>
               <form onSubmit={apply} className="space-y-3">
                 <div className="grid md:grid-cols-2 gap-3">
-                  <Input name="name" required placeholder="Your Name" />
-                  <Input name="email" type="email" required placeholder="Email" />
+                  <Input name="name" required maxLength={100} placeholder="Your Name" />
+                  <Input name="email" type="email" required maxLength={255} placeholder="Email" />
                 </div>
-                <Input name="phone" placeholder="Phone" />
-                <Input name="resume_url" placeholder="Resume URL (Google Drive, Dropbox…)" />
-                <Textarea name="cover_letter" placeholder="Cover letter" rows={4} />
+                <Input name="phone" maxLength={30} placeholder="Phone" />
+                <Input name="resume_url" type="url" maxLength={500} placeholder="Resume URL (Google Drive, Dropbox…)" />
+                <Textarea name="cover_letter" maxLength={3000} placeholder="Cover letter" rows={4} />
                 <div className="flex gap-3">
                   <Button type="submit" variant="hero" disabled={busy}>{busy ? "Submitting…" : "Submit Application"}</Button>
                   <Button type="button" variant="outline" onClick={() => setSelected(null)}>Cancel</Button>

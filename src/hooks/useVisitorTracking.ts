@@ -27,7 +27,6 @@ export const useVisitorTracking = () => {
   const startedAt = useRef<number>(Date.now());
   const sessionKey = useRef<string>("");
 
-  // initialize session row once
   useEffect(() => {
     if (inited.current) return;
     inited.current = true;
@@ -52,7 +51,6 @@ export const useVisitorTracking = () => {
       } catch {}
     })();
 
-    // global click capture
     const onClick = (e: MouseEvent) => {
       const t = e.target as HTMLElement;
       if (!t) return;
@@ -66,21 +64,17 @@ export const useVisitorTracking = () => {
         element_label: label || null,
         element_id: btn.id || null,
         meta: { tag: btn.tagName, href: (btn as HTMLAnchorElement).href || null },
-      }).then(() => {
-        supabase.rpc as any; // no-op
-      }, () => {});
+      }).then(() => {}, () => {});
     };
     document.addEventListener("click", onClick, true);
 
-    // unload → update duration
     const onUnload = () => {
       const sec = Math.round((Date.now() - startedAt.current) / 1000);
-      try {
-        navigator.sendBeacon?.(
-          `https://${import.meta.env.VITE_SUPABASE_PROJECT_ID}.supabase.co/rest/v1/visitor_sessions?session_key=eq.${sessionKey.current}`,
-          new Blob([JSON.stringify({ duration_seconds: sec, last_seen_at: new Date().toISOString() })], { type: "application/json" })
-        );
-      } catch {}
+      // Use RPC for safe, ownership-bounded session update
+      supabase.rpc("bump_visitor_session", {
+        _session_key: sessionKey.current,
+        _duration_seconds: sec,
+      }).then(() => {}, () => {});
     };
     window.addEventListener("beforeunload", onUnload);
 
@@ -90,7 +84,6 @@ export const useVisitorTracking = () => {
     };
   }, []);
 
-  // track route changes as page views
   useEffect(() => {
     if (!sessionKey.current) return;
     supabase.from("visitor_events").insert({
@@ -98,15 +91,6 @@ export const useVisitorTracking = () => {
       event_type: "pageview",
       path: loc.pathname,
     }).then(() => {}, () => {});
-    // bump session counter
-    (async () => {
-      const { data } = await supabase.from("visitor_sessions").select("page_views").eq("session_key", sessionKey.current).maybeSingle();
-      if (data) {
-        await supabase.from("visitor_sessions").update({
-          page_views: (data.page_views || 0) + 1,
-          last_seen_at: new Date().toISOString(),
-        }).eq("session_key", sessionKey.current);
-      }
-    })();
+    supabase.rpc("bump_visitor_session", { _session_key: sessionKey.current }).then(() => {}, () => {});
   }, [loc.pathname]);
 };

@@ -81,6 +81,7 @@ const App = () => (
             <TrackingMount />
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/:country(us|uk|gb|ca|au|pk)" element={<GeoLanding />} />
               <Route path="/about" element={<About />} />
               <Route path="/about/company-profile" element={<CompanyProfile />} />
               <Route path="/team" element={<Team />} />

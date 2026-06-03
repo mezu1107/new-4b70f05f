@@ -6,11 +6,22 @@ import { supabase } from "@/integrations/supabase/client";
 
 interface Msg { role: "user" | "assistant"; content: string }
 
+const SESSION_STORAGE_KEY = "am_chatbot_session_key_v1";
+const getOrCreateSessionKey = () => {
+  let k = sessionStorage.getItem(SESSION_STORAGE_KEY);
+  if (!k) {
+    k = (crypto as any).randomUUID ? (crypto as any).randomUUID() : `s_${Date.now()}_${Math.random().toString(36).slice(2, 12)}`;
+    sessionStorage.setItem(SESSION_STORAGE_KEY, k);
+  }
+  return k;
+};
+
 export const ChatbotWidget = () => {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
   const [leadId, setLeadId] = useState<string | undefined>();
+  const sessionKeyRef = useRef<string>(getOrCreateSessionKey());
   const [messages, setMessages] = useState<Msg[]>([
     { role: "assistant", content: "Hi, I'm AM Enterprises. How may I help you?" },
   ]);
@@ -38,7 +49,7 @@ export const ChatbotWidget = () => {
     const next = [...messages, { role: "user" as const, content: text }];
     setMessages(next); setInput(""); setBusy(true);
     try {
-      const { data, error } = await supabase.functions.invoke("chatbot", { body: { messages: next, leadId } });
+      const { data, error } = await supabase.functions.invoke("chatbot", { body: { messages: next, leadId, sessionKey: sessionKeyRef.current } });
       if (error) throw error;
       if (data?.error) throw new Error(data.error);
       if (data?.leadId) setLeadId(data.leadId);

@@ -85,7 +85,8 @@ export const Header = () => {
             </div>
           ))}
         </nav>
-        <div className="hidden lg:flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-2">
+          <CountrySwitcher compact />
           <ThemeToggle />
           <Button asChild className="gradient-cta text-primary-foreground shadow-glow hover:opacity-90">
             <Link to="/contact"><Calendar className="w-4 h-4 mr-2" /> Book Free Call</Link>

@@ -300,6 +300,23 @@ const Index = () => {
       </section>
     )}
 
+    {/* ============== BEFORE / AFTER & ROI (moved UP for trust early) ============== */}
+    <section className="py-20 lg:py-28 bg-card/30 border-y border-border">
+      <div className="container mx-auto grid lg:grid-cols-2 gap-10 items-start">
+        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
+          <span className="pill-tag mb-4">Before vs After</span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight mb-5">
+            See the <span className="text-gradient">Difference</span> AI Makes
+          </h2>
+          <p className="text-muted-foreground mb-6">Real client transformations — and a live calculator so you can model your own lift.</p>
+          <CaseStudyHighlights />
+        </motion.div>
+        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.1 }}>
+          <ROICalculator />
+        </motion.div>
+      </div>
+    </section>
+
     {/* ============== PROBLEMS ============== */}
     <section className="py-20 lg:py-28">
       <div className="container mx-auto">
@@ -316,7 +333,7 @@ const Index = () => {
             { icon: Target, title: "No Quality Leads", desc: "Getting clicks is easy, getting high-quality leads is where everyone fails." },
             { icon: BarChart3, title: "No Tracking & Clarity", desc: "Without proper tracking, you don't know what's working or what's not." },
           ].map((p, i) => (
-            <motion.div key={p.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="glass-card rounded-2xl p-7 card-hover-glow">
+            <motion.div key={p.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="glass-card rounded-2xl p-7 card-hover-glow hover:-translate-y-1 transition-smooth">
               <div className="w-12 h-12 rounded-xl icon-3d flex items-center justify-center mb-5">
                 <p.icon className="w-5 h-5 text-primary" />
               </div>
@@ -329,7 +346,7 @@ const Index = () => {
     </section>
 
     {/* ============== SERVICES ============== */}
-    <section className="py-20 lg:py-28">
+    <section className="py-20 lg:py-28 bg-card/30 border-y border-border">
       <div className="container mx-auto">
         <SectionHeader tag="Our Services">
           Result-Focused Services<br />
@@ -338,8 +355,8 @@ const Index = () => {
         <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-5">
           {svc.map((s, i) => (
             <motion.div key={s.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.06 }}>
-              <Link to={s.to} className="block glass-card rounded-2xl p-6 h-full card-hover-glow group">
-                <div className="w-11 h-11 rounded-xl icon-3d flex items-center justify-center mb-4">
+              <Link to={s.to} className="block glass-card rounded-2xl p-6 h-full card-hover-glow group hover:-translate-y-1 transition-smooth">
+                <div className="w-11 h-11 rounded-xl icon-3d flex items-center justify-center mb-4 group-hover:scale-110 transition-smooth">
                   <s.icon className="w-5 h-5 text-primary" />
                 </div>
                 <h3 className="text-base font-bold mb-2 leading-snug">{s.title}</h3>
@@ -352,8 +369,35 @@ const Index = () => {
       </div>
     </section>
 
+    {/* ============== RESULTS (case study cards) ============== */}
+    <section className="py-20 lg:py-28">
+      <div className="container mx-auto">
+        <SectionHeader tag="Results That Speak">
+          Real Results From<br />
+          <span className="text-gradient">Real Clients</span>
+        </SectionHeader>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {res.map((r, i) => (
+            <motion.div key={r.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="glass-card rounded-2xl p-6 card-hover-glow hover:-translate-y-1 transition-smooth">
+              <div className="text-3xl font-extrabold mb-1" style={{ color: r.color }}>{r.metric}</div>
+              <div className="text-xs text-muted-foreground mb-3">{r.label}</div>
+              <Sparkline color={r.color} down={r.down} />
+              <div className="flex items-center justify-between mt-4 mb-2">
+                <h4 className="font-bold text-sm">{r.title}</h4>
+                <span className="text-[10px] text-muted-foreground border border-border rounded-full px-2 py-0.5">{r.region}</span>
+              </div>
+              <p className="text-xs text-muted-foreground leading-relaxed">{r.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+        <div className="text-center mt-10">
+          <Button asChild variant="outline" size="lg" className="border-border"><Link to="/case-studies">View More Case Studies <ArrowRight className="ml-2 w-4 h-4" /></Link></Button>
+        </div>
+      </div>
+    </section>
+
     {/* ============== AI SYSTEMS ============== */}
-    <section id="ai-systems" className="py-20 lg:py-28 relative overflow-hidden">
+    <section id="ai-systems" className="py-20 lg:py-28 relative overflow-hidden bg-card/30 border-y border-border">
       <div className="absolute inset-0 gradient-hero opacity-50" aria-hidden />
       <div className="relative container mx-auto">
         <div className="mb-12">
@@ -380,48 +424,6 @@ const Index = () => {
       </div>
     </section>
 
-    {/* ============== RESULTS ============== */}
-    <section className="py-20 lg:py-28">
-      <div className="container mx-auto">
-        <SectionHeader tag="Results That Speak">
-          Real Results From<br />
-          <span className="text-gradient">Real Clients</span>
-        </SectionHeader>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {res.map((r, i) => (
-            <motion.div key={r.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="glass-card rounded-2xl p-6 card-hover-glow">
-              <div className="text-3xl font-extrabold mb-1" style={{ color: r.color }}>{r.metric}</div>
-              <div className="text-xs text-muted-foreground mb-3">{r.label}</div>
-              <Sparkline color={r.color} down={r.down} />
-              <div className="flex items-center justify-between mt-4 mb-2">
-                <h4 className="font-bold text-sm">{r.title}</h4>
-                <span className="text-[10px] text-muted-foreground border border-border rounded-full px-2 py-0.5">{r.region}</span>
-              </div>
-              <p className="text-xs text-muted-foreground leading-relaxed">{r.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-        <div className="text-center mt-10">
-          <Button asChild variant="outline" size="lg" className="border-border"><Link to="/case-studies">View More Case Studies <ArrowRight className="ml-2 w-4 h-4" /></Link></Button>
-        </div>
-      </div>
-    </section>
-
-    {/* ============== BEFORE / AFTER & ROI ============== */}
-    <section className="py-20 lg:py-28 bg-card/30 border-y border-border">
-      <div className="container mx-auto grid lg:grid-cols-2 gap-10 items-start">
-        <div>
-          <span className="pill-tag mb-4">Before vs After</span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight mb-5">
-            See the <span className="text-gradient">Difference</span> AI Makes
-          </h2>
-          <p className="text-muted-foreground mb-6">Plug in your numbers and see how performance marketing + AI automation lifts your monthly revenue.</p>
-          <CaseStudyHighlights />
-        </div>
-        <ROICalculator />
-      </div>
-    </section>
-
     {/* ============== WHY US / FEATURES ============== */}
     <section className="py-20 lg:py-28">
       <div className="container mx-auto">
@@ -432,10 +434,39 @@ const Index = () => {
       </div>
     </section>
 
-    {/* ============== AI TOOLKIT ============== */}
-    <AIToolkit />
+    {/* ============== PRICING ============== */}
+    <section className="py-20 lg:py-28 bg-card/30 border-y border-border">
+      <div className="container mx-auto">
+        <SectionHeader tag="Pricing">
+          Transparent Plans.<br /><span className="text-gradient">No Surprises.</span>
+        </SectionHeader>
+        <PricingTiers />
+        <div className="text-center mt-10">
+          <Button asChild variant="outline" size="lg"><Link to="/pricing">View Full Pricing <ArrowRight className="ml-2 w-4 h-4" /></Link></Button>
+        </div>
+      </div>
+    </section>
 
-    {/* ============== TEAM PREVIEW ============== */}
+    {/* ============== PROCESS ============== */}
+    <section className="py-20 lg:py-28">
+      <div className="container mx-auto">
+        <SectionHeader tag="Our Process">
+          Simple Process.<br />
+          Massive <span className="text-gradient">Results.</span>
+        </SectionHeader>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {proc.map((s, i) => (
+            <motion.div key={s.n} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="glass-card rounded-2xl p-6 hover:-translate-y-1 transition-smooth">
+              <div className="text-3xl font-extrabold text-gradient mb-3">{s.n}</div>
+              <h3 className="font-bold mb-2">{s.title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ============== TEAM ============== */}
     <section className="py-20 lg:py-28 bg-card/30 border-y border-border">
       <div className="container mx-auto">
         <SectionHeader tag="Our Team">
@@ -448,23 +479,13 @@ const Index = () => {
       </div>
     </section>
 
-    {/* ============== PRICING PREVIEW ============== */}
-    <section className="py-20 lg:py-28">
-      <div className="container mx-auto">
-        <SectionHeader tag="Pricing">
-          Transparent Plans.<br /><span className="text-gradient">No Surprises.</span>
-        </SectionHeader>
-        <PricingTiers />
-        <div className="text-center mt-10">
-          <Button asChild variant="outline" size="lg"><Link to="/pricing">View Full Pricing <ArrowRight className="ml-2 w-4 h-4" /></Link></Button>
-        </div>
-      </div>
-    </section>
+    {/* ============== AI TOOLKIT ============== */}
+    <AIToolkit />
 
-    {/* ============== APPOINTMENT BOOKING ============== */}
-    <section className="py-20 lg:py-28 bg-card/30 border-y border-border">
+    {/* ============== FINAL BOOKING (deep funnel - convert intent) ============== */}
+    <section id="book" className="py-20 lg:py-28 bg-card/30 border-y border-border scroll-mt-20">
       <div className="container mx-auto grid lg:grid-cols-2 gap-10 items-start">
-        <div>
+        <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
           <span className="pill-tag mb-4"><Calendar className="w-3.5 h-3.5" /> Book a Free Strategy Call</span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight mb-5">
             Pick a Time.<br />
@@ -485,66 +506,15 @@ const Index = () => {
               </li>
             ))}
           </ul>
-        </div>
-        <AppointmentWidget />
+        </motion.div>
+        <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+          <AppointmentWidget />
+        </motion.div>
       </div>
     </section>
 
-
+    {/* ============== BLOG ============== */}
     <section className="py-20 lg:py-28">
-      <div className="container mx-auto grid lg:grid-cols-5 gap-10 items-start">
-        <div className="lg:col-span-3">
-          <span className="pill-tag mb-4">Our Process</span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight mb-12">
-            Simple Process.<br />
-            Massive <span className="text-gradient">Results.</span>
-          </h2>
-          <div className="grid sm:grid-cols-2 gap-6">
-            {proc.map((s, i) => (
-              <motion.div key={s.n} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="relative">
-                <div className="text-2xl font-extrabold text-primary mb-2">{s.n}</div>
-                <h3 className="font-bold mb-2">{s.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
-        <div className="lg:col-span-2">
-          <div className="glass-card rounded-2xl p-7 shadow-elegant">
-            <span className="pill-tag mb-4">Book Your Free Call</span>
-            <h3 className="text-2xl font-extrabold leading-tight mb-5">Let's Build Your Growth Strategy Together</h3>
-            <ul className="space-y-3 mb-6">
-              {[
-                "30-Minute Free Strategy Call",
-                "Custom Growth Plan For Your Business",
-                "No Obligation, 100% Free",
-              ].map((b) => (
-                <li key={b} className="flex items-center gap-2 text-sm">
-                  <CheckCircle2 className="w-4 h-4 text-primary shrink-0" /> {b}
-                </li>
-              ))}
-            </ul>
-            <Button asChild size="lg" className="gradient-cta text-primary-foreground shadow-glow w-full">
-              <Link to="/contact"><Calendar className="w-4 h-4 mr-2" /> Book Free Strategy Call</Link>
-            </Button>
-            <div className="flex items-center gap-3 mt-5">
-              <div className="flex -space-x-2">
-                {[Users, Zap, Brain].map((Icon, i) => (
-                  <div key={i} className="w-8 h-8 rounded-full gradient-cta border-2 border-background flex items-center justify-center">
-                    <Icon className="w-3.5 h-3.5 text-primary-foreground" />
-                  </div>
-                ))}
-              </div>
-              <span className="text-xs text-muted-foreground">Join 100+ businesses growing with AI systems</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    {/* ============== LATEST BLOG ============== */}
-    <section className="py-20 lg:py-28 bg-card/30 border-y border-border">
       <div className="container mx-auto">
         <SectionHeader tag="From The Blog">
           Growth Insights & <span className="text-gradient">Playbooks</span>
@@ -554,7 +524,7 @@ const Index = () => {
     </section>
 
     {/* ============== FAQ ============== */}
-    <section className="py-20 lg:py-28">
+    <section className="py-20 lg:py-28 bg-card/30 border-y border-border">
       <div className="container mx-auto max-w-3xl">
         <SectionHeader tag="FAQ">
           Common <span className="text-gradient">Questions</span>

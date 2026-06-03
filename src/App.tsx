@@ -13,6 +13,8 @@ import { PixelInjector } from "@/components/PixelInjector";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { PopupRenderer } from "@/components/PopupRenderer";
 import { SmartBookingPopup } from "@/components/SmartBookingPopup";
+import { GeoRedirect } from "@/components/GeoRedirect";
+import GeoLanding from "./pages/GeoLanding.tsx";
 import Index from "./pages/Index.tsx";
 import About from "./pages/About.tsx";
 import Services from "./pages/Services.tsx";
@@ -79,6 +81,7 @@ const App = () => (
             <TrackingMount />
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/:country" element={<GeoLanding />} />
               <Route path="/about" element={<About />} />
               <Route path="/about/company-profile" element={<CompanyProfile />} />
               <Route path="/team" element={<Team />} />
@@ -134,6 +137,7 @@ const App = () => (
             <FloatingWidget />
             <PopupRenderer />
             <SmartBookingPopup />
+            <GeoRedirect />
           </AuthProvider>
         </BrowserRouter>
       </TooltipProvider>

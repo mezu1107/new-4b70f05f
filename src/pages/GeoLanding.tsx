@@ -29,7 +29,7 @@ export default function GeoLanding() {
   const code = (country || "").toUpperCase();
 
   if (!SUPPORTED_REGION_CODES.includes(code) && code !== "UK") {
-    return <Navigate to="/" replace />;
+    return <NotFound />;
   }
 
   const region = getRegion(code);

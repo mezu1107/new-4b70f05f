@@ -137,6 +137,7 @@ const App = () => (
             <FloatingWidget />
             <PopupRenderer />
             <SmartBookingPopup />
+            <GeoRedirect />
           </AuthProvider>
         </BrowserRouter>
       </TooltipProvider>

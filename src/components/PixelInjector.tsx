@@ -22,7 +22,7 @@ export const PixelInjector = () => {
 
   // Meta Pixel
   useEffect(() => {
-    const id = data?.meta_pixel_id;
+    const id = safe(data?.meta_pixel_id, RE_META);
     if (!id || (window as any).fbq) return;
     /* eslint-disable */
     (function (f: any, b: any, e: any, v: any, n?: any, t?: any, s?: any) {
@@ -38,29 +38,31 @@ export const PixelInjector = () => {
 
   // GA4
   useEffect(() => {
-    const id = data?.google_analytics_id;
+    const id = safe(data?.google_analytics_id, RE_GA4);
     if (!id || document.getElementById("ga4-script")) return;
     const s = document.createElement("script");
-    s.id = "ga4-script"; s.async = true; s.src = `https://www.googletagmanager.com/gtag/js?id=${id}`;
+    s.id = "ga4-script"; s.async = true; s.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(id)}`;
     document.head.appendChild(s);
     const inline = document.createElement("script");
-    inline.innerHTML = `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${id}');`;
+    // id is validated by RE_GA4 (alphanumerics + dash only), safe to interpolate
+    inline.text = `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${id}');`;
     document.head.appendChild(inline);
   }, [data?.google_analytics_id]);
 
   // GTM
   useEffect(() => {
-    const id = data?.google_tag_manager_id;
+    const id = safe(data?.google_tag_manager_id, RE_GTM);
     if (!id || document.getElementById("gtm-script")) return;
     const s = document.createElement("script");
     s.id = "gtm-script";
-    s.innerHTML = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${id}');`;
+    // id validated by RE_GTM
+    s.text = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${id}');`;
     document.head.appendChild(s);
   }, [data?.google_tag_manager_id]);
 
   // TikTok
   useEffect(() => {
-    const id = data?.tiktok_pixel_id;
+    const id = safe(data?.tiktok_pixel_id, RE_TIKTOK);
     if (!id || (window as any).ttq) return;
     /* eslint-disable */
     (function (w: any, d: any, t: any) {
@@ -72,7 +74,7 @@ export const PixelInjector = () => {
       ttq.load = function (e: any) {
         const n = "https://analytics.tiktok.com/i18n/pixel/events.js";
         ttq._i = ttq._i || {}; ttq._i[e] = []; ttq._i[e]._u = n; ttq._t = ttq._t || {}; ttq._t[e] = +new Date(); ttq._o = ttq._o || {}; ttq._o[e] = {};
-        const o = d.createElement("script"); o.type = "text/javascript"; o.async = !0; o.src = n + "?sdkid=" + e + "&lib=" + t;
+        const o = d.createElement("script"); o.type = "text/javascript"; o.async = !0; o.src = n + "?sdkid=" + encodeURIComponent(e) + "&lib=" + t;
         const a = d.getElementsByTagName("script")[0]; a.parentNode.insertBefore(o, a);
       };
       ttq.load(id); ttq.page();
@@ -82,7 +84,7 @@ export const PixelInjector = () => {
 
   // LinkedIn Insight
   useEffect(() => {
-    const id = data?.linkedin_insight_id;
+    const id = safe(data?.linkedin_insight_id, RE_LINKEDIN);
     if (!id || (window as any)._linkedin_data_partner_ids) return;
     (window as any)._linkedin_partner_id = id;
     (window as any)._linkedin_data_partner_ids = (window as any)._linkedin_data_partner_ids || [];
@@ -92,7 +94,7 @@ export const PixelInjector = () => {
     document.head.appendChild(s);
   }, [data?.linkedin_insight_id]);
 
-  // Theme colors → CSS variables + targeted overrides
+  // Theme colors — validate via CSSOM (no innerHTML interpolation of free text)
   useEffect(() => {
     if (!data) return;
     const styleId = "am-theme-overrides";
@@ -102,12 +104,15 @@ export const PixelInjector = () => {
       el.id = styleId;
       document.head.appendChild(el);
     }
-    const css = `
-      ${data.header_text_color ? `header [data-header-text], header [data-header-text] * { color: ${data.header_text_color} !important; }` : ""}
-      ${data.footer_text_color ? `footer, footer * { color: ${data.footer_text_color}; }` : ""}
-      ${data.hero_heading_color ? `[data-hero-heading], [data-hero-heading] * { color: ${data.hero_heading_color} !important; }` : ""}
-    `;
-    el.innerHTML = css;
+    const header = safe(data.header_text_color, RE_COLOR);
+    const footer = safe(data.footer_text_color, RE_COLOR);
+    const hero = safe(data.hero_heading_color, RE_COLOR);
+    const css = [
+      header ? `header [data-header-text], header [data-header-text] * { color: ${header} !important; }` : "",
+      footer ? `footer, footer * { color: ${footer}; }` : "",
+      hero ? `[data-hero-heading], [data-hero-heading] * { color: ${hero} !important; }` : "",
+    ].join("\n");
+    el.textContent = css;
   }, [data?.header_text_color, data?.footer_text_color, data?.hero_heading_color]);
 
   return null;

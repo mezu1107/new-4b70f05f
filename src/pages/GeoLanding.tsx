@@ -106,7 +106,7 @@ export default function GeoLanding() {
       </section>
 
       {/* Cities served */}
-      <section className="py-10 border-b border-border bg-card/30">
+      <section className="py-10 border-b border-border section-soft">
         <div className="container mx-auto">
           <div className="flex flex-wrap items-center justify-center gap-3">
             <MapPin className="w-5 h-5 text-primary" />
@@ -146,7 +146,7 @@ export default function GeoLanding() {
       <CaseStudyHighlights />
 
       {/* Localized Pricing */}
-      <section className="py-16 md:py-20 border-b border-border bg-card/30">
+      <section className="py-16 md:py-20 border-b border-border section-soft">
         <div className="container mx-auto">
           <div className="text-center mb-10">
             <Badge variant="outline" className="mb-3">{region.currency} Pricing</Badge>

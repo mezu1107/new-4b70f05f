@@ -22,6 +22,8 @@ import { TeamSection } from "@/components/TeamSection";
 import { FeatureGrid } from "@/components/FeatureGrid";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
 import { useRealtimeTable } from "@/hooks/useRealtimeTable";
+import { GeoSmartBanner } from "@/components/GeoSmartBanner";
+
 
 const ICONS: Record<string, any> = {
   Search, Globe, Sparkles, Bot, Brain, FileText, Workflow, Rocket, Trophy, Code,

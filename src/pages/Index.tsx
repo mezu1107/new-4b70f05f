@@ -238,9 +238,11 @@ const Index = () => {
       <div className="absolute inset-0 grid-bg opacity-40" aria-hidden />
       <div className="relative container mx-auto pt-16 lg:pt-24 pb-20 grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
         <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+          <GeoSmartBanner />
           <span className="pill-tag mb-6">
             <Sparkles className="w-3.5 h-3.5" /> AI-Powered Marketing Agency
           </span>
+
           <h1 data-hero-heading className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.05] mb-4">
             We Generate Leads.<br />
             <span className="text-gradient text-3d">You Get More Clients.</span>

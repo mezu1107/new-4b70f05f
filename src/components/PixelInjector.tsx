@@ -108,33 +108,45 @@ export const PixelInjector = () => {
   useEffect(() => {
     const id = safe(data?.pinterest_tag_id, RE_PINTEREST);
     if (!id || (window as any).pintrk) return;
-    /* eslint-disable */
-    !function(e:any){if(!e.pintrk){e.pintrk=function(){e.pintrk.queue.push(Array.prototype.slice.call(arguments))};var t=e.pintrk;t.queue=[],t.version="3.0";var n=document.createElement("script");n.async=!0,n.src="https://s.pinimg.com/ct/core.js";var r=document.getElementsByTagName("script")[0];r.parentNode!.insertBefore(n,r)}}(window);
-    (window as any).pintrk("load", id);
-    (window as any).pintrk("page");
-    /* eslint-enable */
+    const w: any = window;
+    w.pintrk = function () { (w.pintrk.queue = w.pintrk.queue || []).push(Array.prototype.slice.call(arguments)); };
+    w.pintrk.queue = []; w.pintrk.version = "3.0";
+    const n = document.createElement("script");
+    n.async = true; n.src = "https://s.pinimg.com/ct/core.js";
+    document.head.appendChild(n);
+    w.pintrk("load", id);
+    w.pintrk("page");
   }, [data?.pinterest_tag_id]);
 
   /* ============== SNAPCHAT PIXEL ============== */
   useEffect(() => {
     const id = safe(data?.snapchat_pixel_id, RE_SNAP);
     if (!id || (window as any).snaptr) return;
-    /* eslint-disable */
-    (function(e:any,t:any,n:any){if(e.snaptr)return;var r=e.snaptr=function(){r.handleRequest?r.handleRequest.apply(r,arguments):r.queue.push(arguments)};r.queue=[];var a="script",s=t.createElement(a);s.async=!0,s.src=n;var u=t.getElementsByTagName(a)[0];u.parentNode!.insertBefore(s,u)})(window,document,"https://sc-static.net/scevent.min.js");
-    (window as any).snaptr("init", id);
-    (window as any).snaptr("track", "PAGE_VIEW");
-    /* eslint-enable */
+    const w: any = window;
+    const r: any = function () { r.handleRequest ? r.handleRequest.apply(r, arguments) : r.queue.push(arguments); };
+    r.queue = [];
+    w.snaptr = r;
+    const s = document.createElement("script");
+    s.async = true; s.src = "https://sc-static.net/scevent.min.js";
+    document.head.appendChild(s);
+    w.snaptr("init", id);
+    w.snaptr("track", "PAGE_VIEW");
   }, [data?.snapchat_pixel_id]);
 
   /* ============== TWITTER / X PIXEL ============== */
   useEffect(() => {
     const id = safe(data?.twitter_pixel_id, RE_TWITTER);
     if (!id || (window as any).twq) return;
-    /* eslint-disable */
-    !function(e:any,t:any,n:any,s?:any,u?:any,a?:any){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments)},s.version="1.1",s.queue=[],u=t.createElement(n),u.async=!0,u.src="https://static.ads-twitter.com/uwt.js",a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,"script");
-    (window as any).twq("config", id);
-    /* eslint-enable */
+    const w: any = window;
+    const s: any = function () { s.exe ? s.exe.apply(s, arguments) : s.queue.push(arguments); };
+    s.version = "1.1"; s.queue = [];
+    w.twq = s;
+    const u = document.createElement("script");
+    u.async = true; u.src = "https://static.ads-twitter.com/uwt.js";
+    document.head.appendChild(u);
+    w.twq("config", id);
   }, [data?.twitter_pixel_id]);
+
 
   /* ============== HOTJAR ============== */
   useEffect(() => {

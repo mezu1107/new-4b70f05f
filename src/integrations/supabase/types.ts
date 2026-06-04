@@ -1153,86 +1153,116 @@ export type Database = {
       site_settings: {
         Row: {
           address: string | null
+          bing_verification: string | null
+          clarity_id: string | null
           contact_email: string | null
           contact_phone: string | null
+          custom_body_html: string | null
+          custom_head_html: string | null
           facebook_url: string | null
           footer_text_color: string | null
           google_analytics_id: string | null
           google_maps_embed: string | null
           google_tag_manager_id: string | null
+          gsc_verification: string | null
           header_text_color: string | null
           hero_heading_color: string | null
           hero_typewriter_lines: Json | null
+          hotjar_id: string | null
           id: string
           instagram_url: string | null
           linkedin_insight_id: string | null
           linkedin_url: string | null
           logo_url: string | null
           meta_pixel_id: string | null
+          pinterest_tag_id: string | null
           pixel_auto_verify: boolean
           site_name: string
+          snapchat_pixel_id: string | null
           tagline: string | null
           theme_accent_color: string | null
           theme_primary_color: string | null
           tiktok_pixel_id: string | null
+          twitter_pixel_id: string | null
           updated_at: string
           whatsapp_number: string | null
+          yandex_verification: string | null
           youtube_url: string | null
         }
         Insert: {
           address?: string | null
+          bing_verification?: string | null
+          clarity_id?: string | null
           contact_email?: string | null
           contact_phone?: string | null
+          custom_body_html?: string | null
+          custom_head_html?: string | null
           facebook_url?: string | null
           footer_text_color?: string | null
           google_analytics_id?: string | null
           google_maps_embed?: string | null
           google_tag_manager_id?: string | null
+          gsc_verification?: string | null
           header_text_color?: string | null
           hero_heading_color?: string | null
           hero_typewriter_lines?: Json | null
+          hotjar_id?: string | null
           id?: string
           instagram_url?: string | null
           linkedin_insight_id?: string | null
           linkedin_url?: string | null
           logo_url?: string | null
           meta_pixel_id?: string | null
+          pinterest_tag_id?: string | null
           pixel_auto_verify?: boolean
           site_name?: string
+          snapchat_pixel_id?: string | null
           tagline?: string | null
           theme_accent_color?: string | null
           theme_primary_color?: string | null
           tiktok_pixel_id?: string | null
+          twitter_pixel_id?: string | null
           updated_at?: string
           whatsapp_number?: string | null
+          yandex_verification?: string | null
           youtube_url?: string | null
         }
         Update: {
           address?: string | null
+          bing_verification?: string | null
+          clarity_id?: string | null
           contact_email?: string | null
           contact_phone?: string | null
+          custom_body_html?: string | null
+          custom_head_html?: string | null
           facebook_url?: string | null
           footer_text_color?: string | null
           google_analytics_id?: string | null
           google_maps_embed?: string | null
           google_tag_manager_id?: string | null
+          gsc_verification?: string | null
           header_text_color?: string | null
           hero_heading_color?: string | null
           hero_typewriter_lines?: Json | null
+          hotjar_id?: string | null
           id?: string
           instagram_url?: string | null
           linkedin_insight_id?: string | null
           linkedin_url?: string | null
           logo_url?: string | null
           meta_pixel_id?: string | null
+          pinterest_tag_id?: string | null
           pixel_auto_verify?: boolean
           site_name?: string
+          snapchat_pixel_id?: string | null
           tagline?: string | null
           theme_accent_color?: string | null
           theme_primary_color?: string | null
           tiktok_pixel_id?: string | null
+          twitter_pixel_id?: string | null
           updated_at?: string
           whatsapp_number?: string | null
+          yandex_verification?: string | null
           youtube_url?: string | null
         }
         Relationships: []
@@ -1484,28 +1514,38 @@ export type Database = {
         Args: never
         Returns: {
           address: string
+          bing_verification: string
+          clarity_id: string
           contact_email: string
           contact_phone: string
+          custom_body_html: string
+          custom_head_html: string
           facebook_url: string
           footer_text_color: string
           google_analytics_id: string
           google_maps_embed: string
           google_tag_manager_id: string
+          gsc_verification: string
           header_text_color: string
           hero_heading_color: string
           hero_typewriter_lines: Json
+          hotjar_id: string
           id: string
           instagram_url: string
           linkedin_insight_id: string
           linkedin_url: string
           logo_url: string
           meta_pixel_id: string
+          pinterest_tag_id: string
           site_name: string
+          snapchat_pixel_id: string
           tagline: string
           theme_accent_color: string
           theme_primary_color: string
           tiktok_pixel_id: string
+          twitter_pixel_id: string
           whatsapp_number: string
+          yandex_verification: string
           youtube_url: string
         }[]
       }

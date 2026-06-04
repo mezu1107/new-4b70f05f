@@ -2,25 +2,37 @@ import { useEffect } from "react";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
 
 /**
- * Single source of truth for ALL marketing pixels + theme color overrides.
- * Replaces MetaPixel; injects Meta, GA4, GTM, TikTok, LinkedIn from admin settings.
- * Also writes CSS variables and overrides for header/footer/hero text colors.
+ * Single source of truth for ALL marketing pixels, webmaster verifications,
+ * heatmap tools, custom HTML, and theme color overrides.
+ * Paste an ID in the admin → it instantly goes live on every page.
  */
-// Strict allow-lists. Anything that doesn't match is dropped (prevents stored XSS via compromised admin).
 const RE_META = /^\d{6,20}$/;
 const RE_GA4 = /^G-[A-Z0-9]{6,20}$/;
 const RE_GTM = /^GTM-[A-Z0-9]{4,15}$/;
-const RE_TIKTOK = /^[A-Z0-9]{10,40}$/;
+const RE_TIKTOK = /^[A-Z0-9_-]{8,40}$/i;
 const RE_LINKEDIN = /^\d{4,15}$/;
+const RE_PINTEREST = /^\d{10,20}$/;
+const RE_SNAP = /^[a-f0-9-]{20,60}$/i;
+const RE_TWITTER = /^[a-z0-9]{4,20}$/i;
+const RE_HOTJAR = /^\d{4,10}$/;
+const RE_CLARITY = /^[a-z0-9]{6,20}$/i;
+const RE_VERIFY = /^[A-Za-z0-9_\-=.]{8,200}$/; // search engine verification tokens
 const RE_COLOR = /^(#[0-9a-fA-F]{3,8}|rgb\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*\)|rgba\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*(0|1|0?\.\d+)\s*\)|hsl\(\s*\d{1,3}\s*,\s*\d{1,3}%\s*,\s*\d{1,3}%\s*\)|[a-zA-Z]{3,20})$/;
 
 const safe = (v: string | null | undefined, re: RegExp) =>
   v && typeof v === "string" && re.test(v.trim()) ? v.trim() : null;
 
-export const PixelInjector = () => {
-  const { data } = useSiteSettings();
+const ensureMeta = (id: string, name: string, content: string) => {
+  if (document.getElementById(id)) return;
+  const m = document.createElement("meta");
+  m.id = id; m.name = name; m.content = content;
+  document.head.appendChild(m);
+};
 
-  // Meta Pixel
+export const PixelInjector = () => {
+  const { data } = useSiteSettings() as { data: any };
+
+  /* ============== META PIXEL ============== */
   useEffect(() => {
     const id = safe(data?.meta_pixel_id, RE_META);
     if (!id || (window as any).fbq) return;
@@ -36,7 +48,7 @@ export const PixelInjector = () => {
     /* eslint-enable */
   }, [data?.meta_pixel_id]);
 
-  // GA4
+  /* ============== GA4 ============== */
   useEffect(() => {
     const id = safe(data?.google_analytics_id, RE_GA4);
     if (!id || document.getElementById("ga4-script")) return;
@@ -44,30 +56,28 @@ export const PixelInjector = () => {
     s.id = "ga4-script"; s.async = true; s.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(id)}`;
     document.head.appendChild(s);
     const inline = document.createElement("script");
-    // id is validated by RE_GA4 (alphanumerics + dash only), safe to interpolate
     inline.text = `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${id}');`;
     document.head.appendChild(inline);
   }, [data?.google_analytics_id]);
 
-  // GTM
+  /* ============== GTM ============== */
   useEffect(() => {
     const id = safe(data?.google_tag_manager_id, RE_GTM);
     if (!id || document.getElementById("gtm-script")) return;
     const s = document.createElement("script");
     s.id = "gtm-script";
-    // id validated by RE_GTM
     s.text = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${id}');`;
     document.head.appendChild(s);
   }, [data?.google_tag_manager_id]);
 
-  // TikTok
+  /* ============== TIKTOK ============== */
   useEffect(() => {
     const id = safe(data?.tiktok_pixel_id, RE_TIKTOK);
     if (!id || (window as any).ttq) return;
     /* eslint-disable */
     (function (w: any, d: any, t: any) {
       w.TiktokAnalyticsObject = t; const ttq = (w[t] = w[t] || []);
-      ttq.methods = ["page", "track", "identify", "instances", "debug", "on", "off", "once", "ready", "alias", "group", "enableCookie", "disableCookie"];
+      ttq.methods = ["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"];
       ttq.setAndDefer = function (e: any, n: any) { e[n] = function () { e.push([n].concat(Array.prototype.slice.call(arguments, 0))) } };
       for (let i = 0; i < ttq.methods.length; i++) ttq.setAndDefer(ttq, ttq.methods[i]);
       ttq.instance = function (e: any) { const n = ttq._i[e] || []; for (let i = 0; i < ttq.methods.length; i++) ttq.setAndDefer(n, ttq.methods[i]); return n };
@@ -82,7 +92,7 @@ export const PixelInjector = () => {
     /* eslint-enable */
   }, [data?.tiktok_pixel_id]);
 
-  // LinkedIn Insight
+  /* ============== LINKEDIN ============== */
   useEffect(() => {
     const id = safe(data?.linkedin_insight_id, RE_LINKEDIN);
     if (!id || (window as any)._linkedin_data_partner_ids) return;
@@ -94,7 +104,118 @@ export const PixelInjector = () => {
     document.head.appendChild(s);
   }, [data?.linkedin_insight_id]);
 
-  // Theme colors — validate via CSSOM (no innerHTML interpolation of free text)
+  /* ============== PINTEREST TAG ============== */
+  useEffect(() => {
+    const id = safe(data?.pinterest_tag_id, RE_PINTEREST);
+    if (!id || (window as any).pintrk) return;
+    /* eslint-disable */
+    !function(e:any){if(!e.pintrk){e.pintrk=function(){e.pintrk.queue.push(Array.prototype.slice.call(arguments))};var t=e.pintrk;t.queue=[],t.version="3.0";var n=document.createElement("script");n.async=!0,n.src="https://s.pinimg.com/ct/core.js";var r=document.getElementsByTagName("script")[0];r.parentNode!.insertBefore(n,r)}}(window);
+    (window as any).pintrk("load", id);
+    (window as any).pintrk("page");
+    /* eslint-enable */
+  }, [data?.pinterest_tag_id]);
+
+  /* ============== SNAPCHAT PIXEL ============== */
+  useEffect(() => {
+    const id = safe(data?.snapchat_pixel_id, RE_SNAP);
+    if (!id || (window as any).snaptr) return;
+    /* eslint-disable */
+    (function(e:any,t:any,n:any){if(e.snaptr)return;var r=e.snaptr=function(){r.handleRequest?r.handleRequest.apply(r,arguments):r.queue.push(arguments)};r.queue=[];var a="script",s=t.createElement(a);s.async=!0,s.src=n;var u=t.getElementsByTagName(a)[0];u.parentNode!.insertBefore(s,u)})(window,document,"https://sc-static.net/scevent.min.js");
+    (window as any).snaptr("init", id);
+    (window as any).snaptr("track", "PAGE_VIEW");
+    /* eslint-enable */
+  }, [data?.snapchat_pixel_id]);
+
+  /* ============== TWITTER / X PIXEL ============== */
+  useEffect(() => {
+    const id = safe(data?.twitter_pixel_id, RE_TWITTER);
+    if (!id || (window as any).twq) return;
+    /* eslint-disable */
+    !function(e:any,t:any,n:any,s?:any,u?:any,a?:any){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments)},s.version="1.1",s.queue=[],u=t.createElement(n),u.async=!0,u.src="https://static.ads-twitter.com/uwt.js",a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,"script");
+    (window as any).twq("config", id);
+    /* eslint-enable */
+  }, [data?.twitter_pixel_id]);
+
+  /* ============== HOTJAR ============== */
+  useEffect(() => {
+    const id = safe(data?.hotjar_id, RE_HOTJAR);
+    if (!id || (window as any).hj) return;
+    /* eslint-disable */
+    (function(h:any,o:any,t:any,j:any){h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};h._hjSettings={hjid:Number(id),hjsv:6};var a=o.getElementsByTagName("head")[0];var r=o.createElement("script");r.async=1;r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;a.appendChild(r)})(window,document,"https://static.hotjar.com/c/hotjar-",".js?sv=");
+    /* eslint-enable */
+  }, [data?.hotjar_id]);
+
+  /* ============== MICROSOFT CLARITY ============== */
+  useEffect(() => {
+    const id = safe(data?.clarity_id, RE_CLARITY);
+    if (!id || (window as any).clarity) return;
+    /* eslint-disable */
+    (function(c:any,l:any,a:any,r:any,i:any){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};const t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;const y=l.getElementsByTagName(r)[0];y.parentNode!.insertBefore(t,y)})(window,document,"clarity","script",id);
+    /* eslint-enable */
+  }, [data?.clarity_id]);
+
+  /* ============== SEARCH ENGINE VERIFICATIONS (meta tags) ============== */
+  useEffect(() => {
+    const g = safe(data?.gsc_verification, RE_VERIFY);
+    if (g) ensureMeta("verify-gsc", "google-site-verification", g);
+    const b = safe(data?.bing_verification, RE_VERIFY);
+    if (b) ensureMeta("verify-bing", "msvalidate.01", b);
+    const y = safe(data?.yandex_verification, RE_VERIFY);
+    if (y) ensureMeta("verify-yandex", "yandex-verification", y);
+  }, [data?.gsc_verification, data?.bing_verification, data?.yandex_verification]);
+
+  /* ============== CUSTOM HEAD / BODY HTML (admin-only) ============== */
+  useEffect(() => {
+    const head = data?.custom_head_html;
+    const containerId = "am-custom-head";
+    let el = document.getElementById(containerId);
+    if (head && typeof head === "string" && head.trim().length > 0) {
+      if (!el) {
+        el = document.createElement("div");
+        el.id = containerId;
+        el.style.display = "none";
+        document.head.appendChild(el);
+      }
+      if (el.innerHTML !== head) {
+        el.innerHTML = head;
+        // Re-execute any <script> tags inside
+        el.querySelectorAll("script").forEach((old) => {
+          const s = document.createElement("script");
+          for (const a of Array.from(old.attributes)) s.setAttribute(a.name, a.value);
+          s.text = old.textContent || "";
+          old.parentNode?.replaceChild(s, old);
+        });
+      }
+    } else if (el) {
+      el.remove();
+    }
+  }, [data?.custom_head_html]);
+
+  useEffect(() => {
+    const body = data?.custom_body_html;
+    const containerId = "am-custom-body";
+    let el = document.getElementById(containerId);
+    if (body && typeof body === "string" && body.trim().length > 0) {
+      if (!el) {
+        el = document.createElement("div");
+        el.id = containerId;
+        document.body.appendChild(el);
+      }
+      if (el.innerHTML !== body) {
+        el.innerHTML = body;
+        el.querySelectorAll("script").forEach((old) => {
+          const s = document.createElement("script");
+          for (const a of Array.from(old.attributes)) s.setAttribute(a.name, a.value);
+          s.text = old.textContent || "";
+          old.parentNode?.replaceChild(s, old);
+        });
+      }
+    } else if (el) {
+      el.remove();
+    }
+  }, [data?.custom_body_html]);
+
+  /* ============== THEME COLOR OVERRIDES ============== */
   useEffect(() => {
     if (!data) return;
     const styleId = "am-theme-overrides";

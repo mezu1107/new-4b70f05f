@@ -301,7 +301,7 @@ const Index = () => {
     )}
 
     {/* ============== BEFORE / AFTER & ROI (moved UP for trust early) ============== */}
-    <section className="py-20 lg:py-28 bg-card/30 border-y border-border">
+    <section className="py-20 lg:py-28 section-soft section-divider-top section-divider-bottom">
       <div className="container mx-auto grid lg:grid-cols-2 gap-10 items-start">
         <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
           <span className="pill-tag mb-4">Before vs After</span>
@@ -346,7 +346,7 @@ const Index = () => {
     </section>
 
     {/* ============== SERVICES ============== */}
-    <section className="py-20 lg:py-28 bg-card/30 border-y border-border">
+    <section className="py-20 lg:py-28 section-soft section-divider-top section-divider-bottom">
       <div className="container mx-auto">
         <SectionHeader tag="Our Services">
           Result-Focused Services<br />
@@ -397,7 +397,7 @@ const Index = () => {
     </section>
 
     {/* ============== AI SYSTEMS ============== */}
-    <section id="ai-systems" className="py-20 lg:py-28 relative overflow-hidden bg-card/30 border-y border-border">
+    <section id="ai-systems" className="py-20 lg:py-28 relative overflow-hidden section-soft section-divider-top section-divider-bottom">
       <div className="absolute inset-0 gradient-hero opacity-50" aria-hidden />
       <div className="relative container mx-auto">
         <div className="mb-12">
@@ -435,7 +435,7 @@ const Index = () => {
     </section>
 
     {/* ============== PRICING ============== */}
-    <section className="py-20 lg:py-28 bg-card/30 border-y border-border">
+    <section className="py-20 lg:py-28 section-soft section-divider-top section-divider-bottom">
       <div className="container mx-auto">
         <SectionHeader tag="Pricing">
           Transparent Plans.<br /><span className="text-gradient">No Surprises.</span>
@@ -467,7 +467,7 @@ const Index = () => {
     </section>
 
     {/* ============== TEAM ============== */}
-    <section className="py-20 lg:py-28 bg-card/30 border-y border-border">
+    <section className="py-20 lg:py-28 section-soft section-divider-top section-divider-bottom">
       <div className="container mx-auto">
         <SectionHeader tag="Our Team">
           The Experts Behind<br /><span className="text-gradient">Your Growth</span>
@@ -483,7 +483,7 @@ const Index = () => {
     <AIToolkit />
 
     {/* ============== FINAL BOOKING (deep funnel - convert intent) ============== */}
-    <section id="book" className="py-20 lg:py-28 bg-card/30 border-y border-border scroll-mt-20">
+    <section id="book" className="py-20 lg:py-28 section-soft section-divider-top section-divider-bottom scroll-mt-20">
       <div className="container mx-auto grid lg:grid-cols-2 gap-10 items-start">
         <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
           <span className="pill-tag mb-4"><Calendar className="w-3.5 h-3.5" /> Book a Free Strategy Call</span>
@@ -524,7 +524,7 @@ const Index = () => {
     </section>
 
     {/* ============== FAQ ============== */}
-    <section className="py-20 lg:py-28 bg-card/30 border-y border-border">
+    <section className="py-20 lg:py-28 section-soft section-divider-top section-divider-bottom">
       <div className="container mx-auto max-w-3xl">
         <SectionHeader tag="FAQ">
           Common <span className="text-gradient">Questions</span>

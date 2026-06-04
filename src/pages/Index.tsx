@@ -280,7 +280,7 @@ const Index = () => {
 
     {/* ============== STATS ============== */}
     {dbStats && dbStats.length > 0 && (
-      <section className="py-12 lg:py-16 border-y border-border bg-card/30">
+      <section className="py-12 lg:py-16 section-spotlight section-divider-top section-divider-bottom">
         <div className="container mx-auto grid grid-cols-2 md:grid-cols-4 gap-6">
           {dbStats.map((s: any) => {
             const Icon = ICONS[s.icon] || TrendingUp;

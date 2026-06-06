@@ -168,11 +168,11 @@ export const FloatingWidget = () => {
               <div className="text-xs text-muted-foreground">Avg reply: under 10 min</div>
             </div>
           </a>
-          <a href="tel:03173712950" className="w-full flex items-center gap-3 p-4 hover:bg-muted/50 text-left transition-smooth">
+          <a href="tel:+923173712950" className="w-full flex items-center gap-3 p-4 hover:bg-muted/50 text-left transition-smooth">
             <div className="w-10 h-10 rounded-full bg-primary/15 text-primary flex items-center justify-center"><Phone className="w-5 h-5" /></div>
             <div>
               <div className="font-semibold text-sm">Call Now</div>
-              <div className="text-xs text-muted-foreground">0317-3712950</div>
+              <div className="text-xs text-muted-foreground">+92 317 3712950 · +44 7717 229638</div>
             </div>
           </a>
           <div className="px-4 py-2 text-[11px] text-muted-foreground bg-muted/40 flex items-center gap-1">

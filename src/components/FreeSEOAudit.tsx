@@ -4,9 +4,38 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search, CheckCircle2 } from "lucide-react";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
+import { z } from "zod";
+
+const schema = z.object({
+  website: z.string().trim().min(3).max(255),
+  email: z.string().trim().email().max(255),
+  phone: z.string().trim().max(30).optional(),
+});
 
 export const FreeSEOAudit = () => {
   const [submitted, setSubmitted] = useState(false);
+  const [busy, setBusy] = useState(false);
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const fd = new FormData(e.currentTarget);
+    const v = schema.safeParse(Object.fromEntries(fd) as any);
+    if (!v.success) { toast.error(v.error.issues[0].message); return; }
+    setBusy(true);
+    const { error } = await supabase.from("contact_leads").insert({
+      name: v.data.email.split("@")[0],
+      email: v.data.email,
+      phone: v.data.phone || null,
+      message: `[FREE SEO AUDIT REQUEST] Website: ${v.data.website}`,
+      source: "seo_audit",
+    } as any);
+    setBusy(false);
+    if (error) { toast.error(error.message); return; }
+    setSubmitted(true);
+    toast.success("Audit request received! Check your inbox in 24h.");
+  };
+
   return (
     <Card className="p-8 md:p-10 gradient-hero shadow-elegant border-2 border-primary/20">
       <div className="grid md:grid-cols-2 gap-8 items-center">
@@ -27,11 +56,13 @@ export const FreeSEOAudit = () => {
             <p className="text-muted-foreground text-sm">We'll email your full report within 24 hours.</p>
           </div>
         ) : (
-          <form onSubmit={(e) => { e.preventDefault(); setSubmitted(true); toast.success("Audit request received!"); }} className="bg-white rounded-xl p-6 space-y-3">
-            <Input placeholder="Your Website URL" required />
-            <Input type="email" placeholder="Your Email" required />
-            <Input placeholder="Phone (optional)" />
-            <Button type="submit" variant="hero" className="w-full" size="lg"><Search className="w-4 h-4 mr-2" />Get My Free Audit</Button>
+          <form onSubmit={onSubmit} className="bg-white rounded-xl p-6 space-y-3">
+            <Input name="website" placeholder="Your Website URL" required maxLength={255} />
+            <Input name="email" type="email" placeholder="Your Email" required maxLength={255} />
+            <Input name="phone" placeholder="Phone (optional)" maxLength={30} />
+            <Button type="submit" variant="hero" className="w-full" size="lg" disabled={busy}>
+              <Search className="w-4 h-4 mr-2" />{busy ? "Submitting…" : "Get My Free Audit"}
+            </Button>
             <p className="text-xs text-muted-foreground text-center">100% free. No credit card required.</p>
           </form>
         )}

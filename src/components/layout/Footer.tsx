@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Facebook, Instagram, Linkedin, Youtube, Mail, Phone, MapPin, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { CONTACT } from "@/lib/contact";
 
 export const Footer = () => {
   return (
@@ -60,10 +61,16 @@ export const Footer = () => {
 
         <div>
           <h4 className="font-semibold mb-4 text-sm uppercase tracking-wider opacity-90">Contact Us</h4>
-          <ul className="space-y-3 text-sm opacity-70 mb-5">
-            <li><a href="mailto:info@amenterprises.tech <br>amenterprises1105@gmail.com" className="flex gap-2 hover:text-primary hover:opacity-100"><Mail className="w-4 h-4 mt-0.5 shrink-0" /> info@amenterprises.tech</a></li>
-            <li><a href="tel:+92 3173712950" className="flex gap-2 hover:text-primary hover:opacity-100"><Phone className="w-4 h-4 mt-0.5 shrink-0" /> +92 3173712950</a></li>
-            <li className="flex gap-2"><MapPin className="w-4 h-4 mt-0.5 shrink-0" /> USA & Canada | Pakistan (Islamabad, Rawalpindi)  </li>
+          <ul className="space-y-2.5 text-sm opacity-70 mb-5">
+            {CONTACT.emails.map((e) => (
+              <li key={e}><a href={`mailto:${e}`} className="flex gap-2 hover:text-primary hover:opacity-100 break-all"><Mail className="w-4 h-4 mt-0.5 shrink-0" /> {e}</a></li>
+            ))}
+            {CONTACT.phones.map((p) => (
+              <li key={p.tel}><a href={`tel:${p.tel}`} className="flex gap-2 hover:text-primary hover:opacity-100"><Phone className="w-4 h-4 mt-0.5 shrink-0" /> {p.display} <span className="opacity-60 text-xs">({p.label.split(" ")[0]})</span></a></li>
+            ))}
+            {CONTACT.offices.map((o) => (
+              <li key={o.name} className="flex gap-2"><MapPin className="w-4 h-4 mt-0.5 shrink-0" /> {o.name}</li>
+            ))}
           </ul>
           <Button asChild className="gradient-cta text-primary-foreground shadow-glow w-full">
             <Link to="/contact"><Calendar className="w-4 h-4 mr-2" /> Book Free Call</Link>

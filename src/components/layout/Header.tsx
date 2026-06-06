@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { Menu, X, Calendar, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { CountrySwitcher } from "@/components/CountrySwitcher";
 import fallbackLogo from "@/assets/logo.png";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
 import { useRealtimeTable } from "@/hooks/useRealtimeTable";
@@ -86,7 +85,6 @@ export const Header = () => {
           ))}
         </nav>
         <div className="hidden lg:flex items-center gap-2">
-          <CountrySwitcher compact />
           <ThemeToggle />
           <Button asChild className="gradient-cta text-primary-foreground shadow-glow hover:opacity-90">
             <Link to="/contact"><Calendar className="w-4 h-4 mr-2" /> Book Free Call</Link>

@@ -22,7 +22,7 @@ import { TeamSection } from "@/components/TeamSection";
 import { FeatureGrid } from "@/components/FeatureGrid";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
 import { useRealtimeTable } from "@/hooks/useRealtimeTable";
-import { GeoSmartBanner } from "@/components/GeoSmartBanner";
+
 
 
 const ICONS: Record<string, any> = {
@@ -238,7 +238,7 @@ const Index = () => {
       <div className="absolute inset-0 grid-bg opacity-40" aria-hidden />
       <div className="relative container mx-auto pt-16 lg:pt-24 pb-20 grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
         <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-          <GeoSmartBanner />
+          
           <span className="pill-tag mb-6">
             <Sparkles className="w-3.5 h-3.5" /> AI-Powered Marketing Agency
           </span>
@@ -474,9 +474,9 @@ const Index = () => {
     <section className="py-20 lg:py-28 section-soft section-divider-top section-divider-bottom">
       <div className="container mx-auto">
         <SectionHeader tag="Our Team">
-          The Experts Behind<br /><span className="text-gradient">Your Growth</span>
+          Meet the Leadership<br /><span className="text-gradient">Driving Your Growth</span>
         </SectionHeader>
-        <TeamSection />
+        <TeamSection leadershipLayout />
         <div className="text-center mt-10">
           <Button asChild variant="outline" size="lg"><Link to="/team">View Full Team <ArrowRight className="ml-2 w-4 h-4" /></Link></Button>
         </div>

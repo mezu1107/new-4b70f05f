@@ -1,11 +1,12 @@
 import { Phone, Mail, MapPin, MessageCircle } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { CONTACT, PRIMARY_PHONE, PRIMARY_EMAIL } from "@/lib/contact";
 
 const cards = [
-  { icon: Phone, title: "Call Us", value: "0317-3712950", href: "tel:03173712950" },
-  { icon: MessageCircle, title: "WhatsApp", value: "Chat instantly", href: "https://wa.me/923173712950" },
-  { icon: Mail, title: "Email Us", value: "hello@amenterprises.tech", href: "mailto:hello@amenterprises.tech" },
-  { icon: MapPin, title: "Visit Us", value: "Islamabad, Pakistan", href: "/contact" },
+  { icon: Phone, title: "Call Us", value: PRIMARY_PHONE.display, href: `tel:${PRIMARY_PHONE.tel}` },
+  { icon: MessageCircle, title: "WhatsApp", value: "Chat instantly", href: `https://wa.me/${PRIMARY_PHONE.wa}` },
+  { icon: Mail, title: "Email Us", value: PRIMARY_EMAIL, href: `mailto:${PRIMARY_EMAIL}` },
+  { icon: MapPin, title: "Visit Us", value: CONTACT.offices[0].name, href: "/contact" },
 ];
 
 export const QuickContactCards = () => (

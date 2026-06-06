@@ -51,10 +51,11 @@ const About = () => (
     <section className="py-20">
       <div className="container mx-auto text-center">
         <h2 className="text-3xl md:text-4xl mb-3">Our Offices</h2>
-        <p className="text-muted-foreground mb-12">Two locations, one mission.</p>
-        <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
-          <Card className="p-8 text-left"><MapPin className="w-8 h-8 text-primary mb-3" /><h3 className="text-xl mb-2">Islamabad HQ</h3><p className="text-muted-foreground">Our main creative and strategy hub serving the federal capital region.</p></Card>
+        <p className="text-muted-foreground mb-12">Three locations across Pakistan — one mission.</p>
+        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <Card className="p-8 text-left"><MapPin className="w-8 h-8 text-primary mb-3" /><h3 className="text-xl mb-2">Main HQ — Islamabad</h3><p className="text-muted-foreground">Our headquarters and creative strategy hub serving the federal capital region.</p></Card>
           <Card className="p-8 text-left"><MapPin className="w-8 h-8 text-primary mb-3" /><h3 className="text-xl mb-2">Rawat Technology Park</h3><p className="text-muted-foreground">Our engineering hub for software, app, and platform development.</p></Card>
+          <Card className="p-8 text-left"><MapPin className="w-8 h-8 text-primary mb-3" /><h3 className="text-xl mb-2">Sixth Road, Rawalpindi</h3><p className="text-muted-foreground">Client services and operations office in the heart of Rawalpindi.</p></Card>
         </div>
         <Button asChild variant="hero" size="lg" className="mt-10"><Link to="/contact">Get in Touch</Link></Button>
       </div>

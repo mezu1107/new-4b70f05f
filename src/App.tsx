@@ -103,7 +103,6 @@ const App = () => (
               <Route path="/terms" element={<Terms />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/portal/:clientId" element={<ClientPortal />} />
-              <Route path="/portal" element={<ClientPortal />} />
               <Route path="/admin" element={<AdminLayout />}>
                 <Route index element={<Dashboard />} />
                 <Route path="team" element={<TeamAdmin />} />

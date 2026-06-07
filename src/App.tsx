@@ -135,6 +135,11 @@ const App = () => (
                 <Route path="analytics" element={<VisitorAnalyticsAdmin />} />
                 <Route path="theme-colors" element={<ThemeColorsAdmin />} />
                 <Route path="crm" element={<CrmFollowupsAdmin />} />
+                <Route path="aos/clients" element={<AOSClientsAdmin />} />
+                <Route path="aos/portal-access" element={<AOSClientUsersAdmin />} />
+                <Route path="aos/projects" element={<AOSProjectsAdmin />} />
+                <Route path="aos/approvals" element={<AOSApprovalsAdmin />} />
+                <Route path="aos/vault" element={<AOSVaultAdmin />} />
               </Route>
               <Route path="*" element={<NotFound />} />
             </Routes>

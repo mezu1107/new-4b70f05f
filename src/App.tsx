@@ -61,6 +61,12 @@ import ThemeColorsAdmin from "./pages/admin/ThemeColorsAdmin.tsx";
 import CrmFollowupsAdmin from "./pages/admin/CrmFollowupsAdmin.tsx";
 import Team from "./pages/Team.tsx";
 import CompanyProfile from "./pages/CompanyProfile.tsx";
+import ClientPortal from "./pages/portal/ClientPortal.tsx";
+import AOSClientsAdmin from "./pages/admin/aos/ClientsAdmin.tsx";
+import AOSProjectsAdmin from "./pages/admin/aos/ProjectsAdmin.tsx";
+import AOSClientUsersAdmin from "./pages/admin/aos/ClientUsersAdmin.tsx";
+import AOSApprovalsAdmin from "./pages/admin/aos/ApprovalsAdmin.tsx";
+import AOSVaultAdmin from "./pages/admin/aos/VaultAdmin.tsx";
 
 const queryClient = new QueryClient();
 
@@ -96,6 +102,7 @@ const App = () => (
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms" element={<Terms />} />
               <Route path="/auth" element={<Auth />} />
+              <Route path="/portal/:clientId" element={<ClientPortal />} />
               <Route path="/admin" element={<AdminLayout />}>
                 <Route index element={<Dashboard />} />
                 <Route path="team" element={<TeamAdmin />} />
@@ -128,6 +135,11 @@ const App = () => (
                 <Route path="analytics" element={<VisitorAnalyticsAdmin />} />
                 <Route path="theme-colors" element={<ThemeColorsAdmin />} />
                 <Route path="crm" element={<CrmFollowupsAdmin />} />
+                <Route path="aos/clients" element={<AOSClientsAdmin />} />
+                <Route path="aos/portal-access" element={<AOSClientUsersAdmin />} />
+                <Route path="aos/projects" element={<AOSProjectsAdmin />} />
+                <Route path="aos/approvals" element={<AOSApprovalsAdmin />} />
+                <Route path="aos/vault" element={<AOSVaultAdmin />} />
               </Route>
               <Route path="*" element={<NotFound />} />
             </Routes>

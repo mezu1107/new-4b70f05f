@@ -14,6 +14,653 @@ export type Database = {
   }
   public: {
     Tables: {
+      aos_activity: {
+        Row: {
+          action: string
+          actor_id: string | null
+          actor_name: string | null
+          client_id: string | null
+          created_at: string
+          entity_id: string | null
+          entity_type: string | null
+          id: string
+          is_client_visible: boolean
+          metadata: Json | null
+          project_id: string | null
+          summary: string
+        }
+        Insert: {
+          action: string
+          actor_id?: string | null
+          actor_name?: string | null
+          client_id?: string | null
+          created_at?: string
+          entity_id?: string | null
+          entity_type?: string | null
+          id?: string
+          is_client_visible?: boolean
+          metadata?: Json | null
+          project_id?: string | null
+          summary: string
+        }
+        Update: {
+          action?: string
+          actor_id?: string | null
+          actor_name?: string | null
+          client_id?: string | null
+          created_at?: string
+          entity_id?: string | null
+          entity_type?: string | null
+          id?: string
+          is_client_visible?: boolean
+          metadata?: Json | null
+          project_id?: string | null
+          summary?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "aos_activity_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "aos_clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "aos_activity_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "aos_projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      aos_approvals: {
+        Row: {
+          asset_type: string | null
+          asset_url: string | null
+          category: string
+          client_id: string
+          client_response: string | null
+          created_at: string
+          created_by: string | null
+          description: string | null
+          due_date: string | null
+          id: string
+          project_id: string | null
+          responded_at: string | null
+          responded_by: string | null
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          asset_type?: string | null
+          asset_url?: string | null
+          category?: string
+          client_id: string
+          client_response?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          project_id?: string | null
+          responded_at?: string | null
+          responded_by?: string | null
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          asset_type?: string | null
+          asset_url?: string | null
+          category?: string
+          client_id?: string
+          client_response?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          project_id?: string | null
+          responded_at?: string | null
+          responded_by?: string | null
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "aos_approvals_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "aos_clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "aos_approvals_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "aos_projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      aos_client_chat_messages: {
+        Row: {
+          client_id: string
+          content: string
+          created_at: string
+          id: string
+          role: string
+          user_id: string | null
+        }
+        Insert: {
+          client_id: string
+          content: string
+          created_at?: string
+          id?: string
+          role: string
+          user_id?: string | null
+        }
+        Update: {
+          client_id?: string
+          content?: string
+          created_at?: string
+          id?: string
+          role?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "aos_client_chat_messages_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "aos_clients"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      aos_client_users: {
+        Row: {
+          client_id: string
+          created_at: string
+          id: string
+          role: string
+          user_id: string
+        }
+        Insert: {
+          client_id: string
+          created_at?: string
+          id?: string
+          role?: string
+          user_id: string
+        }
+        Update: {
+          client_id?: string
+          created_at?: string
+          id?: string
+          role?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "aos_client_users_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "aos_clients"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      aos_clients: {
+        Row: {
+          account_manager_id: string | null
+          address: string | null
+          assigned_team: string[] | null
+          city: string | null
+          company_name: string | null
+          contract_end: string | null
+          contract_start: string | null
+          country: string | null
+          created_at: string
+          email: string | null
+          full_name: string
+          id: string
+          industry: string | null
+          language: string | null
+          logo_url: string | null
+          monthly_retainer: number | null
+          notes: string | null
+          phone: string | null
+          service_package: string | null
+          state: string | null
+          status: string
+          timezone: string | null
+          updated_at: string
+          website: string | null
+        }
+        Insert: {
+          account_manager_id?: string | null
+          address?: string | null
+          assigned_team?: string[] | null
+          city?: string | null
+          company_name?: string | null
+          contract_end?: string | null
+          contract_start?: string | null
+          country?: string | null
+          created_at?: string
+          email?: string | null
+          full_name: string
+          id?: string
+          industry?: string | null
+          language?: string | null
+          logo_url?: string | null
+          monthly_retainer?: number | null
+          notes?: string | null
+          phone?: string | null
+          service_package?: string | null
+          state?: string | null
+          status?: string
+          timezone?: string | null
+          updated_at?: string
+          website?: string | null
+        }
+        Update: {
+          account_manager_id?: string | null
+          address?: string | null
+          assigned_team?: string[] | null
+          city?: string | null
+          company_name?: string | null
+          contract_end?: string | null
+          contract_start?: string | null
+          country?: string | null
+          created_at?: string
+          email?: string | null
+          full_name?: string
+          id?: string
+          industry?: string | null
+          language?: string | null
+          logo_url?: string | null
+          monthly_retainer?: number | null
+          notes?: string | null
+          phone?: string | null
+          service_package?: string | null
+          state?: string | null
+          status?: string
+          timezone?: string | null
+          updated_at?: string
+          website?: string | null
+        }
+        Relationships: []
+      }
+      aos_milestones: {
+        Row: {
+          created_at: string
+          description: string | null
+          due_date: string | null
+          id: string
+          name: string
+          position: number
+          project_id: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          name: string
+          position?: number
+          project_id: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          name?: string
+          position?: number
+          project_id?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "aos_milestones_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "aos_projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      aos_projects: {
+        Row: {
+          budget: number | null
+          client_id: string
+          color: string | null
+          created_at: string
+          description: string | null
+          end_date: string | null
+          id: string
+          name: string
+          owner_id: string | null
+          priority: string
+          progress: number
+          start_date: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          budget?: number | null
+          client_id: string
+          color?: string | null
+          created_at?: string
+          description?: string | null
+          end_date?: string | null
+          id?: string
+          name: string
+          owner_id?: string | null
+          priority?: string
+          progress?: number
+          start_date?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          budget?: number | null
+          client_id?: string
+          color?: string | null
+          created_at?: string
+          description?: string | null
+          end_date?: string | null
+          id?: string
+          name?: string
+          owner_id?: string | null
+          priority?: string
+          progress?: number
+          start_date?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "aos_projects_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "aos_clients"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      aos_task_comments: {
+        Row: {
+          author_id: string
+          body: string
+          created_at: string
+          id: string
+          task_id: string
+        }
+        Insert: {
+          author_id: string
+          body: string
+          created_at?: string
+          id?: string
+          task_id: string
+        }
+        Update: {
+          author_id?: string
+          body?: string
+          created_at?: string
+          id?: string
+          task_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "aos_task_comments_task_id_fkey"
+            columns: ["task_id"]
+            isOneToOne: false
+            referencedRelation: "aos_tasks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      aos_tasks: {
+        Row: {
+          assignee_id: string | null
+          checklist: Json
+          created_at: string
+          description: string | null
+          due_date: string | null
+          estimate_hours: number | null
+          id: string
+          milestone_id: string | null
+          parent_task_id: string | null
+          position: number
+          priority: string
+          project_id: string
+          reporter_id: string | null
+          status: string
+          tags: string[] | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          assignee_id?: string | null
+          checklist?: Json
+          created_at?: string
+          description?: string | null
+          due_date?: string | null
+          estimate_hours?: number | null
+          id?: string
+          milestone_id?: string | null
+          parent_task_id?: string | null
+          position?: number
+          priority?: string
+          project_id: string
+          reporter_id?: string | null
+          status?: string
+          tags?: string[] | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          assignee_id?: string | null
+          checklist?: Json
+          created_at?: string
+          description?: string | null
+          due_date?: string | null
+          estimate_hours?: number | null
+          id?: string
+          milestone_id?: string | null
+          parent_task_id?: string | null
+          position?: number
+          priority?: string
+          project_id?: string
+          reporter_id?: string | null
+          status?: string
+          tags?: string[] | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "aos_tasks_milestone_id_fkey"
+            columns: ["milestone_id"]
+            isOneToOne: false
+            referencedRelation: "aos_milestones"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "aos_tasks_parent_task_id_fkey"
+            columns: ["parent_task_id"]
+            isOneToOne: false
+            referencedRelation: "aos_tasks"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "aos_tasks_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "aos_projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      aos_time_entries: {
+        Row: {
+          created_at: string
+          id: string
+          logged_on: string
+          minutes: number
+          note: string | null
+          task_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          logged_on?: string
+          minutes: number
+          note?: string | null
+          task_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          logged_on?: string
+          minutes?: number
+          note?: string | null
+          task_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "aos_time_entries_task_id_fkey"
+            columns: ["task_id"]
+            isOneToOne: false
+            referencedRelation: "aos_tasks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      aos_vault_files: {
+        Row: {
+          client_id: string
+          created_at: string
+          download_count: number
+          folder_id: string | null
+          id: string
+          mime_type: string | null
+          name: string
+          parent_file_id: string | null
+          size_bytes: number | null
+          tags: string[] | null
+          uploaded_by: string | null
+          url: string
+          version: number
+        }
+        Insert: {
+          client_id: string
+          created_at?: string
+          download_count?: number
+          folder_id?: string | null
+          id?: string
+          mime_type?: string | null
+          name: string
+          parent_file_id?: string | null
+          size_bytes?: number | null
+          tags?: string[] | null
+          uploaded_by?: string | null
+          url: string
+          version?: number
+        }
+        Update: {
+          client_id?: string
+          created_at?: string
+          download_count?: number
+          folder_id?: string | null
+          id?: string
+          mime_type?: string | null
+          name?: string
+          parent_file_id?: string | null
+          size_bytes?: number | null
+          tags?: string[] | null
+          uploaded_by?: string | null
+          url?: string
+          version?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "aos_vault_files_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "aos_clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "aos_vault_files_folder_id_fkey"
+            columns: ["folder_id"]
+            isOneToOne: false
+            referencedRelation: "aos_vault_folders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "aos_vault_files_parent_file_id_fkey"
+            columns: ["parent_file_id"]
+            isOneToOne: false
+            referencedRelation: "aos_vault_files"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      aos_vault_folders: {
+        Row: {
+          client_id: string
+          created_at: string
+          created_by: string | null
+          id: string
+          name: string
+          parent_id: string | null
+        }
+        Insert: {
+          client_id: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          name: string
+          parent_id?: string | null
+        }
+        Update: {
+          client_id?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          name?: string
+          parent_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "aos_vault_folders_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "aos_clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "aos_vault_folders_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "aos_vault_folders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       appointments: {
         Row: {
           address: string | null
@@ -1549,6 +2196,10 @@ export type Database = {
           youtube_url: string
         }[]
       }
+      has_client_access: {
+        Args: { _client_id: string; _user_id: string }
+        Returns: boolean
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -1558,7 +2209,7 @@ export type Database = {
       }
     }
     Enums: {
-      app_role: "admin" | "editor" | "user"
+      app_role: "admin" | "editor" | "user" | "client"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -1686,7 +2337,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["admin", "editor", "user"],
+      app_role: ["admin", "editor", "user", "client"],
     },
   },
 } as const

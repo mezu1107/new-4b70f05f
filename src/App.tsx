@@ -61,6 +61,12 @@ import ThemeColorsAdmin from "./pages/admin/ThemeColorsAdmin.tsx";
 import CrmFollowupsAdmin from "./pages/admin/CrmFollowupsAdmin.tsx";
 import Team from "./pages/Team.tsx";
 import CompanyProfile from "./pages/CompanyProfile.tsx";
+import ClientPortal from "./pages/portal/ClientPortal.tsx";
+import AOSClientsAdmin from "./pages/admin/aos/ClientsAdmin.tsx";
+import AOSProjectsAdmin from "./pages/admin/aos/ProjectsAdmin.tsx";
+import AOSClientUsersAdmin from "./pages/admin/aos/ClientUsersAdmin.tsx";
+import AOSApprovalsAdmin from "./pages/admin/aos/ApprovalsAdmin.tsx";
+import AOSVaultAdmin from "./pages/admin/aos/VaultAdmin.tsx";
 
 const queryClient = new QueryClient();
 

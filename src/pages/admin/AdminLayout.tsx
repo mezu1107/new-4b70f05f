@@ -1,7 +1,7 @@
 import { NavLink, Outlet, Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
-import { LayoutDashboard, Users, Briefcase, Image, FileText, MessageSquare, Settings, Receipt, FileSignature, LogOut, Mail, HelpCircle, Tag, Package, Sparkles, Megaphone, BookOpen, BarChart3, ListChecks, UserPlus, CalendarCheck, Ticket, Library, Search, Bell, Activity, Palette, Target, Headphones } from "lucide-react";
+import { LayoutDashboard, Users, Briefcase, Image, FileText, MessageSquare, Settings, Receipt, FileSignature, LogOut, Mail, HelpCircle, Tag, Package, Sparkles, Megaphone, BookOpen, BarChart3, ListChecks, UserPlus, CalendarCheck, Ticket, Library, Search, Bell, Activity, Palette, Target, Headphones, Building2, FolderKanban, CheckSquare, FolderLock, KeyRound } from "lucide-react";
 
 const items = [
   { to: "/admin", icon: LayoutDashboard, label: "Dashboard", end: true },

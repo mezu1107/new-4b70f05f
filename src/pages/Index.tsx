@@ -20,8 +20,17 @@ import { NewsletterSignup } from "@/components/NewsletterSignup";
 import { PricingTiers } from "@/components/PricingTiers";
 import { TeamSection } from "@/components/TeamSection";
 import { FeatureGrid } from "@/components/FeatureGrid";
+import { HeroFeatureCards } from "@/components/HeroFeatureCards";
+import { IndustriesGrid } from "@/components/IndustriesGrid";
+import { TechStackStrip } from "@/components/TechStackStrip";
+import { InteractiveQuiz } from "@/components/InteractiveQuiz";
+import { TrustBadges } from "@/components/TrustBadges";
+import { GuaranteeBanner } from "@/components/GuaranteeBanner";
+import { VideoTestimonial } from "@/components/VideoTestimonial";
+import { QuickContactCards } from "@/components/QuickContactCards";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
 import { useRealtimeTable } from "@/hooks/useRealtimeTable";
+import heroBg from "@/assets/hero-bg-network.jpg";
 
 
 
@@ -234,38 +243,46 @@ const Index = () => {
   >
     {/* ============== HERO ============== */}
     <section className="relative overflow-hidden">
-      <div className="absolute inset-0 gradient-hero" aria-hidden />
-      <div className="absolute inset-0 grid-bg opacity-40" aria-hidden />
-      <div className="relative container mx-auto pt-16 lg:pt-24 pb-20 grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+      {/* Uploaded network image as faint background */}
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: `url(${heroBg})`, opacity: 0.18 }}
+        aria-hidden
+      />
+      <div className="absolute inset-0 gradient-hero opacity-80" aria-hidden />
+      <div className="absolute inset-0 grid-bg opacity-30" aria-hidden />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/80" aria-hidden />
+
+      <div className="relative container mx-auto pt-16 lg:pt-24 pb-24 grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
         <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-          
+
           <span className="pill-tag mb-6">
-            <Sparkles className="w-3.5 h-3.5" /> AI-Powered Marketing Agency
+            <Sparkles className="w-3.5 h-3.5" /> AI-Powered Digital Transformation
           </span>
 
           <h1 data-hero-heading className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.05] mb-4">
-            We Generate Leads.<br />
-            <span className="text-gradient text-3d">You Get More Clients.</span>
+            We Build AI-Powered<br />
+            <span className="text-gradient text-3d">Digital Systems</span> That Grow Businesses.
           </h1>
           <div className="text-lg md:text-2xl font-bold mb-6 min-h-[2.25rem]">
             <Typewriter words={lines} className="text-primary" />
           </div>
 
           <p className="text-base md:text-lg text-muted-foreground mb-8 max-w-lg leading-relaxed">
-            Performance marketing + AI automation systems that help businesses in <span className="text-primary font-semibold">USA &amp; Canada</span> scale consistently.
+            Websites, apps, AI automation & performance marketing — engineered to help you generate leads, cut costs, and scale faster in <span className="text-primary font-semibold">Pakistan &amp; global markets</span>.
           </p>
           <div className="flex flex-wrap gap-3 mb-10">
             <Button asChild size="lg" className="gradient-cta text-primary-foreground shadow-glow hover:opacity-90">
-              <Link to="/contact"><Calendar className="w-4 h-4 mr-2" /> Book Free Strategy Call</Link>
+              <Link to="/contact"><Calendar className="w-4 h-4 mr-2" /> Book Free Consultation</Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="border-border">
               <Link to="/contact"><FileSearch className="w-4 h-4 mr-2" /> Get Free Audit</Link>
             </Button>
           </div>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
-            <div className="flex items-center gap-2 font-semibold"><span className="text-gradient text-base">G</span> Google<br className="hidden md:inline" /><span className="text-muted-foreground text-xs ml-1">Partner</span></div>
+            <div className="flex items-center gap-2 font-semibold"><span className="text-gradient text-base">G</span> Google<span className="text-muted-foreground text-xs ml-1">Partner</span></div>
             <div className="h-8 w-px bg-border hidden md:block" />
-            <div className="flex items-center gap-2 font-semibold"><span className="text-primary text-base">∞</span> Meta<br className="hidden md:inline" /><span className="text-muted-foreground text-xs ml-1">Business Partner</span></div>
+            <div className="flex items-center gap-2 font-semibold"><span className="text-primary text-base">∞</span> Meta<span className="text-muted-foreground text-xs ml-1">Partner</span></div>
             <div className="h-8 w-px bg-border hidden md:block" />
             <div className="font-semibold">Clutch <span className="text-yellow-500">★★★★★</span><div className="text-muted-foreground text-xs">5.0 Rated</div></div>
             <div className="h-8 w-px bg-border hidden md:block" />
@@ -278,6 +295,9 @@ const Index = () => {
         </motion.div>
       </div>
     </section>
+
+    {/* ============== HERO FEATURE CARDS ============== */}
+    <HeroFeatureCards />
 
     {/* ============== CLIENT MARQUEE ============== */}
     <ClientMarquee />

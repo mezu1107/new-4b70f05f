@@ -2150,7 +2150,48 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      public_team_members: {
+        Row: {
+          avatar_url: string | null
+          bio: string | null
+          created_at: string | null
+          id: string | null
+          initials: string | null
+          is_active: boolean | null
+          linkedin_url: string | null
+          name: string | null
+          role: string | null
+          sort_order: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string | null
+          id?: string | null
+          initials?: string | null
+          is_active?: boolean | null
+          linkedin_url?: string | null
+          name?: string | null
+          role?: string | null
+          sort_order?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string | null
+          id?: string | null
+          initials?: string | null
+          is_active?: boolean | null
+          linkedin_url?: string | null
+          name?: string | null
+          role?: string | null
+          sort_order?: number | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       bump_visitor_session: {
@@ -2206,6 +2247,15 @@ export type Database = {
           _user_id: string
         }
         Returns: boolean
+      }
+      validate_coupon: {
+        Args: { _code: string }
+        Returns: {
+          code: string
+          description: string
+          discount_type: string
+          discount_value: number
+        }[]
       }
     }
     Enums: {

@@ -37,7 +37,7 @@ export const TeamSection = ({ leadershipLayout = false }: { leadershipLayout?: b
   const { data } = useQuery({
     queryKey: ["public_team"],
     queryFn: async () => {
-      const { data } = await supabase.from("team_members").select("*").eq("is_active", true).order("sort_order");
+      const { data } = await supabase.from("public_team_members" as any).select("*").order("sort_order");
       return data ?? [];
     },
   });

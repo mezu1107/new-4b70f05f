@@ -448,13 +448,57 @@ const Index = () => {
       </div>
     </section>
 
-    {/* ============== WHY US / FEATURES ============== */}
+    {/* ============== INDUSTRIES WE SERVE ============== */}
     <section className="py-20 lg:py-28">
+      <div className="container mx-auto">
+        <SectionHeader tag="Industries We Serve">
+          Deep Expertise Across<br /><span className="text-gradient">Every Major Vertical</span>
+        </SectionHeader>
+        <IndustriesGrid />
+      </div>
+    </section>
+
+    {/* ============== WHY US / FEATURES ============== */}
+    <section className="py-20 lg:py-28 section-soft section-divider-top section-divider-bottom">
       <div className="container mx-auto">
         <SectionHeader tag="Why Choose Us">
           Built for <span className="text-gradient">Performance & Scale</span>
         </SectionHeader>
         <FeatureGrid />
+      </div>
+    </section>
+
+    {/* ============== INTERACTIVE BUSINESS QUIZ ============== */}
+    <section className="py-20 lg:py-28">
+      <div className="container mx-auto max-w-4xl">
+        <SectionHeader tag="Business Growth Quiz">
+          Discover Your<br /><span className="text-gradient">Growth Score</span>
+        </SectionHeader>
+        <InteractiveQuiz />
+      </div>
+    </section>
+
+    {/* ============== TECH STACK ============== */}
+    <section className="py-16 section-soft section-divider-top section-divider-bottom">
+      <div className="container mx-auto">
+        <SectionHeader tag="Our Tech Stack">
+          Enterprise-Grade <span className="text-gradient">Technologies</span>
+        </SectionHeader>
+        <TechStackStrip />
+      </div>
+    </section>
+
+    {/* ============== TRUST BADGES ============== */}
+    <section className="py-16">
+      <div className="container mx-auto">
+        <TrustBadges />
+      </div>
+    </section>
+
+    {/* ============== GUARANTEE ============== */}
+    <section className="py-12">
+      <div className="container mx-auto max-w-5xl">
+        <GuaranteeBanner />
       </div>
     </section>
 

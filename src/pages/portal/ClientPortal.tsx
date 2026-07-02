@@ -261,18 +261,11 @@ function VaultTab({ clientId }: { clientId: string }) {
 }
 
 function ActivityTab({ clientId }: { clientId: string }) {
-  const qc = useQueryClient();
   const { data } = useQuery({
     queryKey: ["portal_activity", clientId],
     queryFn: async () => (await supabase.from("aos_activity").select("*").eq("client_id", clientId).eq("is_client_visible", true).order("created_at", { ascending: false }).limit(100)).data ?? [],
+    refetchInterval: 15000,
   });
-
-  useEffect(() => {
-    const ch = supabase.channel(`activity-${clientId}`).on("postgres_changes", { event: "*", schema: "public", table: "aos_activity", filter: `client_id=eq.${clientId}` }, () => {
-      qc.invalidateQueries({ queryKey: ["portal_activity", clientId] });
-    }).subscribe();
-    return () => { supabase.removeChannel(ch); };
-  }, [clientId, qc]);
 
   return (
     <Card className="p-4">

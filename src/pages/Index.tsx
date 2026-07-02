@@ -601,6 +601,26 @@ const Index = () => {
       </div>
     </section>
 
+    {/* ============== VIDEO TESTIMONIAL ============== */}
+    <section className="py-20">
+      <div className="container mx-auto max-w-5xl">
+        <SectionHeader tag="Client Stories">
+          Hear It From <span className="text-gradient">Our Clients</span>
+        </SectionHeader>
+        <VideoTestimonial />
+      </div>
+    </section>
+
+    {/* ============== CONTACT QUICK CARDS ============== */}
+    <section className="py-20 section-soft section-divider-top section-divider-bottom">
+      <div className="container mx-auto">
+        <SectionHeader tag="Get In Touch">
+          Let's Build <span className="text-gradient">Something Great</span>
+        </SectionHeader>
+        <QuickContactCards />
+      </div>
+    </section>
+
     {/* ============== NEWSLETTER ============== */}
     <section className="py-16">
       <div className="container mx-auto max-w-4xl">

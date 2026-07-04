@@ -242,56 +242,134 @@ const Index = () => {
     primaryKeyword="AI marketing agency USA Canada"
   >
     {/* ============== HERO ============== */}
-    <section className="relative overflow-hidden">
-      {/* Uploaded network image as faint background */}
+    <section className="relative overflow-hidden min-h-[720px]">
       <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${heroBg})`, opacity: 0.18 }}
+        className="absolute inset-0 bg-cover bg-center hero-bg-image"
+        style={{ backgroundImage: `url(${heroBg})` }}
         aria-hidden
       />
-      <div className="absolute inset-0 gradient-hero opacity-80" aria-hidden />
-      <div className="absolute inset-0 grid-bg opacity-30" aria-hidden />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/80" aria-hidden />
+      <div className="absolute inset-0 gradient-hero" aria-hidden />
+      <div className="absolute inset-0 hero-image-softener" aria-hidden />
+      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-background" aria-hidden />
 
-      <div className="relative container mx-auto pt-16 lg:pt-24 pb-24 grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+      <div className="relative container mx-auto pt-10 md:pt-14 lg:pt-16 pb-16 lg:pb-20 grid lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-12 items-center">
         <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-
-          <span className="pill-tag mb-6">
-            <Sparkles className="w-3.5 h-3.5" /> AI-Powered Digital Transformation
+          <span className="pill-tag mb-5">
+            <Sparkles className="w-3.5 h-3.5" /> AI-Powered Growth Partner for Pakistan &amp; Global Brands
           </span>
 
-          <h1 data-hero-heading className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.05] mb-4">
-            We Build AI-Powered<br />
-            <span className="text-gradient text-3d">Digital Systems</span> That Grow Businesses.
+          <h1 data-hero-heading className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-[1.02] mb-5 max-w-4xl">
+            Turn Your Business Into a<br className="hidden md:block" />
+            <span className="text-gradient"> Lead-Generating Digital Machine</span>
           </h1>
-          <div className="text-lg md:text-2xl font-bold mb-6 min-h-[2.25rem]">
+
+          <div className="text-lg md:text-2xl font-bold mb-5 min-h-[2.25rem]">
             <Typewriter words={lines} className="text-primary" />
           </div>
 
-          <p className="text-base md:text-lg text-muted-foreground mb-8 max-w-lg leading-relaxed">
-            Websites, apps, AI automation & performance marketing — engineered to help you generate leads, cut costs, and scale faster in <span className="text-primary font-semibold">Pakistan &amp; global markets</span>.
+          <p className="text-base md:text-lg text-muted-foreground mb-8 max-w-2xl leading-relaxed">
+            AM Enterprises builds premium websites, apps, AI automation and marketing systems that attract better leads, automate follow-ups, and help businesses scale with confidence.
           </p>
-          <div className="flex flex-wrap gap-3 mb-10">
-            <Button asChild size="lg" className="gradient-cta text-primary-foreground shadow-glow hover:opacity-90">
-              <Link to="/contact"><Calendar className="w-4 h-4 mr-2" /> Book Free Consultation</Link>
+
+          <div className="flex flex-col sm:flex-row gap-3 mb-8">
+            <Button asChild size="xl" className="gradient-cta text-primary-foreground shadow-glow hover:opacity-95">
+              <Link to="/contact"><Calendar className="w-5 h-5" /> Book Free Strategy Call</Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="border-border">
-              <Link to="/contact"><FileSearch className="w-4 h-4 mr-2" /> Get Free Audit</Link>
+            <Button asChild size="xl" variant="outline" className="border-primary/30 bg-background/70 backdrop-blur hover:bg-primary/10">
+              <Link to="/contact"><FileSearch className="w-5 h-5" /> Get Free Growth Audit</Link>
             </Button>
           </div>
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
-            <div className="flex items-center gap-2 font-semibold"><span className="text-gradient text-base">G</span> Google<span className="text-muted-foreground text-xs ml-1">Partner</span></div>
-            <div className="h-8 w-px bg-border hidden md:block" />
-            <div className="flex items-center gap-2 font-semibold"><span className="text-primary text-base">∞</span> Meta<span className="text-muted-foreground text-xs ml-1">Partner</span></div>
-            <div className="h-8 w-px bg-border hidden md:block" />
-            <div className="font-semibold">Clutch <span className="text-yellow-500">★★★★★</span><div className="text-muted-foreground text-xs">5.0 Rated</div></div>
-            <div className="h-8 w-px bg-border hidden md:block" />
-            <div><span className="text-gradient font-extrabold text-lg">100+</span><div className="text-muted-foreground text-xs">Happy Clients</div></div>
+
+          <div className="grid grid-cols-3 gap-3 max-w-2xl">
+            {[
+              ["15 Days*", "Fast Website Launch"],
+              ["100+", "Projects Delivered"],
+              ["24/7", "AI Lead Capture"],
+            ].map(([value, label]) => (
+              <div key={label} className="rounded-xl border border-border/70 bg-card/70 backdrop-blur px-4 py-3 shadow-card">
+                <div className="text-xl md:text-2xl font-extrabold text-gradient">{value}</div>
+                <div className="text-[11px] md:text-xs text-muted-foreground leading-snug">{label}</div>
+              </div>
+            ))}
           </div>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.15, duration: 0.6 }}>
-          <AppointmentWidget />
+        <motion.div
+          initial={{ opacity: 0, y: 22, scale: 0.96 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ delay: 0.12, duration: 0.65 }}
+          className="relative"
+        >
+          <div className="absolute -inset-6 gradient-primary opacity-20 blur-3xl rounded-full" aria-hidden />
+          <div className="hero-command-shell relative rounded-2xl p-4 md:p-5">
+            <div className="flex items-center justify-between gap-4 mb-5">
+              <div>
+                <div className="text-sm font-bold">AM Growth Command Center</div>
+                <div className="text-xs text-muted-foreground">Live funnel, automation & performance snapshot</div>
+              </div>
+              <div className="rounded-full border border-primary/25 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">AI Active</div>
+            </div>
+
+            <div className="grid sm:grid-cols-2 gap-4 mb-4">
+              <div className="rounded-xl border border-border/70 bg-background/70 p-4">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-xs text-muted-foreground">Qualified Leads</span>
+                  <TrendingUp className="w-4 h-4 text-primary" />
+                </div>
+                <div className="text-4xl font-extrabold">247</div>
+                <div className="text-xs text-primary font-semibold mt-1">+38.4% this month</div>
+              </div>
+
+              <div className="rounded-xl border border-border/70 bg-background/70 p-4">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-xs text-muted-foreground">Automation Saved</span>
+                  <Bot className="w-4 h-4 text-primary" />
+                </div>
+                <div className="text-4xl font-extrabold">86h</div>
+                <div className="text-xs text-primary font-semibold mt-1">follow-ups handled by AI</div>
+              </div>
+            </div>
+
+            <div className="rounded-xl border border-border/70 bg-background/70 p-4 mb-4">
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-sm font-semibold">Growth Pipeline</span>
+                <span className="text-xs text-muted-foreground">Pakistan → Global</span>
+              </div>
+              <div className="space-y-3">
+                {[
+                  ["Website", "Conversion-ready", "92%"],
+                  ["Ads", "Lead campaigns", "78%"],
+                  ["AI CRM", "Auto follow-up", "84%"],
+                ].map(([name, label, width]) => (
+                  <div key={name}>
+                    <div className="flex items-center justify-between text-xs mb-1">
+                      <span className="font-medium">{name}</span>
+                      <span className="text-muted-foreground">{label}</span>
+                    </div>
+                    <div className="h-2 rounded-full bg-muted overflow-hidden">
+                      <div className="h-full rounded-full gradient-cta" style={{ width }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              {[
+                [CheckCircle2, "Strategy mapped"],
+                [Zap, "Leads captured"],
+                [Workflow, "Follow-up automated"],
+                [Target, "Sales optimized"],
+              ].map(([Icon, label]) => {
+                const ItemIcon = Icon as typeof CheckCircle2;
+                return (
+                  <div key={label as string} className="flex items-center gap-2 rounded-lg border border-border/60 bg-card/60 px-3 py-2 text-xs font-medium">
+                    <ItemIcon className="w-4 h-4 text-primary" /> {label as string}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>

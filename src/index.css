@@ -216,6 +216,33 @@
     mask-image: radial-gradient(ellipse 60% 50% at 50% 0%, #000 40%, transparent 75%);
   }
 
+  .hero-bg-image {
+    opacity: 0.36;
+    filter: saturate(0.88) contrast(0.86) brightness(1.04);
+    transform: scale(1.04);
+    mask-image: linear-gradient(90deg, transparent 0%, #000 16%, #000 82%, transparent 100%);
+  }
+  .dark .hero-bg-image {
+    opacity: 0.38;
+    filter: saturate(0.82) contrast(0.78) brightness(0.82);
+  }
+
+  .hero-image-softener {
+    background:
+      radial-gradient(ellipse 68% 58% at 26% 24%, hsl(var(--background) / 0.58) 0%, hsl(var(--background) / 0.28) 46%, transparent 72%),
+      linear-gradient(90deg, hsl(var(--background) / 0.88) 0%, hsl(var(--background) / 0.58) 44%, hsl(var(--background) / 0.24) 100%),
+      linear-gradient(180deg, hsl(var(--background) / 0.18) 0%, hsl(var(--background) / 0.64) 100%);
+  }
+
+  .hero-command-shell {
+    background:
+      linear-gradient(145deg, hsl(var(--card) / 0.86), hsl(var(--card) / 0.62)),
+      radial-gradient(ellipse at 20% 0%, hsl(var(--primary) / 0.16), transparent 52%);
+    border: 1px solid hsl(var(--border) / 0.72);
+    box-shadow: var(--shadow-elegant);
+    backdrop-filter: blur(18px);
+  }
+
   .card-hover-glow {
     position: relative;
     transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),

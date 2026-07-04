@@ -217,21 +217,23 @@
   }
 
   .hero-bg-image {
-    opacity: 0.36;
-    filter: saturate(0.88) contrast(0.86) brightness(1.04);
-    transform: scale(1.04);
-    mask-image: linear-gradient(90deg, transparent 0%, #000 16%, #000 82%, transparent 100%);
+    opacity: 0.34;
+    filter: saturate(0.72) contrast(0.72) brightness(1.08) blur(0.5px);
+    transform: scale(1.03);
+    mask-image:
+      radial-gradient(ellipse 62% 68% at 76% 42%, #000 0%, #000 44%, transparent 78%),
+      linear-gradient(90deg, transparent 0%, transparent 30%, #000 56%, #000 88%, transparent 100%);
   }
   .dark .hero-bg-image {
     opacity: 0.38;
-    filter: saturate(0.82) contrast(0.78) brightness(0.82);
+    filter: saturate(0.74) contrast(0.7) brightness(0.76) blur(0.5px);
   }
 
   .hero-image-softener {
     background:
-      radial-gradient(ellipse 68% 58% at 26% 24%, hsl(var(--background) / 0.58) 0%, hsl(var(--background) / 0.28) 46%, transparent 72%),
-      linear-gradient(90deg, hsl(var(--background) / 0.88) 0%, hsl(var(--background) / 0.58) 44%, hsl(var(--background) / 0.24) 100%),
-      linear-gradient(180deg, hsl(var(--background) / 0.18) 0%, hsl(var(--background) / 0.64) 100%);
+      radial-gradient(ellipse 70% 64% at 22% 36%, hsl(var(--background) / 0.72) 0%, hsl(var(--background) / 0.34) 48%, transparent 76%),
+      linear-gradient(90deg, hsl(var(--background) / 0.9) 0%, hsl(var(--background) / 0.5) 46%, hsl(var(--background) / 0.16) 100%),
+      linear-gradient(180deg, hsl(var(--background) / 0.08) 0%, hsl(var(--background) / 0.56) 100%);
   }
 
   .hero-command-shell {

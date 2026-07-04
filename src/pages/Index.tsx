@@ -242,7 +242,7 @@ const Index = () => {
     primaryKeyword="AI marketing agency USA Canada"
   >
     {/* ============== HERO ============== */}
-    <section className="relative overflow-hidden min-h-[calc(100vh-5rem)] flex items-center">
+    <section className="relative overflow-hidden min-h-[720px]">
       <div
         className="absolute inset-0 bg-cover bg-center hero-bg-image"
         style={{ backgroundImage: `url(${heroBg})` }}
@@ -252,7 +252,7 @@ const Index = () => {
       <div className="absolute inset-0 hero-image-softener" aria-hidden />
       <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-background" aria-hidden />
 
-      <div className="relative container mx-auto pt-14 lg:pt-20 pb-16 lg:pb-20 grid lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-12 items-center">
+      <div className="relative container mx-auto pt-10 md:pt-14 lg:pt-16 pb-16 lg:pb-20 grid lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-12 items-center">
         <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <span className="pill-tag mb-5">
             <Sparkles className="w-3.5 h-3.5" /> AI-Powered Growth Partner for Pakistan &amp; Global Brands

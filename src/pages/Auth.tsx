@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
@@ -15,14 +15,26 @@ const schema = z.object({
   password: z.string().min(6).max(72),
 });
 
+// Only allow same-origin relative paths as post-auth destinations.
+function safeNext(next: string | null): string | null {
+  if (!next) return null;
+  if (!next.startsWith("/") || next.startsWith("//")) return null;
+  return next;
+}
+
 const Auth = () => {
   const nav = useNavigate();
+  const [sp] = useSearchParams();
+  const nextPath = safeNext(sp.get("next"));
   const { user, isAdmin, loading } = useAuth();
   const [email, setEmail] = useState(""); const [password, setPassword] = useState(""); const [busy, setBusy] = useState(false);
 
   useEffect(() => {
-    if (!loading && user) nav(isAdmin ? "/admin" : "/", { replace: true });
-  }, [user, isAdmin, loading, nav]);
+    if (!loading && user) {
+      if (nextPath) { window.location.href = nextPath; return; }
+      nav(isAdmin ? "/admin" : "/", { replace: true });
+    }
+  }, [user, isAdmin, loading, nav, nextPath]);
 
   const submit = async (mode: "signin" | "signup") => {
     const v = schema.safeParse({ email, password });
@@ -30,7 +42,8 @@ const Auth = () => {
     setBusy(true);
     try {
       if (mode === "signup") {
-        const { error } = await supabase.auth.signUp({ email, password, options: { emailRedirectTo: `${window.location.origin}/admin` } });
+        const redirect = nextPath ? `${window.location.origin}${nextPath}` : `${window.location.origin}/admin`;
+        const { error } = await supabase.auth.signUp({ email, password, options: { emailRedirectTo: redirect } });
         if (error) throw error;
         toast.success("Account created. Check your email to verify, then sign in.");
       } else {

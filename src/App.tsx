@@ -26,6 +26,7 @@ import FAQ from "./pages/FAQ.tsx";
 import { PrivacyPolicy, Terms } from "./pages/Legal.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import Auth from "./pages/Auth.tsx";
+import OAuthConsent from "./pages/OAuthConsent.tsx";
 import AdminLayout from "./pages/admin/AdminLayout.tsx";
 import Dashboard from "./pages/admin/Dashboard.tsx";
 import TeamAdmin from "./pages/admin/TeamAdmin.tsx";
@@ -102,6 +103,7 @@ const App = () => (
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms" element={<Terms />} />
               <Route path="/auth" element={<Auth />} />
+              <Route path="/.lovable/oauth/consent" element={<OAuthConsent />} />
               <Route path="/portal/:clientId" element={<ClientPortal />} />
               <Route path="/admin" element={<AdminLayout />}>
                 <Route index element={<Dashboard />} />

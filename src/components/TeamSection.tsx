@@ -33,7 +33,7 @@ const TeamCard = ({ m, i, featured = false }: { m: any; i: number; featured?: bo
   </motion.div>
 );
 
-export const TeamSection = ({ leadershipLayout = false }: { leadershipLayout?: boolean }) => {
+export const TeamSection = ({ leadershipLayout = false, foundersOnly = false }: { leadershipLayout?: boolean; foundersOnly?: boolean }) => {
   const { data } = useQuery({
     queryKey: ["public_team"],
     queryFn: async () => {
@@ -42,6 +42,17 @@ export const TeamSection = ({ leadershipLayout = false }: { leadershipLayout?: b
     },
   });
   const team = data && data.length > 0 ? data : fallback;
+
+  if (foundersOnly) {
+    const leaders = team.slice(0, 2);
+    return (
+      <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        {leaders.map((m: any, i: number) => (
+          <TeamCard key={m.id ?? m.name} m={m} i={i} featured />
+        ))}
+      </div>
+    );
+  }
 
   if (leadershipLayout) {
     const leaders = team.slice(0, 2);

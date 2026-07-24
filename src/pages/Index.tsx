@@ -12,6 +12,7 @@ import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { AppointmentWidget } from "@/components/AppointmentWidget";
 import { CaseStudyHighlights } from "@/components/CaseStudyHighlights";
 import { TeamSection } from "@/components/TeamSection";
+import { TestimonialsMarquee } from "@/components/TestimonialsMarquee";
 import { FAQAccordion } from "@/components/FAQAccordion";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
 import { useRealtimeTable } from "@/hooks/useRealtimeTable";

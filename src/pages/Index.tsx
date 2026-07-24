@@ -295,7 +295,7 @@ const Index = () => {
       </section>
 
       {/* ================= STATS ================= */}
-      <section className="py-16 md:py-20 bg-gradient-to-br from-primary to-[hsl(230_75%_35%)] relative overflow-hidden">
+      <section className="py-16 md:py-20 bg-gradient-to-br from-[hsl(200_92%_55%)] to-[hsl(210_85%_45%)] relative overflow-hidden">
         <div className="absolute inset-0 opacity-20 mix-blend-overlay bg-cover bg-center" style={{ backgroundImage: `url(${heroImg})` }} aria-hidden />
         <div className="relative container mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">

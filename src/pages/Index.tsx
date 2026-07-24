@@ -246,7 +246,7 @@ const Index = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary to-[hsl(230_75%_45%)] p-8 md:p-12 shadow-elegant"
+            className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[hsl(200_92%_55%)] to-[hsl(210_85%_50%)] p-8 md:p-12 shadow-elegant"
           >
             <div className="absolute -top-16 -right-16 w-64 h-64 rounded-full bg-white/10 blur-3xl" aria-hidden />
             <div className="relative flex flex-col md:flex-row items-center justify-between gap-6">

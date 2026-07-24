@@ -20,20 +20,20 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
 
-    /* Brand — electric blue */
-    --primary: 217 91% 55%;
+    /* Brand — soft sky blue */
+    --primary: 200 92% 55%;
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 217 95% 70%;
+    --primary-glow: 195 95% 70%;
 
-    --secondary: 217 30% 96%;
-    --secondary-foreground: 222 47% 15%;
+    --secondary: 200 40% 96%;
+    --secondary-foreground: 210 40% 20%;
 
-    --muted: 220 20% 96%;
-    --muted-foreground: 220 10% 46%;
+    --muted: 200 25% 96%;
+    --muted-foreground: 210 12% 46%;
 
-    --accent: 217 91% 55%;
+    --accent: 200 92% 55%;
     --accent-foreground: 0 0% 100%;
-    --accent-glow: 195 100% 60%;
+    --accent-glow: 190 100% 65%;
 
     --destructive: 0 75% 55%;
     --destructive-foreground: 0 0% 100%;

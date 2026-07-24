@@ -327,11 +327,23 @@ const Index = () => {
       <section className="section-soft py-20 md:py-24">
         <div className="container mx-auto">
           <SectionHead
-            tag="Meet The Team"
-            title={<>The People <span className="text-gradient">Behind Your Growth</span></>}
-            sub="A dedicated team of strategists, designers and engineers."
+            tag="Leadership"
+            title={<>Meet The <span className="text-gradient">Founders</span></>}
+            sub="The people building AM Enterprises and standing behind every result."
           />
-          <TeamSection />
+          <TeamSection foundersOnly />
+        </div>
+      </section>
+
+      {/* ================= TESTIMONIALS ================= */}
+      <section className="py-20 md:py-24 bg-background">
+        <div className="container mx-auto">
+          <SectionHead
+            tag="Client Love"
+            title={<>What Our <span className="text-gradient">Clients Say</span></>}
+            sub="Real feedback from 200+ brands we've partnered with worldwide."
+          />
+          <TestimonialsMarquee />
         </div>
       </section>
 

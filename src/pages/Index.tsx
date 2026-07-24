@@ -85,10 +85,10 @@ const Index = () => {
     >
       {/* ================= HERO ================= */}
       <section className="relative overflow-hidden">
-        {/* clean gradient — no grid/jali */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/95 via-primary to-[hsl(230_75%_35%)]" aria-hidden />
+        {/* soft sky-blue gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[hsl(200_95%_60%)] via-[hsl(200_90%_55%)] to-[hsl(210_85%_50%)]" aria-hidden />
         <div
-          className="absolute inset-0 bg-cover bg-center opacity-25 mix-blend-overlay"
+          className="absolute inset-0 bg-cover bg-center opacity-20 mix-blend-overlay"
           style={{ backgroundImage: `url(${heroImg})` }}
           aria-hidden
         />

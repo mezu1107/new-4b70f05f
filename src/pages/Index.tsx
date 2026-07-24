@@ -301,7 +301,7 @@ const Index = () => {
             {st.map((s: any) => (
               <div key={s.label}>
                 <div className="text-4xl md:text-5xl font-extrabold mb-1">
-                  <AnimatedCounter end={s.value} suffix={s.suffix} />
+                  <AnimatedCounter value={s.value} suffix={s.suffix} />
                 </div>
                 <div className="text-sm md:text-base text-white/85">{s.label}</div>
               </div>

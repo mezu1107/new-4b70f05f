@@ -1,711 +1,362 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
-  ArrowRight, Calendar, FileSearch, DollarSign, Target, BarChart3,
-  Search, Globe, Sparkles, Bot, Brain, FileText, Workflow,
-  TrendingUp, TrendingDown, CheckCircle2, Users, Zap, Rocket, Trophy, Code,
+  ArrowRight, Calendar, Phone, Search, Globe, Sparkles, Brain, Workflow,
+  Target, BarChart3, Users, Zap, Rocket, Trophy, Code, ShieldCheck, CheckCircle2,
 } from "lucide-react";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { Button } from "@/components/ui/button";
 import { Typewriter } from "@/components/Typewriter";
 import { ClientMarquee } from "@/components/ClientMarquee";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
-import { AIToolkit } from "@/components/AIToolkit";
 import { AppointmentWidget } from "@/components/AppointmentWidget";
-import { ROICalculator } from "@/components/ROICalculator";
 import { CaseStudyHighlights } from "@/components/CaseStudyHighlights";
-import { BlogPreview } from "@/components/BlogPreview";
-import { FAQAccordion } from "@/components/FAQAccordion";
-import { NewsletterSignup } from "@/components/NewsletterSignup";
-import { PricingTiers } from "@/components/PricingTiers";
 import { TeamSection } from "@/components/TeamSection";
-import { FeatureGrid } from "@/components/FeatureGrid";
-import { HeroFeatureCards } from "@/components/HeroFeatureCards";
-import { IndustriesGrid } from "@/components/IndustriesGrid";
-import { TechStackStrip } from "@/components/TechStackStrip";
-import { InteractiveQuiz } from "@/components/InteractiveQuiz";
-import { TrustBadges } from "@/components/TrustBadges";
-import { GuaranteeBanner } from "@/components/GuaranteeBanner";
-import { VideoTestimonial } from "@/components/VideoTestimonial";
-import { QuickContactCards } from "@/components/QuickContactCards";
+import { FAQAccordion } from "@/components/FAQAccordion";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
 import { useRealtimeTable } from "@/hooks/useRealtimeTable";
-import heroBg from "@/assets/hero-bg-network.jpg";
-
-
+import heroImg from "@/assets/hero-bg-network.jpg";
 
 const ICONS: Record<string, any> = {
-  Search, Globe, Sparkles, Bot, Brain, FileText, Workflow, Rocket, Trophy, Code,
-  Target, BarChart3, DollarSign, Users, Zap, TrendingUp,
+  Search, Globe, Sparkles, Brain, Workflow, Rocket, Trophy, Code,
+  Target, BarChart3, Users, Zap,
 };
-
-
-/* ---------- Hero dashboard mockup (theme-adaptive, inline SVG) ---------- */
-const HeroDashboard = () => (
-  <div className="relative w-full max-w-[560px] mx-auto">
-    {/* Glow backdrop */}
-    <div className="absolute -inset-12 gradient-primary opacity-20 blur-3xl rounded-full" aria-hidden />
-
-    {/* Floating brand orbs */}
-    <div className="absolute -top-2 -left-6 z-20 animate-float" style={{ animationDelay: "0s" }}>
-      <div className="w-14 h-14 rounded-2xl glass-card shadow-glow flex items-center justify-center text-2xl font-bold">
-        <span className="text-gradient">G</span>
-      </div>
-    </div>
-    <div className="absolute top-32 -left-10 z-20 animate-float" style={{ animationDelay: "1s" }}>
-      <div className="w-14 h-14 rounded-2xl glass-card shadow-glow flex items-center justify-center">
-        <span className="text-primary text-lg font-bold">∞</span>
-      </div>
-    </div>
-    <div className="absolute -top-4 -right-4 z-20 animate-float" style={{ animationDelay: "0.5s" }}>
-      <div className="w-16 h-16 rounded-2xl gradient-cta shadow-glow flex items-center justify-center text-primary-foreground font-bold text-sm">AI</div>
-    </div>
-
-    {/* Dashboard panel */}
-    <div className="relative glass-card rounded-2xl p-5 shadow-elegant">
-      <div className="flex items-center justify-between mb-4">
-        <div className="text-sm font-semibold">Performance Overview</div>
-        <div className="flex gap-1.5">
-          <span className="w-2 h-2 rounded-full bg-destructive/60" />
-          <span className="w-2 h-2 rounded-full bg-yellow-500/60" />
-          <span className="w-2 h-2 rounded-full bg-green-500/60" />
-        </div>
-      </div>
-
-      <div className="grid grid-cols-3 gap-3 mb-5">
-        {[
-          { label: "Total Leads", value: "2,450", delta: "+24%", up: true },
-          { label: "Cost Per Lead", value: "$14.25", delta: "-18%", up: true },
-          { label: "ROAS", value: "4.35x", delta: "+32%", up: true },
-        ].map((s) => (
-          <div key={s.label} className="rounded-xl border border-border p-3 bg-card/40">
-            <div className="text-[10px] text-muted-foreground uppercase tracking-wider">{s.label}</div>
-            <div className="text-lg font-bold mt-1">{s.value}</div>
-            <div className={`text-[11px] font-semibold mt-0.5 inline-flex items-center gap-1 ${s.up ? "text-green-500" : "text-destructive"}`}>
-              {s.up ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />} {s.delta}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className="text-xs text-muted-foreground mb-2">Leads Growth</div>
-      <svg viewBox="0 0 400 110" className="w-full h-28">
-        <defs>
-          <linearGradient id="hg" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.4" />
-            <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0" />
-          </linearGradient>
-        </defs>
-        <path d="M0,90 C40,80 70,70 100,60 C130,55 160,50 190,40 C220,30 250,28 280,20 C310,15 340,12 400,5 L400,110 L0,110 Z" fill="url(#hg)" />
-        <path d="M0,90 C40,80 70,70 100,60 C130,55 160,50 190,40 C220,30 250,28 280,20 C310,15 340,12 400,5" fill="none" stroke="hsl(var(--primary))" strokeWidth="2.5" />
-      </svg>
-    </div>
-
-    {/* Bottom AI badge */}
-    <div className="absolute -bottom-4 right-4 glass-card rounded-xl px-3 py-2 shadow-glow">
-      <div className="text-[10px] text-muted-foreground">AI Optimized</div>
-      <div className="text-base font-bold text-primary">+32%</div>
-      <div className="text-[10px] text-muted-foreground">More Conversions</div>
-    </div>
-  </div>
-);
-
-/* ---------- AI Hub diagram (orbiting nodes) ---------- */
-const aiNodes = [
-  { icon: Target, label: "Lead Qualification", angle: 270 },
-  { icon: Bot, label: "Chatbot Assistant", angle: 342 },
-  { icon: BarChart3, label: "Ad Optimization", angle: 54 },
-  { icon: FileText, label: "Content Generator", angle: 126 },
-  { icon: Workflow, label: "CRM Automation", angle: 198 },
-];
-const AIHub = () => {
-  const r = 130;
-  return (
-    <div className="relative w-full aspect-square max-w-[420px] mx-auto">
-      <div className="absolute inset-8 rounded-full border border-border" />
-      <div className="absolute inset-16 rounded-full border border-primary/30" />
-      <div className="absolute inset-24 rounded-full border border-primary/50 animate-pulse-glow" />
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="w-24 h-24 rounded-full gradient-cta shadow-neon flex items-center justify-center text-primary-foreground font-extrabold text-2xl">AI</div>
-      </div>
-      {aiNodes.map((n) => {
-        const rad = (n.angle * Math.PI) / 180;
-        const x = Math.cos(rad) * r;
-        const y = Math.sin(rad) * r;
-        return (
-          <div
-            key={n.label}
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-            style={{ transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))` }}
-          >
-            <div className="flex flex-col items-center gap-1.5 animate-float" style={{ animationDelay: `${n.angle / 100}s` }}>
-              <div className="w-12 h-12 rounded-xl glass-card shadow-card flex items-center justify-center">
-                <n.icon className="w-5 h-5 text-primary" />
-              </div>
-              <span className="text-[10px] font-medium text-muted-foreground whitespace-nowrap">{n.label}</span>
-            </div>
-          </div>
-        );
-      })}
-    </div>
-  );
-};
-
-/* ---------- Sparkline for results cards ---------- */
-const Sparkline = ({ color = "hsl(var(--primary))", down = false }: { color?: string; down?: boolean }) => (
-  <svg viewBox="0 0 200 60" className="w-full h-14">
-    <defs>
-      <linearGradient id={`sp-${color}-${down}`} x1="0" x2="0" y1="0" y2="1">
-        <stop offset="0%" stopColor={color} stopOpacity="0.35" />
-        <stop offset="100%" stopColor={color} stopOpacity="0" />
-      </linearGradient>
-    </defs>
-    {down ? (
-      <>
-        <path d="M0,15 C30,18 50,22 70,28 C90,33 110,40 130,42 C150,45 170,48 200,55 L200,60 L0,60 Z" fill={`url(#sp-${color}-${down})`} />
-        <path d="M0,15 C30,18 50,22 70,28 C90,33 110,40 130,42 C150,45 170,48 200,55" fill="none" stroke={color} strokeWidth="2" />
-      </>
-    ) : (
-      <>
-        <path d="M0,50 C30,45 50,38 70,32 C90,26 110,22 130,16 C150,12 170,8 200,4 L200,60 L0,60 Z" fill={`url(#sp-${color}-${down})`} />
-        <path d="M0,50 C30,45 50,38 70,32 C90,26 110,22 130,16 C150,12 170,8 200,4" fill="none" stroke={color} strokeWidth="2" />
-      </>
-    )}
-  </svg>
-);
-
-/* ---------- Section header ---------- */
-const SectionHeader = ({ tag, children }: { tag: string; children: React.ReactNode }) => (
-  <div className="mb-12">
-    <span className="pill-tag mb-4">{tag}</span>
-    <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight max-w-2xl">{children}</h2>
-  </div>
-);
 
 const services = [
-  { icon: Search, title: "Google Ads Management", desc: "High-converting campaigns that bring qualified leads.", to: "/services/google-ads" },
-  { icon: Sparkles, title: "Meta Ads Management", desc: "Profitable ad campaigns that scale your business.", to: "/services/social-media-marketing" },
-  { icon: Globe, title: "SEO Growth Systems", desc: "Rank higher, get traffic, and more organic leads.", to: "/services/seo-services" },
-  { icon: Workflow, title: "Website Development", desc: "Conversion-focused websites that sell for you.", to: "/services/web-development" },
-  { icon: Brain, title: "AI Marketing Automation", desc: "Automate, engage, and convert leads on autopilot.", to: "/services" },
-];
-
-const aiSystems = [
-  { title: "AI Lead Qualification", desc: "We filter and score leads to send you only high-intent prospects." },
-  { title: "AI Chatbot Assistant", desc: "24/7 AI assistant that answers, qualifies, and books appointments." },
-  { title: "AI Ad Optimization Engine", desc: "AI analyzes data and optimizes campaigns for maximum ROI." },
-  { title: "AI Content & Ad Copy Generator", desc: "Generate high-converting ad copy, headlines, and content in seconds." },
-  { title: "AI CRM Automation", desc: "Automated follow-ups, reminders, and pipeline management." },
-];
-
-const results = [
-  { metric: "+215%", label: "Increase in Leads", title: "Home Services", region: "USA", desc: "215% more leads in 90 days using Google & Meta Ads.", color: "hsl(142 76% 45%)" },
-  { metric: "-42%", label: "Cost Per Lead", title: "Real Estate", region: "Canada", desc: "Reduced CPL by 42% and increased quality leads.", color: "hsl(280 80% 65%)", down: true },
-  { metric: "+180%", label: "ROAS Increase", title: "E-Commerce", region: "USA", desc: "ROAS increased by 180% with AI optimization.", color: "hsl(217 91% 60%)" },
-  { metric: "+3.2x", label: "Pipeline Growth", title: "B2B Services", region: "USA", desc: "3.2x pipeline growth in just 120 days.", color: "hsl(160 70% 50%)" },
+  { icon: Search, title: "SEO & Growth", desc: "Rank higher, drive qualified organic traffic that converts.", to: "/services/seo-services" },
+  { icon: Sparkles, title: "Paid Ads", desc: "Google & Meta campaigns engineered for profitable ROAS.", to: "/services/social-media-marketing" },
+  { icon: Globe, title: "Web Development", desc: "Fast, conversion-first websites launched in 15 days*.", to: "/services/web-development" },
+  { icon: Brain, title: "AI Automation", desc: "Chatbots, lead scoring & CRM automation on autopilot.", to: "/services" },
 ];
 
 const processSteps = [
-  { n: "01", title: "Audit & Strategy", desc: "We analyze your business and identify growth opportunities." },
-  { n: "02", title: "Setup & Launch", desc: "We set up campaigns, tracking, and AI systems for success." },
-  { n: "03", title: "Optimize & Scale", desc: "We optimize based on data and scale what brings the best results." },
-  { n: "04", title: "Grow & Dominate", desc: "We help you dominate your market and beat competitors." },
+  { n: "01", title: "Discover", desc: "We audit your business, competitors and growth gaps." },
+  { n: "02", title: "Strategy", desc: "A clear, data-backed roadmap tailored to your goals." },
+  { n: "03", title: "Execute", desc: "We launch campaigns, funnels and AI systems fast." },
+  { n: "04", title: "Scale", desc: "Optimize weekly, double down on what wins." },
 ];
+
+const stats = [
+  { value: 200, suffix: "+", label: "Happy Clients" },
+  { value: 500, suffix: "+", label: "Projects Delivered" },
+  { value: 15,  suffix: "+", label: "Expert Team" },
+  { value: 8,   suffix: "yrs", label: "Industry Experience" },
+];
+
+const trustPoints = [
+  "Transparent reporting every week",
+  "Dedicated account manager",
+  "No lock-in contracts",
+  "Proven results in USA, UK & Canada",
+];
+
+const SectionHead = ({ tag, title, sub }: { tag: string; title: React.ReactNode; sub?: string }) => (
+  <div className="max-w-2xl mx-auto text-center mb-12">
+    <span className="pill-tag mb-4">{tag}</span>
+    <h2 className="text-3xl md:text-5xl font-extrabold leading-tight mb-3">{title}</h2>
+    {sub && <p className="text-muted-foreground">{sub}</p>}
+  </div>
+);
 
 const Index = () => {
   const { data: settings } = useSiteSettings();
   const lines: string[] = (settings?.hero_typewriter_lines as any) || [
-    "AI-Powered Lead Generation","Performance Marketing That Scales","Built for USA & Canada",
+    "AI-Powered Lead Generation", "Performance Marketing", "Websites That Convert",
   ];
-  const { data: dbServices } = useRealtimeTable<any>({ table: "services", filters: [{ column: "is_active", value: true }], orderBy: { column: "sort_order" }, limit: 6 });
-  const { data: dbProcess } = useRealtimeTable<any>({ table: "process_steps", filters: [{ column: "is_active", value: true }], orderBy: { column: "sort_order" } });
-  const { data: dbCases } = useRealtimeTable<any>({ table: "case_studies", filters: [{ column: "is_active", value: true }], orderBy: { column: "sort_order" }, limit: 4 });
-  const { data: dbStats } = useRealtimeTable<any>({ table: "stats_counters", filters: [{ column: "is_active", value: true }], orderBy: { column: "sort_order" } });
 
-  const svc = (dbServices && dbServices.length ? dbServices.map((s: any) => ({
+  const { data: dbServices } = useRealtimeTable<any>({ table: "services", filters: [{ column: "is_active", value: true }], orderBy: { column: "sort_order" }, limit: 4 });
+  const { data: dbStats } = useRealtimeTable<any>({ table: "stats_counters", filters: [{ column: "is_active", value: true }], orderBy: { column: "sort_order" }, limit: 4 });
+
+  const svc = dbServices?.length ? dbServices.map((s: any) => ({
     icon: ICONS[s.icon] || Sparkles, title: s.title, desc: s.description, to: `/services/${s.slug}`,
-  })) : services);
-  const proc = (dbProcess && dbProcess.length ? dbProcess.map((s: any, i: number) => ({
-    n: String(i + 1).padStart(2, "0"), title: s.title, desc: s.description,
-  })) : processSteps);
-  const palette = ["hsl(142 76% 45%)","hsl(280 80% 65%)","hsl(217 91% 60%)","hsl(160 70% 50%)"];
-  const res = (dbCases && dbCases.length ? dbCases.map((c: any, i: number) => {
-    const m = Array.isArray(c.metrics) && (c.metrics as any[])[0];
-    return { metric: m?.value || "+100%", label: m?.label || "Growth", title: c.title, region: c.industry || "USA", desc: c.summary || "", color: palette[i % palette.length], down: String(m?.value || "").startsWith("-") };
-  }) : results);
+  })) : services;
+
+  const st = dbStats?.length ? dbStats.map((s: any) => ({
+    value: Number(s.value) || 0, suffix: s.suffix || "", label: s.label,
+  })) : stats;
 
   return (
-  <PageLayout
-    title="AM Enterprises — AI-Powered Marketing Agency for USA & Canada"
-    description="Performance marketing + AI automation systems that help businesses in USA & Canada generate leads, scale ads, and automate growth."
-    canonical="/"
-    primaryKeyword="AI marketing agency USA Canada"
-  >
-    {/* ============== HERO ============== */}
-    <section className="relative overflow-hidden min-h-[720px]">
-      <div
-        className="absolute inset-0 bg-cover bg-center hero-bg-image"
-        style={{ backgroundImage: `url(${heroBg})` }}
-        aria-hidden
-      />
-      <div className="absolute inset-0 gradient-hero" aria-hidden />
-      <div className="absolute inset-0 hero-image-softener" aria-hidden />
-      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-background" aria-hidden />
+    <PageLayout
+      title="AM Enterprises — Digital Growth Partner You Can Trust"
+      description="Trusted by 200+ businesses across USA, UK, Canada & Pakistan. AI-powered marketing, web development and automation that deliver measurable growth."
+      canonical="/"
+      primaryKeyword="digital marketing agency"
+    >
+      {/* ================= HERO ================= */}
+      <section className="relative overflow-hidden">
+        {/* clean gradient — no grid/jali */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/95 via-primary to-[hsl(230_75%_35%)]" aria-hidden />
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-25 mix-blend-overlay"
+          style={{ backgroundImage: `url(${heroImg})` }}
+          aria-hidden
+        />
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-background" aria-hidden />
 
-      <div className="relative container mx-auto pt-10 md:pt-14 lg:pt-16 pb-16 lg:pb-20 grid lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-12 items-center">
-        <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-          <span className="pill-tag mb-5">
-            <Sparkles className="w-3.5 h-3.5" /> AI-Powered Growth Partner for Pakistan &amp; Global Brands
-          </span>
+        <div className="relative container mx-auto py-20 md:py-28 lg:py-32">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="max-w-4xl"
+          >
+            <span className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur px-4 py-1.5 text-xs font-semibold text-white mb-6 border border-white/25">
+              <Sparkles className="w-3.5 h-3.5" /> Trusted by 200+ businesses worldwide
+            </span>
 
-          <h1 data-hero-heading className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-[1.02] mb-5 max-w-4xl">
-            Turn Your Business Into a<br className="hidden md:block" />
-            <span className="text-gradient"> Lead-Generating Digital Machine</span>
-          </h1>
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-[1.05] text-white mb-6">
+              Grow Your Business.<br />
+              <span className="text-white/90">The Smart Way.</span>
+            </h1>
 
-          <div className="text-lg md:text-2xl font-bold mb-5 min-h-[2.25rem]">
-            <Typewriter words={lines} className="text-primary" />
-          </div>
-
-          <p className="text-base md:text-lg text-muted-foreground mb-8 max-w-2xl leading-relaxed">
-            AM Enterprises builds premium websites, apps, AI automation and marketing systems that attract better leads, automate follow-ups, and help businesses scale with confidence.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-3 mb-8">
-            <Button asChild size="xl" className="gradient-cta text-primary-foreground shadow-glow hover:opacity-95">
-              <Link to="/contact"><Calendar className="w-5 h-5" /> Book Free Strategy Call</Link>
-            </Button>
-            <Button asChild size="xl" variant="outline" className="border-primary/30 bg-background/70 backdrop-blur hover:bg-primary/10">
-              <Link to="/contact"><FileSearch className="w-5 h-5" /> Get Free Growth Audit</Link>
-            </Button>
-          </div>
-
-          <div className="grid grid-cols-3 gap-3 max-w-2xl">
-            {[
-              ["15 Days*", "Fast Website Launch"],
-              ["100+", "Projects Delivered"],
-              ["24/7", "AI Lead Capture"],
-            ].map(([value, label]) => (
-              <div key={label} className="rounded-xl border border-border/70 bg-card/70 backdrop-blur px-4 py-3 shadow-card">
-                <div className="text-xl md:text-2xl font-extrabold text-gradient">{value}</div>
-                <div className="text-[11px] md:text-xs text-muted-foreground leading-snug">{label}</div>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 22, scale: 0.96 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ delay: 0.12, duration: 0.65 }}
-          className="relative"
-        >
-          <div className="absolute -inset-6 gradient-primary opacity-20 blur-3xl rounded-full" aria-hidden />
-          <div className="hero-command-shell relative rounded-2xl p-4 md:p-5">
-            <div className="flex items-center justify-between gap-4 mb-5">
-              <div>
-                <div className="text-sm font-bold">AM Growth Command Center</div>
-                <div className="text-xs text-muted-foreground">Live funnel, automation & performance snapshot</div>
-              </div>
-              <div className="rounded-full border border-primary/25 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">AI Active</div>
+            <div className="text-lg md:text-2xl font-semibold text-white/90 mb-6 min-h-[2rem]">
+              <Typewriter words={lines} className="text-white" />
             </div>
 
-            <div className="grid sm:grid-cols-2 gap-4 mb-4">
-              <div className="rounded-xl border border-border/70 bg-background/70 p-4">
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs text-muted-foreground">Qualified Leads</span>
-                  <TrendingUp className="w-4 h-4 text-primary" />
-                </div>
-                <div className="text-4xl font-extrabold">247</div>
-                <div className="text-xs text-primary font-semibold mt-1">+38.4% this month</div>
-              </div>
+            <p className="text-base md:text-lg text-white/85 max-w-2xl mb-8 leading-relaxed">
+              We build websites, run ads and deploy AI automation that turn visitors into
+              loyal customers — with clear reporting and no jargon.
+            </p>
 
-              <div className="rounded-xl border border-border/70 bg-background/70 p-4">
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs text-muted-foreground">Automation Saved</span>
-                  <Bot className="w-4 h-4 text-primary" />
-                </div>
-                <div className="text-4xl font-extrabold">86h</div>
-                <div className="text-xs text-primary font-semibold mt-1">follow-ups handled by AI</div>
-              </div>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Button asChild size="xl" className="bg-white text-primary hover:bg-white/90 shadow-elegant font-bold">
+                <Link to="/contact"><Calendar className="w-5 h-5" /> Book Free Strategy Call</Link>
+              </Button>
+              <Button asChild size="xl" variant="outline" className="border-white/40 text-white bg-white/10 backdrop-blur hover:bg-white/20 hover:text-white">
+                <Link to="tel:+923173712950"><Phone className="w-5 h-5" /> +92 317 371 2950</Link>
+              </Button>
             </div>
-
-            <div className="rounded-xl border border-border/70 bg-background/70 p-4 mb-4">
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-sm font-semibold">Growth Pipeline</span>
-                <span className="text-xs text-muted-foreground">Pakistan → Global</span>
-              </div>
-              <div className="space-y-3">
-                {[
-                  ["Website", "Conversion-ready", "92%"],
-                  ["Ads", "Lead campaigns", "78%"],
-                  ["AI CRM", "Auto follow-up", "84%"],
-                ].map(([name, label, width]) => (
-                  <div key={name}>
-                    <div className="flex items-center justify-between text-xs mb-1">
-                      <span className="font-medium">{name}</span>
-                      <span className="text-muted-foreground">{label}</span>
-                    </div>
-                    <div className="h-2 rounded-full bg-muted overflow-hidden">
-                      <div className="h-full rounded-full gradient-cta" style={{ width }} />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3">
-              {[
-                [CheckCircle2, "Strategy mapped"],
-                [Zap, "Leads captured"],
-                [Workflow, "Follow-up automated"],
-                [Target, "Sales optimized"],
-              ].map(([Icon, label]) => {
-                const ItemIcon = Icon as typeof CheckCircle2;
-                return (
-                  <div key={label as string} className="flex items-center gap-2 rounded-lg border border-border/60 bg-card/60 px-3 py-2 text-xs font-medium">
-                    <ItemIcon className="w-4 h-4 text-primary" /> {label as string}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </motion.div>
-      </div>
-    </section>
-
-    {/* ============== HERO FEATURE CARDS ============== */}
-    <HeroFeatureCards />
-
-    {/* ============== CLIENT MARQUEE ============== */}
-    <ClientMarquee />
-
-    {/* ============== STATS ============== */}
-    {dbStats && dbStats.length > 0 && (
-      <section className="py-12 lg:py-16 section-spotlight section-divider-top section-divider-bottom">
-        <div className="container mx-auto grid grid-cols-2 md:grid-cols-4 gap-6">
-          {dbStats.map((s: any) => {
-            const Icon = ICONS[s.icon] || TrendingUp;
-            return (
-              <div key={s.id} className="text-center">
-                <div className="w-12 h-12 mx-auto mb-3 rounded-xl icon-3d flex items-center justify-center">
-                  <Icon className="w-5 h-5 text-primary" />
-                </div>
-                <div className="text-3xl md:text-4xl font-extrabold text-gradient">
-                  <AnimatedCounter value={Number(s.value)} suffix={s.suffix || ""} />
-                </div>
-                <div className="text-xs md:text-sm text-muted-foreground mt-1">{s.label}</div>
-              </div>
-            );
-          })}
+          </motion.div>
         </div>
       </section>
-    )}
 
-    {/* ============== BEFORE / AFTER & ROI (moved UP for trust early) ============== */}
-    <section className="py-20 lg:py-28 section-soft section-divider-top section-divider-bottom">
-      <div className="container mx-auto grid lg:grid-cols-2 gap-10 items-start">
-        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
-          <span className="pill-tag mb-4">Before vs After</span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight mb-5">
-            See the <span className="text-gradient">Difference</span> AI Makes
-          </h2>
-          <p className="text-muted-foreground mb-6">Real client transformations — and a live calculator so you can model your own lift.</p>
-          <CaseStudyHighlights />
-        </motion.div>
-        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.1 }}>
-          <ROICalculator />
-        </motion.div>
-      </div>
-    </section>
-
-    {/* ============== PROBLEMS ============== */}
-    <section className="py-20 lg:py-28">
-      <div className="container mx-auto">
-        <div className="text-center mb-14">
-          <span className="pill-tag mb-4">Problems We Solve</span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight">
-            Stop Wasting Budget<br />
-            On <span className="text-gradient">Ineffective</span> Marketing
-          </h2>
+      {/* ================= TRUST LOGOS ================= */}
+      <section className="py-10 border-b border-border bg-background">
+        <div className="container mx-auto">
+          <p className="text-center text-xs uppercase tracking-widest text-muted-foreground font-semibold mb-6">
+            Brands & Businesses That Trust Us
+          </p>
+          <ClientMarquee />
         </div>
-        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-          {[
-            { icon: DollarSign, title: "Wasted Ad Spend", desc: "Most businesses waste 30–60% of their ad budget on the wrong audience." },
-            { icon: Target, title: "No Quality Leads", desc: "Getting clicks is easy, getting high-quality leads is where everyone fails." },
-            { icon: BarChart3, title: "No Tracking & Clarity", desc: "Without proper tracking, you don't know what's working or what's not." },
-          ].map((p, i) => (
-            <motion.div key={p.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="glass-card rounded-2xl p-7 card-hover-glow hover:-translate-y-1 transition-smooth">
-              <div className="w-12 h-12 rounded-xl icon-3d flex items-center justify-center mb-5">
-                <p.icon className="w-5 h-5 text-primary" />
-              </div>
-              <h3 className="text-lg font-bold mb-2">{p.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
+      </section>
 
-    {/* ============== SERVICES ============== */}
-    <section className="py-20 lg:py-28 section-soft section-divider-top section-divider-bottom">
-      <div className="container mx-auto">
-        <SectionHeader tag="Our Services">
-          Result-Focused Services<br />
-          That Drive <span className="text-gradient">Real Growth</span>
-        </SectionHeader>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-5">
-          {svc.map((s, i) => (
-            <motion.div key={s.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.06 }}>
-              <Link to={s.to} className="block glass-card rounded-2xl p-6 h-full card-hover-glow group hover:-translate-y-1 transition-smooth">
-                <div className="w-11 h-11 rounded-xl icon-3d flex items-center justify-center mb-4 group-hover:scale-110 transition-smooth">
-                  <s.icon className="w-5 h-5 text-primary" />
+      {/* ================= WHY CHOOSE US (trust) ================= */}
+      <section className="section-soft py-20 md:py-24">
+        <div className="container mx-auto grid lg:grid-cols-2 gap-12 items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <span className="pill-tag mb-4">Why AM Enterprises</span>
+            <h2 className="text-3xl md:text-5xl font-extrabold leading-tight mb-5">
+              A Partner You Can <span className="text-gradient">Actually Trust</span>
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              We don't disappear after the invoice. Every client gets a dedicated manager,
+              weekly reports, and a clear plan to hit their revenue goals.
+            </p>
+            <ul className="space-y-3 mb-8">
+              {trustPoints.map((p) => (
+                <li key={p} className="flex items-start gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                  <span className="font-medium">{p}</span>
+                </li>
+              ))}
+            </ul>
+            <Button asChild size="lg" className="gradient-cta text-primary-foreground shadow-glow">
+              <Link to="/contact">Get Started <ArrowRight className="w-4 h-4" /></Link>
+            </Button>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="grid grid-cols-2 gap-4"
+          >
+            {[
+              { icon: ShieldCheck, k: "100%", v: "Client Focused" },
+              { icon: Rocket, k: "15 Days*", v: "Fast Delivery" },
+              { icon: Trophy, k: "4.9/5", v: "Client Rating" },
+              { icon: Users, k: "24/7", v: "Support" },
+            ].map((c, i) => (
+              <motion.div
+                key={c.v}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08 }}
+                className="glass-card rounded-2xl p-6 text-center hover-lift"
+              >
+                <div className="w-12 h-12 mx-auto rounded-xl gradient-cta shadow-glow flex items-center justify-center mb-3">
+                  <c.icon className="w-6 h-6 text-primary-foreground" />
                 </div>
-                <h3 className="text-base font-bold mb-2 leading-snug">{s.title}</h3>
-                <p className="text-xs text-muted-foreground mb-4 leading-relaxed">{s.desc}</p>
-                <span className="text-xs font-semibold text-primary inline-flex items-center gap-1 group-hover:gap-2 transition-all">Learn More <ArrowRight className="w-3 h-3" /></span>
-              </Link>
-            </motion.div>
-          ))}
+                <div className="text-2xl md:text-3xl font-extrabold text-gradient">{c.k}</div>
+                <div className="text-sm text-muted-foreground mt-1">{c.v}</div>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    {/* ============== RESULTS (case study cards) ============== */}
-    <section className="py-20 lg:py-28">
-      <div className="container mx-auto">
-        <SectionHeader tag="Results That Speak">
-          Real Results From<br />
-          <span className="text-gradient">Real Clients</span>
-        </SectionHeader>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {res.map((r, i) => (
-            <motion.div key={r.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="glass-card rounded-2xl p-6 card-hover-glow hover:-translate-y-1 transition-smooth">
-              <div className="text-3xl font-extrabold mb-1" style={{ color: r.color }}>{r.metric}</div>
-              <div className="text-xs text-muted-foreground mb-3">{r.label}</div>
-              <Sparkline color={r.color} down={r.down} />
-              <div className="flex items-center justify-between mt-4 mb-2">
-                <h4 className="font-bold text-sm">{r.title}</h4>
-                <span className="text-[10px] text-muted-foreground border border-border rounded-full px-2 py-0.5">{r.region}</span>
-              </div>
-              <p className="text-xs text-muted-foreground leading-relaxed">{r.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-        <div className="text-center mt-10">
-          <Button asChild variant="outline" size="lg" className="border-border"><Link to="/case-studies">View More Case Studies <ArrowRight className="ml-2 w-4 h-4" /></Link></Button>
-        </div>
-      </div>
-    </section>
-
-    {/* ============== AI SYSTEMS ============== */}
-    <section id="ai-systems" className="py-20 lg:py-28 relative overflow-hidden section-soft section-divider-top section-divider-bottom">
-      <div className="absolute inset-0 gradient-hero opacity-50" aria-hidden />
-      <div className="relative container mx-auto">
-        <div className="mb-12">
-          <span className="pill-tag mb-4">Our AI-Powered Systems</span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight max-w-2xl">
-            AI Systems That Give You<br />
-            An <span className="text-gradient">Unfair Advantage</span>
-          </h2>
-        </div>
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-4">
-            {aiSystems.map((s, i) => (
-              <motion.div key={s.title} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="flex gap-4 p-4 rounded-xl hover:bg-card/50 transition-smooth">
-                <div className="w-10 h-10 rounded-lg neon-icon flex items-center justify-center shrink-0 text-xs font-bold">AI</div>
-                <div>
-                  <h3 className="font-bold mb-1">{s.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
-                </div>
+      {/* ================= SERVICES ================= */}
+      <section className="py-20 md:py-24">
+        <div className="container mx-auto">
+          <SectionHead
+            tag="What We Do"
+            title={<>Solutions That <span className="text-gradient">Drive Growth</span></>}
+            sub="Four core services, one goal — turn your business into a revenue machine."
+          />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {svc.map((s: any, i: number) => (
+              <motion.div
+                key={s.title}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ delay: i * 0.08, duration: 0.5 }}
+              >
+                <Link
+                  to={s.to}
+                  className="group block h-full rounded-2xl p-6 bg-card border border-border card-hover-glow card-shimmer"
+                >
+                  <div className="w-14 h-14 rounded-xl gradient-cta shadow-glow flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <s.icon className="w-7 h-7 text-primary-foreground" />
+                  </div>
+                  <h3 className="text-lg font-bold mb-2">{s.title}</h3>
+                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{s.desc}</p>
+                  <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary group-hover:gap-2.5 transition-all">
+                    Read More <ArrowRight className="w-4 h-4" />
+                  </span>
+                </Link>
               </motion.div>
             ))}
           </div>
-          <div><AIHub /></div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    {/* ============== INDUSTRIES WE SERVE ============== */}
-    <section className="py-20 lg:py-28">
-      <div className="container mx-auto">
-        <SectionHeader tag="Industries We Serve">
-          Deep Expertise Across<br /><span className="text-gradient">Every Major Vertical</span>
-        </SectionHeader>
-        <IndustriesGrid />
-      </div>
-    </section>
-
-    {/* ============== WHY US / FEATURES ============== */}
-    <section className="py-20 lg:py-28 section-soft section-divider-top section-divider-bottom">
-      <div className="container mx-auto">
-        <SectionHeader tag="Why Choose Us">
-          Built for <span className="text-gradient">Performance & Scale</span>
-        </SectionHeader>
-        <FeatureGrid />
-      </div>
-    </section>
-
-    {/* ============== INTERACTIVE BUSINESS QUIZ ============== */}
-    <section className="py-20 lg:py-28">
-      <div className="container mx-auto max-w-4xl">
-        <SectionHeader tag="Business Growth Quiz">
-          Discover Your<br /><span className="text-gradient">Growth Score</span>
-        </SectionHeader>
-        <InteractiveQuiz />
-      </div>
-    </section>
-
-    {/* ============== TECH STACK ============== */}
-    <section className="py-16 section-soft section-divider-top section-divider-bottom">
-      <div className="container mx-auto">
-        <SectionHeader tag="Our Tech Stack">
-          Enterprise-Grade <span className="text-gradient">Technologies</span>
-        </SectionHeader>
-        <TechStackStrip />
-      </div>
-    </section>
-
-    {/* ============== TRUST BADGES ============== */}
-    <section className="py-16">
-      <div className="container mx-auto">
-        <TrustBadges />
-      </div>
-    </section>
-
-    {/* ============== GUARANTEE ============== */}
-    <section className="py-12">
-      <div className="container mx-auto max-w-5xl">
-        <GuaranteeBanner />
-      </div>
-    </section>
-
-    {/* ============== PRICING ============== */}
-    <section className="py-20 lg:py-28 section-soft section-divider-top section-divider-bottom">
-      <div className="container mx-auto">
-        <SectionHeader tag="Pricing">
-          Transparent Plans.<br /><span className="text-gradient">No Surprises.</span>
-        </SectionHeader>
-        <PricingTiers />
-        <div className="text-center mt-10">
-          <Button asChild variant="outline" size="lg"><Link to="/pricing">View Full Pricing <ArrowRight className="ml-2 w-4 h-4" /></Link></Button>
+      {/* ================= BLUE CTA BAND ================= */}
+      <section className="py-10">
+        <div className="container mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary to-[hsl(230_75%_45%)] p-8 md:p-12 shadow-elegant"
+          >
+            <div className="absolute -top-16 -right-16 w-64 h-64 rounded-full bg-white/10 blur-3xl" aria-hidden />
+            <div className="relative flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="text-white">
+                <div className="flex items-center gap-3 mb-2">
+                  <Phone className="w-5 h-5" />
+                  <span className="text-sm font-semibold opacity-90">Call Us Now: +92 317 371 2950</span>
+                </div>
+                <h3 className="text-2xl md:text-3xl font-extrabold">Stay Connected With Cutting-Edge Growth</h3>
+              </div>
+              <Button asChild size="xl" className="bg-white text-primary hover:bg-white/90 font-bold shadow-lg">
+                <Link to="/contact">Get A Quote <ArrowRight className="w-4 h-4" /></Link>
+              </Button>
+            </div>
+          </motion.div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    {/* ============== PROCESS ============== */}
-    <section className="py-20 lg:py-28">
-      <div className="container mx-auto">
-        <SectionHeader tag="Our Process">
-          Simple Process.<br />
-          Massive <span className="text-gradient">Results.</span>
-        </SectionHeader>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {proc.map((s, i) => (
-            <motion.div key={s.n} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="glass-card rounded-2xl p-6 hover:-translate-y-1 transition-smooth">
-              <div className="text-3xl font-extrabold text-gradient mb-3">{s.n}</div>
-              <h3 className="font-bold mb-2">{s.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    {/* ============== TEAM ============== */}
-    <section className="py-20 lg:py-28 section-soft section-divider-top section-divider-bottom">
-      <div className="container mx-auto">
-        <SectionHeader tag="Our Team">
-          Meet the Leadership<br /><span className="text-gradient">Driving Your Growth</span>
-        </SectionHeader>
-        <TeamSection leadershipLayout />
-        <div className="text-center mt-10">
-          <Button asChild variant="outline" size="lg"><Link to="/team">View Full Team <ArrowRight className="ml-2 w-4 h-4" /></Link></Button>
-        </div>
-      </div>
-    </section>
-
-    {/* ============== AI TOOLKIT ============== */}
-    <AIToolkit />
-
-    {/* ============== FINAL BOOKING (deep funnel - convert intent) ============== */}
-    <section id="book" className="py-20 lg:py-28 section-soft section-divider-top section-divider-bottom scroll-mt-20">
-      <div className="container mx-auto grid lg:grid-cols-2 gap-10 items-start">
-        <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-          <span className="pill-tag mb-4"><Calendar className="w-3.5 h-3.5" /> Book a Free Strategy Call</span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight mb-5">
-            Pick a Time.<br />
-            Get Your <span className="text-gradient text-3d">Growth Plan.</span>
-          </h2>
-          <p className="text-muted-foreground mb-6">
-            30 minutes with a senior strategist. We'll audit your funnel, share quick wins, and lay out a path to scale.
-          </p>
-          <ul className="space-y-3">
-            {[
-              "Custom 90-day roadmap",
-              "Live ad account or website audit",
-              "AI automation recommendations",
-              "Zero pressure, no contract required",
-            ].map((b) => (
-              <li key={b} className="flex items-center gap-2 text-sm">
-                <CheckCircle2 className="w-4 h-4 text-primary shrink-0" /> {b}
-              </li>
+      {/* ================= PROCESS ================= */}
+      <section className="section-spotlight py-20 md:py-24">
+        <div className="container mx-auto">
+          <SectionHead
+            tag="How It Works"
+            title={<>Standard <span className="text-gradient">Work Process</span></>}
+            sub="A proven four-step system we've refined over 500+ projects."
+          />
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 relative">
+            {processSteps.map((p, i) => (
+              <motion.div
+                key={p.n}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="relative rounded-2xl p-6 bg-card border border-border hover-lift text-center"
+              >
+                <div className="w-16 h-16 mx-auto rounded-full gradient-cta shadow-glow flex items-center justify-center text-primary-foreground text-2xl font-extrabold mb-4">
+                  {p.n}
+                </div>
+                <h3 className="text-lg font-bold mb-2">{p.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
+              </motion.div>
             ))}
-          </ul>
-        </motion.div>
-        <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+          </div>
+        </div>
+      </section>
+
+      {/* ================= STATS ================= */}
+      <section className="py-16 md:py-20 bg-gradient-to-br from-primary to-[hsl(230_75%_35%)] relative overflow-hidden">
+        <div className="absolute inset-0 opacity-20 mix-blend-overlay bg-cover bg-center" style={{ backgroundImage: `url(${heroImg})` }} aria-hidden />
+        <div className="relative container mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
+            {st.map((s: any) => (
+              <div key={s.label}>
+                <div className="text-4xl md:text-5xl font-extrabold mb-1">
+                  <AnimatedCounter value={s.value} suffix={s.suffix} />
+                </div>
+                <div className="text-sm md:text-base text-white/85">{s.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ================= CASE STUDIES / PROJECTS ================= */}
+      <section className="py-20 md:py-24">
+        <div className="container mx-auto">
+          <SectionHead
+            tag="Our Work"
+            title={<>Recent <span className="text-gradient">Client Wins</span></>}
+            sub="Real results from real businesses we've partnered with."
+          />
+          <CaseStudyHighlights />
+        </div>
+      </section>
+
+      {/* ================= TEAM ================= */}
+      <section className="section-soft py-20 md:py-24">
+        <div className="container mx-auto">
+          <SectionHead
+            tag="Meet The Team"
+            title={<>The People <span className="text-gradient">Behind Your Growth</span></>}
+            sub="A dedicated team of strategists, designers and engineers."
+          />
+          <TeamSection />
+        </div>
+      </section>
+
+      {/* ================= BOOKING / CONTACT ================= */}
+      <section className="py-20 md:py-24">
+        <div className="container mx-auto max-w-4xl">
+          <SectionHead
+            tag="Let's Talk"
+            title={<>Book Your <span className="text-gradient">Free Strategy Call</span></>}
+            sub="15 minutes. Zero pressure. A clear next step for your growth."
+          />
           <AppointmentWidget />
-        </motion.div>
-      </div>
-    </section>
+        </div>
+      </section>
 
-    {/* ============== BLOG ============== */}
-    <section className="py-20 lg:py-28">
-      <div className="container mx-auto">
-        <SectionHeader tag="From The Blog">
-          Growth Insights & <span className="text-gradient">Playbooks</span>
-        </SectionHeader>
-        <BlogPreview />
-      </div>
-    </section>
-
-    {/* ============== FAQ ============== */}
-    <section className="py-20 lg:py-28 section-soft section-divider-top section-divider-bottom">
-      <div className="container mx-auto max-w-3xl">
-        <SectionHeader tag="FAQ">
-          Common <span className="text-gradient">Questions</span>
-        </SectionHeader>
-        <FAQAccordion />
-      </div>
-    </section>
-
-    {/* ============== VIDEO TESTIMONIAL ============== */}
-    <section className="py-20">
-      <div className="container mx-auto max-w-5xl">
-        <SectionHeader tag="Client Stories">
-          Hear It From <span className="text-gradient">Our Clients</span>
-        </SectionHeader>
-        <VideoTestimonial />
-      </div>
-    </section>
-
-    {/* ============== CONTACT QUICK CARDS ============== */}
-    <section className="py-20 section-soft section-divider-top section-divider-bottom">
-      <div className="container mx-auto">
-        <SectionHeader tag="Get In Touch">
-          Let's Build <span className="text-gradient">Something Great</span>
-        </SectionHeader>
-        <QuickContactCards />
-      </div>
-    </section>
-
-    {/* ============== NEWSLETTER ============== */}
-    <section className="py-16">
-      <div className="container mx-auto max-w-4xl">
-        <NewsletterSignup />
-      </div>
-    </section>
-  </PageLayout>
+      {/* ================= FAQ ================= */}
+      <section className="py-16 md:py-20 bg-background border-t border-border">
+        <div className="container mx-auto max-w-3xl">
+          <SectionHead
+            tag="FAQ"
+            title={<>Common <span className="text-gradient">Questions</span></>}
+          />
+          <FAQAccordion />
+        </div>
+      </section>
+    </PageLayout>
   );
 };
 

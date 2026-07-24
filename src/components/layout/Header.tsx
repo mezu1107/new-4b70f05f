@@ -57,7 +57,6 @@ export const Header = () => {
             <div className="font-extrabold text-base tracking-tight">
               <span className="text-primary">AM</span> ENTERPRISES
             </div>
-            <div className="text-[10px] text-muted-foreground tracking-[0.2em] -mt-0.5">.TECH</div>
           </div>
         </Link>
         <nav className="hidden lg:flex items-center gap-1">

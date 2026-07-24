@@ -12,6 +12,7 @@ import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { AppointmentWidget } from "@/components/AppointmentWidget";
 import { CaseStudyHighlights } from "@/components/CaseStudyHighlights";
 import { TeamSection } from "@/components/TeamSection";
+import { TestimonialsMarquee } from "@/components/TestimonialsMarquee";
 import { FAQAccordion } from "@/components/FAQAccordion";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
 import { useRealtimeTable } from "@/hooks/useRealtimeTable";
@@ -84,10 +85,10 @@ const Index = () => {
     >
       {/* ================= HERO ================= */}
       <section className="relative overflow-hidden">
-        {/* clean gradient — no grid/jali */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/95 via-primary to-[hsl(230_75%_35%)]" aria-hidden />
+        {/* soft sky-blue gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[hsl(200_95%_60%)] via-[hsl(200_90%_55%)] to-[hsl(210_85%_50%)]" aria-hidden />
         <div
-          className="absolute inset-0 bg-cover bg-center opacity-25 mix-blend-overlay"
+          className="absolute inset-0 bg-cover bg-center opacity-20 mix-blend-overlay"
           style={{ backgroundImage: `url(${heroImg})` }}
           aria-hidden
         />
@@ -245,7 +246,7 @@ const Index = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary to-[hsl(230_75%_45%)] p-8 md:p-12 shadow-elegant"
+            className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[hsl(200_92%_55%)] to-[hsl(210_85%_50%)] p-8 md:p-12 shadow-elegant"
           >
             <div className="absolute -top-16 -right-16 w-64 h-64 rounded-full bg-white/10 blur-3xl" aria-hidden />
             <div className="relative flex flex-col md:flex-row items-center justify-between gap-6">
@@ -294,7 +295,7 @@ const Index = () => {
       </section>
 
       {/* ================= STATS ================= */}
-      <section className="py-16 md:py-20 bg-gradient-to-br from-primary to-[hsl(230_75%_35%)] relative overflow-hidden">
+      <section className="py-16 md:py-20 bg-gradient-to-br from-[hsl(200_92%_55%)] to-[hsl(210_85%_45%)] relative overflow-hidden">
         <div className="absolute inset-0 opacity-20 mix-blend-overlay bg-cover bg-center" style={{ backgroundImage: `url(${heroImg})` }} aria-hidden />
         <div className="relative container mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
@@ -326,11 +327,23 @@ const Index = () => {
       <section className="section-soft py-20 md:py-24">
         <div className="container mx-auto">
           <SectionHead
-            tag="Meet The Team"
-            title={<>The People <span className="text-gradient">Behind Your Growth</span></>}
-            sub="A dedicated team of strategists, designers and engineers."
+            tag="Leadership"
+            title={<>Meet The <span className="text-gradient">Founders</span></>}
+            sub="The people building AM Enterprises and standing behind every result."
           />
-          <TeamSection />
+          <TeamSection foundersOnly />
+        </div>
+      </section>
+
+      {/* ================= TESTIMONIALS ================= */}
+      <section className="py-20 md:py-24 bg-background">
+        <div className="container mx-auto">
+          <SectionHead
+            tag="Client Love"
+            title={<>What Our <span className="text-gradient">Clients Say</span></>}
+            sub="Real feedback from 200+ brands we've partnered with worldwide."
+          />
+          <TestimonialsMarquee />
         </div>
       </section>
 

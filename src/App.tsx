@@ -4,11 +4,10 @@ import { HelmetProvider } from "react-helmet-async";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { AuthProvider } from "@/hooks/useAuth";
+import { AuthProvider, AdminRoutes, PortalRoutes } from "@/admin";
 import { ThemeProvider } from "@/hooks/useTheme";
 import { FloatingWidget } from "@/components/FloatingWidget";
 import DynamicPage from "./pages/DynamicPage.tsx";
-import DynamicPagesAdmin from "./pages/admin/DynamicPagesAdmin.tsx";
 import { PixelInjector } from "@/components/PixelInjector";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { PopupRenderer } from "@/components/PopupRenderer";
@@ -27,47 +26,10 @@ import { PrivacyPolicy, Terms } from "./pages/Legal.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import Auth from "./pages/Auth.tsx";
 import OAuthConsent from "./pages/OAuthConsent.tsx";
-import AdminLayout from "./pages/admin/AdminLayout.tsx";
-import Dashboard from "./pages/admin/Dashboard.tsx";
-import TeamAdmin from "./pages/admin/TeamAdmin.tsx";
-import ServicesAdmin from "./pages/admin/ServicesAdmin.tsx";
-import PortfolioAdmin from "./pages/admin/PortfolioAdmin.tsx";
-import BlogAdmin from "./pages/admin/BlogAdmin.tsx";
-import Leads from "./pages/admin/Leads.tsx";
-import Newsletter from "./pages/admin/Newsletter.tsx";
-import InvoicesAdmin from "./pages/admin/InvoicesAdmin.tsx";
-import ProposalsAdmin from "./pages/admin/ProposalsAdmin.tsx";
-import SettingsAdmin from "./pages/admin/SettingsAdmin.tsx";
-import FaqsAdmin from "./pages/admin/FaqsAdmin.tsx";
-import PricingPlansAdmin from "./pages/admin/PricingPlansAdmin.tsx";
-import PackagesAdmin from "./pages/admin/PackagesAdmin.tsx";
-import QuizAdmin from "./pages/admin/QuizAdmin.tsx";
-import PopupsAdmin from "./pages/admin/PopupsAdmin.tsx";
-import CaseStudiesAdmin from "./pages/admin/CaseStudiesAdmin.tsx";
-import ClientsAdmin from "./pages/admin/ClientsAdmin.tsx";
-import ProcessStepsAdmin from "./pages/admin/ProcessStepsAdmin.tsx";
-import StatsAdmin from "./pages/admin/StatsAdmin.tsx";
-import JobsAdmin from "./pages/admin/JobsAdmin.tsx";
-import JobApplicationsAdmin from "./pages/admin/JobApplicationsAdmin.tsx";
-import AppointmentsAdmin from "./pages/admin/AppointmentsAdmin.tsx";
-import CouponsAdmin from "./pages/admin/CouponsAdmin.tsx";
-import MediaLibraryAdmin from "./pages/admin/MediaLibraryAdmin.tsx";
-import PageSeoAdmin from "./pages/admin/PageSeoAdmin.tsx";
-import BannersAdmin from "./pages/admin/BannersAdmin.tsx";
 import Careers from "./pages/Careers.tsx";
 import Pricing from "./pages/Pricing.tsx";
-import PixelManagerAdmin from "./pages/admin/PixelManagerAdmin.tsx";
-import VisitorAnalyticsAdmin from "./pages/admin/VisitorAnalyticsAdmin.tsx";
-import ThemeColorsAdmin from "./pages/admin/ThemeColorsAdmin.tsx";
-import CrmFollowupsAdmin from "./pages/admin/CrmFollowupsAdmin.tsx";
 import Team from "./pages/Team.tsx";
 import CompanyProfile from "./pages/CompanyProfile.tsx";
-import ClientPortal from "./pages/portal/ClientPortal.tsx";
-import AOSClientsAdmin from "./pages/admin/aos/ClientsAdmin.tsx";
-import AOSProjectsAdmin from "./pages/admin/aos/ProjectsAdmin.tsx";
-import AOSClientUsersAdmin from "./pages/admin/aos/ClientUsersAdmin.tsx";
-import AOSApprovalsAdmin from "./pages/admin/aos/ApprovalsAdmin.tsx";
-import AOSVaultAdmin from "./pages/admin/aos/VaultAdmin.tsx";
 
 const queryClient = new QueryClient();
 
@@ -104,45 +66,8 @@ const App = () => (
               <Route path="/terms" element={<Terms />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/.lovable/oauth/consent" element={<OAuthConsent />} />
-              <Route path="/portal/:clientId" element={<ClientPortal />} />
-              <Route path="/admin" element={<AdminLayout />}>
-                <Route index element={<Dashboard />} />
-                <Route path="team" element={<TeamAdmin />} />
-                <Route path="services" element={<ServicesAdmin />} />
-                <Route path="portfolio" element={<PortfolioAdmin />} />
-                <Route path="blog" element={<BlogAdmin />} />
-                <Route path="leads" element={<Leads />} />
-                <Route path="newsletter" element={<Newsletter />} />
-                <Route path="invoices" element={<InvoicesAdmin />} />
-                <Route path="proposals" element={<ProposalsAdmin />} />
-                <Route path="settings" element={<SettingsAdmin />} />
-                <Route path="faqs" element={<FaqsAdmin />} />
-                <Route path="pricing-plans" element={<PricingPlansAdmin />} />
-                <Route path="packages" element={<PackagesAdmin />} />
-                <Route path="quiz" element={<QuizAdmin />} />
-                <Route path="popups" element={<PopupsAdmin />} />
-                <Route path="case-studies" element={<CaseStudiesAdmin />} />
-                <Route path="clients" element={<ClientsAdmin />} />
-                <Route path="process-steps" element={<ProcessStepsAdmin />} />
-                <Route path="stats" element={<StatsAdmin />} />
-                <Route path="jobs" element={<JobsAdmin />} />
-                <Route path="job-applications" element={<JobApplicationsAdmin />} />
-                <Route path="appointments" element={<AppointmentsAdmin />} />
-                <Route path="coupons" element={<CouponsAdmin />} />
-                <Route path="media" element={<MediaLibraryAdmin />} />
-                <Route path="page-seo" element={<PageSeoAdmin />} />
-                <Route path="pages" element={<DynamicPagesAdmin />} />
-                <Route path="banners" element={<BannersAdmin />} />
-                <Route path="pixels" element={<PixelManagerAdmin />} />
-                <Route path="analytics" element={<VisitorAnalyticsAdmin />} />
-                <Route path="theme-colors" element={<ThemeColorsAdmin />} />
-                <Route path="crm" element={<CrmFollowupsAdmin />} />
-                <Route path="aos/clients" element={<AOSClientsAdmin />} />
-                <Route path="aos/portal-access" element={<AOSClientUsersAdmin />} />
-                <Route path="aos/projects" element={<AOSProjectsAdmin />} />
-                <Route path="aos/approvals" element={<AOSApprovalsAdmin />} />
-                <Route path="aos/vault" element={<AOSVaultAdmin />} />
-              </Route>
+              {PortalRoutes()}
+              {AdminRoutes()}
               <Route path="*" element={<NotFound />} />
             </Routes>
             <FloatingWidget />

@@ -1,4 +1,4 @@
-import { CrudManager } from "@/components/admin/CrudManager";
+import { CrudManager } from "@/admin/components/CrudManager";
 export default () => <CrudManager table="popups" title="Popups" listColumns={["title", "type", "is_active"]}
   fields={[
     { key: "title", label: "Title", required: true },

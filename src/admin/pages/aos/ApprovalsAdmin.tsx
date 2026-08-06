@@ -1,4 +1,4 @@
-import { CrudManager } from "@/components/admin/CrudManager";
+import { CrudManager } from "@/admin/components/CrudManager";
 
 export default function ApprovalsAdmin() {
   return (

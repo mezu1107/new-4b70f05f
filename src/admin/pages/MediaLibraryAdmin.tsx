@@ -1,4 +1,4 @@
-import { CrudManager } from "@/components/admin/CrudManager";
+import { CrudManager } from "@/admin/components/CrudManager";
 export default () => <CrudManager table="media_library" title="Media Library" listColumns={["name", "category", "url"]}
   fields={[
     { key: "name", label: "Name", required: true },

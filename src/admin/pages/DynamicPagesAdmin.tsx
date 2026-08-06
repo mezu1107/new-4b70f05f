@@ -1,4 +1,4 @@
-import { CrudManager } from "@/components/admin/CrudManager";
+import { CrudManager } from "@/admin/components/CrudManager";
 import { toast } from "sonner";
 
 const SAMPLE = `[

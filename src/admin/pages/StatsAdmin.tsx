@@ -1,4 +1,4 @@
-import { CrudManager } from "@/components/admin/CrudManager";
+import { CrudManager } from "@/admin/components/CrudManager";
 export default () => <CrudManager table="stats_counters" title="Stats Counters" listColumns={["label", "value", "is_active"]}
   fields={[
     { key: "label", label: "Label", required: true },

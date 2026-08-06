@@ -1,4 +1,4 @@
-import { CrudManager } from "@/components/admin/CrudManager";
+import { CrudManager } from "@/admin/components/CrudManager";
 export default () => <CrudManager table="job_openings" title="Job Openings" listColumns={["title", "department", "location", "is_active"]}
   fields={[
     { key: "title", label: "Job Title", required: true },

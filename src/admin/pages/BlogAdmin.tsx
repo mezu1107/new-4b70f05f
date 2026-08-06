@@ -1,4 +1,4 @@
-import { CrudManager } from "@/components/admin/CrudManager";
+import { CrudManager } from "@/admin/components/CrudManager";
 export default () => <CrudManager table="blog_posts" title="Blog Posts" listColumns={["title", "author", "published"]}
   fields={[
     { key: "title", label: "Title", required: true },

@@ -1,4 +1,4 @@
-import { CrudManager } from "@/components/admin/CrudManager";
+import { CrudManager } from "@/admin/components/CrudManager";
 export default () => <CrudManager table="process_steps" title="Process Steps" listColumns={["title", "sort_order", "is_active"]}
   fields={[
     { key: "title", label: "Step Title", required: true },

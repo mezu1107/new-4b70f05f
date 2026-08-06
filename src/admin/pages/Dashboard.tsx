@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Card } from "@/components/ui/card";
 import { Users, MessageSquare, Receipt, FileSignature, Mail, Briefcase, Activity, Headphones, CalendarCheck } from "lucide-react";
-import { AIOptimizerWidget } from "@/components/admin/AIOptimizerWidget";
+import { AIOptimizerWidget } from "@/admin/components/AIOptimizerWidget";
 
 const counters = [
   { table: "visitor_sessions", label: "Visitors (all time)", icon: Activity },

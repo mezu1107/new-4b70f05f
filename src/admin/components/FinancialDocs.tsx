@@ -24,7 +24,7 @@ import {
 import { Plus, Pencil, Trash2, Download } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { generateDocPDF } from "@/lib/pdfGenerator";
+import { generateDocPDF } from "@/admin/lib/pdfGenerator";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
 
 interface LineItem {
